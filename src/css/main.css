@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&family=Assistant&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
+
+html {
+  background-color: #f8f8ff;
+  font-family: 'Assistant', sans-serif;
+}
+
+code {
+  background-color: #eeeeee;
+  border-color: #cbcbcb;
+  border-radius: 0.2rem;
+  border-style: solid;
+  border-width: 0.1rem;
+  padding: 0.1rem;
+}
+
+/* modify prism CSS */
+code[class*="language-"] {
+  border-width: 0;
+}
+
+h1, h2 {
+  color: #2d0e5d;
+  font-family: 'Assistant', sans-serif;
+  font-weight: 600;
+}
+
+.banner {
+  background-color: #0b051e;
+  color: #ff9d1c;
+  font-family: 'MuseoModerno', sans-serif;
+  font-size: 2em;
+  font-weight: 500;
+  padding-right: 1em;
+  text-align: right;
+}
+
+.sidebar {
+  background-color: #f5d4a1;
+}

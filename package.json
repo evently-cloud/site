@@ -1,0 +1,17 @@
+{
+  "name": "website",
+  "description": "Evently web site",
+  "license": "CC-BY-NC-ND-4.0",
+  "private": false,
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "0.12.1",
+    "markdown-it": "12.2.0",
+    "markdown-it-container": "3.0.0",
+    "markdown-it-prism": "2.2.1"
+  }
+}
