@@ -6,20 +6,6 @@ html {
   font-family: 'Assistant', sans-serif;
 }
 
-code {
-  background-color: #eeeeee;
-  border-color: #cbcbcb;
-  border-radius: 0.2rem;
-  border-style: solid;
-  border-width: 0.1rem;
-  padding: 0.1rem;
-}
-
-/* modify prism CSS */
-code[class*="language-"] {
-  border-width: 0;
-}
-
 h1, h2 {
   color: #2d0e5d;
   font-family: 'Assistant', sans-serif;
