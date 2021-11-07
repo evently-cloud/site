@@ -10,7 +10,7 @@ Start up your event-sourced applications with Evently's easy-to-use and reliable
 Evently’s [ACID](acid/) event storage gives you confidence to store all your business events with no data loss, forever. Keep your event models consistent with the Event Registry, so applications can only append correct events. Enjoy the performance of Evently’s SaaS architecture with near-instantaneous appends and event retrieval.
 
 * [Concepts](concepts/)
-* Tutorial
+* [Tutorial](tutorial/)
 * Cheat Sheet
 * API Reference
 
