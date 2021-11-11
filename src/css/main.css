@@ -1,27 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&family=Assistant&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html {
-  background-color: #f8f8ff;
-  font-family: 'Assistant', sans-serif;
+    scroll-behavior: smooth;
 }
 
-h1, h2 {
-  color: #2d0e5d;
-  font-family: 'Assistant', sans-serif;
-  font-weight: 600;
+a {
+    @apply text-darkHighlight;
 }
 
-.banner {
-  background-color: #0b051e;
-  color: #ff9d1c;
-  font-family: 'MuseoModerno', sans-serif;
-  font-size: 2em;
-  font-weight: 500;
-  padding-right: 1em;
-  text-align: right;
+body {
+    @apply font-body bg-lightest text-darkBase;
 }
 
-.sidebar {
-  background-color: #f5d4a1;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-heading text-xl text-darkBase;
+}
+
+h1 {
+    @apply lg:text-6xl text-4xl my-4 bg-gradient-to-r from-darkBase to-darkHighlight text-transparent;
+    -webkit-background-clip: text;
+}
+
+h2 {
+    @apply lg:text-5xl text-2xl my-2;
+}
+
+h3 {
+    @apply lg:text-4xl text-xl my-1;
+}
+
+h5 {
+    @apply text-2xl my-2;
+}
+
+:focus {
+    outline: none !important;
+}
+
+.btn {
+    @apply bg-darkBase text-white hover:bg-button px-4 py-3 cursor-pointer;
 }

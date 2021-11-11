@@ -1,0 +1,117 @@
+<div x-data="{ open: false }" class="w-full mt-10 text-center">
+    <a class="btn" @click="open = !open">
+        <span>Signup Now</span>
+    </a>
+    <div x-show="open" x-transition class="mt-10">
+    (Will format all of this properly over the weekend)
+        <div class="zf-templateWidth">
+            <form action='https://forms.zohopublic.com/evently/form/PreviewSignup2021/formperma/9zLZsrjf5VspKUJ4nh4ykb6v2xxgzOtWHo5SP08O7TQ/htmlRecords/submit' name='form' method='POST' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();' accept-charset='UTF-8' enctype='multipart/form-data' id='form'><input type="hidden" name="zf_referrer_name" value="">
+                <!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
+                <input type="hidden" name="zf_redirect_url" value="">
+                <!-- To redirect to a specific page after record submission , place the respective url within the " " in the above hidden input field -->
+                <input type="hidden" name="zc_gad" value="">
+                <!-- If GCLID is enabled in Zoho CRM Integration, click details of AdWords Ads will be pushed to Zoho CRM -->
+                <div class="zf-templateWrapper">
+                    <!---------template Container Starts Here---------->
+                    <div class="zf-subContWrap zf-topAlign">
+                        <ul>
+                            <!---------Single Line Starts Here---------->
+                            <li class="zf-tempFrmWrapper zf-medium">
+                                <label class="zf-labelName">Account name
+<em class="zf-important">*</em>
+                                </label>
+                                <div class="zf-tempContDiv">
+                                    <span>
+                                        <input type="text" name="SingleLine" checktype="c1" value="" maxlength="255" fieldType=1/></span>
+                                    <p id="SingleLine_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                                    <p class="zf-instruction">Name your account something meaningful. Spaces and unicode are OK.</p>
+                                </div>
+                                <div class="zf-clearBoth"></div>
+                            </li>
+                            <!---------Single Line Ends Here---------->
+                            <!---------Email Starts Here---------->
+                            <li class="zf-tempFrmWrapper zf-medium">
+                                <label class="zf-labelName">Email
+<em class="zf-important">*</em>
+                                </label>
+                                <div class="zf-tempContDiv">
+                                    <span>
+                                        <input fieldType=9  type="text" maxlength="255" name="Email" checktype="c5" value=""/></span>
+                                    <p id="Email_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                                    <p class="zf-instruction">We use this email to send your preview API access token. You can use this email to reset your access token as needed.</p>
+                                </div>
+                                <div class="zf-clearBoth"></div>
+                            </li>
+                            <!---------Email Ends Here---------->
+                            <!---------Multiple Line Starts Here---------->
+                            <li class="zf-tempFrmWrapper zf-small">
+                                <label class="zf-labelName">Description
+</label>
+                                <div class="zf-tempContDiv">
+                                    <span>
+                                        <textarea name="MultiLine" checktype="c1" maxlength="65535"></textarea>
+                                    </span>
+                                    <p id="MultiLine_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                                    <p class="zf-instruction">Let us know how you are interested in using Evently Preview.</p>
+                                </div>
+                                <div class="zf-clearBoth"></div>
+                            </li>
+                            <!---------Multiple Line Ends Here---------->
+                            <!--Terms and conditions-->
+                            <li class="zf-tempFrmWrapper">
+                                <label class="zf-labelName">Terms and Conditions - Evently Preview 2021
+<em class="zf-important">*</em>
+                                </label>
+                                <div class="zf-tempContDiv" >
+                                    <div class="zf-termsContainer">
+                                        <div class="zf-termsMsg zf-descFld" >
+                                            <div>Your <b>Evently Preview 2021</b>&nbsp;account has these terms and conditions:<br/></div>
+                                            <ul>
+                                                <li>
+                                                    <span>You can&nbsp;only use your account for legal activities.</span><br/></li>
+                                                <li>
+                                                    <span>You must restrict your usage to educational and other non-critical purposes.</span><br/></li>
+                                                <li>
+                                                    <span>You cannot store  personal information, business secrets or other data you would not want to be read by others.</span><br/></li>
+                                                <li>
+                                                    <span>Your ledger stores events in the United States.</span><br/></li>
+                                                <li>Your ledger is limited to 100,000 events. You can regain space by resetting your ledger to a previous point with the <a href="https://evently.cloud/ledgers/reset" target="_blank" rel="noopener noreferrer">Reset Ledger API</a>. You are free to request more storage by emailing <a href="mailto:preview@evently.cloud" target="_blank" rel="noopener noreferrer">preview@evently.cloud</a>&nbsp;from your account&#39;s email address.<br/></li>
+                                                <li>Your data may be deleted at the end of the preview period or another point in the preview period as needed by Evently. Before any data is deleted, Evently will notify you in advance.<br/></li>
+                                                <li>You can download your entire ledger using the <a href="https://evently.cloud/ledgers/download" target="_blank" rel="noopener noreferrer">Download Ledger API</a>.<br/></li>
+                                                <li>Support is offered via email at <a href="mailto:preview@evently.cloud" target="_blank" rel="noopener noreferrer">preview@evently.cloud</a>&nbsp;or on twitter at&nbsp;<a href="https://twitter.com/evently_cloud" target="_blank" rel="noopener noreferrer">https://twitter.com/evently_cloud</a><br/></li>
+                                                <li>Please have fun!<br/></li>
+                                            </ul>
+                                            <div><br/></div>
+                                        </div>
+                                        <div class="zf-termsAccept"><input class="zf-checkBoxType zf-flLeft" name="TermsConditions" type="checkbox">
+                                            <label class="zf-descFld">
+                                                <div>I accept the Terms and Conditions of Evently Preview 2021.<br/></div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="zf-errorMessage" elname="error" id="TermsConditions_error" style="display:none;">Invalid value</p>
+                                <div class="clearBoth"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!---------template Container Starts Here---------->
+                    <ul>
+                        <li class="zf-fmFooter">
+                            <button class="zf-submitColor" >Submit</button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 'zf-templateWrapper' ends -->
+            </form>
+        </div>
+        <!-- 'zf-templateWidth' ends -->
+        <script type="text/javascript">
+            var zf_DateRegex = new RegExp("^(([0][1-9])|([1-2][0-9])|([3][0-1]))[-](Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[-](?:(?:19|20)[0-9]{2})$");
+            var zf_MandArray = ["SingleLine", "Email", "TermsConditions"];
+            var zf_FieldArray = ["SingleLine", "Email", "MultiLine", "TermsConditions"];
+            var isSalesIQIntegrationEnabled = false;
+            var salesIQFieldsArray = [];
+        </script>
+    </div>
+</div>

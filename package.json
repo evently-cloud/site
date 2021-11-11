@@ -1,17 +1,24 @@
 {
-  "name": "website",
-  "description": "Evently web site",
-  "license": "CC-BY-NC-ND-4.0",
-  "private": false,
-  "scripts": {
-    "build": "eleventy",
-    "start": "eleventy --serve",
-    "clean": "rm -rf _site"
-  },
-  "devDependencies": {
-    "@11ty/eleventy": "0.12.1",
-    "markdown-it": "12.2.0",
-    "markdown-it-container": "3.0.0",
-    "markdown-it-prism": "2.2.1"
-  }
+    "name": "evently",
+    "description": "Evently web site",
+    "license": "CC-BY-NC-ND-4.0",
+    "private": false,
+    "main": "index.js",
+    "scripts": {
+        "start": "ELEVENTY_PRODUCTION=false eleventy --serve & postcss src/css/main.css --o _tmp/main.css --watch",
+        "build": "ELEVENTY_PRODUCTION=true eleventy & postcss src/css/main.css --o _site/css/main.css",
+        "clean": "rm -rf _site & rm -rf _tmp"
+    },
+    "dependencies": {
+        "@11ty/eleventy": "0.12.1",
+        "@11ty/eleventy-navigation": "^0.1.6",
+        "markdown-it": "12.2.0",
+        "markdown-it-container": "3.0.0",
+        "markdown-it-prism": "2.2.1",
+        "html-minifier": "^4.0.0",
+        "autoprefixer": "^10.2.6",
+        "postcss-cli": "^8.3.0",
+        "tailwindcss": "^2.2.7",
+        "@tailwindcss/forms": "^0.3.3"
+    }
 }
