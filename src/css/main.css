@@ -2,16 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/**************************************************************** General  */
+
 html {
     scroll-behavior: smooth;
 }
 
 a {
-    @apply text-darkHighlight;
+    @apply text-lightBase;
 }
 
 body {
-    @apply font-body bg-lightest text-darkBase;
+    @apply font-body bg-darkBG text-darkBase text-lg;
 }
 
 h1,
@@ -24,7 +26,7 @@ h6 {
 }
 
 h1 {
-    @apply lg:text-6xl text-4xl my-4 bg-gradient-to-r from-darkBase to-darkHighlight text-transparent;
+    @apply lg:text-6xl text-4xl my-4 bg-gradient-to-r from-darkBase to-lightBase text-transparent;
     -webkit-background-clip: text;
 }
 
@@ -46,4 +48,43 @@ h5 {
 
 .btn {
     @apply bg-darkBase text-white hover:bg-button px-4 py-3 cursor-pointer;
+}
+
+/**************************************************************** Form  */
+
+label {
+    @apply block mb-2 mt-4 font-extrabold;
+}
+
+input[name='SingleLine'],
+input[name='Email'] {
+    @apply w-3/5;
+}
+
+textarea {
+    @apply w-full;
+}
+
+.zf-instruction {
+    @apply italic text-base;
+}
+
+.zf-termsMsg {
+    @apply px-5 pt-1;
+}
+
+.zf-termsMsg ul {
+    @apply list-disc ml-6 text-base;
+}
+
+.zf-termsAccept {
+    @apply flex justify-start items-center gap-3 mb-8;
+}
+
+.zf-termsAccept label {
+    @apply m-0;
+}
+
+.zf-submitColor {
+    @apply btn m-auto block;
 }

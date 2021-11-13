@@ -1,9 +1,8 @@
-<div x-data="{ open: false }" class="w-full mt-10 text-center bg-white">
-    <a class="btn" @click="open = !open">
+<div x-data="{ open: false }" class="my-10">
+    <a class="btn m-auto block w-1/5 text-center" @click="open = !open">
         <span>Signup Now</span>
     </a>
-    <div x-show="open" x-transition class="mt-10">
-    (Will format all of this properly over the weekend)
+    <div x-show="open" x-transition class="p-4 w-full bg-darkBG text-left">
         <div class="zf-templateWidth">
             <form action='https://forms.zohopublic.com/evently/form/PreviewSignup2021/formperma/9zLZsrjf5VspKUJ4nh4ykb6v2xxgzOtWHo5SP08O7TQ/htmlRecords/submit' name='form' method='POST' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();' accept-charset='UTF-8' enctype='multipart/form-data' id='form'><input type="hidden" name="zf_referrer_name" value="">
                 <!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
