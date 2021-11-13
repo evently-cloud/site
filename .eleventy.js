@@ -20,6 +20,8 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('assets/*.png');
     eleventyConfig.addPassthroughCopy('assets/*.jpg');
     eleventyConfig.addPassthroughCopy('assets/*.ico');
+    eleventyConfig.addWatchTarget('assets/particlesjs.json');
+    eleventyConfig.addPassthroughCopy('assets/particlesjs.json');
     eleventyConfig.addPassthroughCopy('src/css/svg-noise.svg');
 
     // If being deployed (build rather than start), minify everything
