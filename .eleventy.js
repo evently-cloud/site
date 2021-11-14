@@ -24,6 +24,10 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('assets/particlesjs.json');
     eleventyConfig.addPassthroughCopy('src/css/svg-noise.svg');
 
+    eleventyConfig.addShortcode('shinyAJSFunc', function () {
+        return "@mousemove=\"$el.style.setProperty('--x', $event.clientX - $el.getBoundingClientRect().x);$el.style.setProperty('--y', $event.clientY - $el.getBoundingClientRect().y)\"";
+    });
+
     // If being deployed (build rather than start), minify everything
     eleventyConfig.addTransform('htmlmin', function (content, outputPath) {
         if (process.env.ELEVENTY_PRODUCTION && outputPath && outputPath.endsWith('.html')) {

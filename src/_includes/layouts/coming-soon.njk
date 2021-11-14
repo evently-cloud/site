@@ -7,10 +7,16 @@ layout: main
         {# <img src="assets/{{ logo }}.png" class="h-full"/> #}
         <h1>Evently</h1>
     </div>
-    {# <div class="" x-data="{ hover: false }">
-        <a @pointerenter="hover = true" @pointerleave="hover = false" href="/preview-signup" class="btn ">Signup</a>
-        <span x-show="hover" x-transition class="absolute top-24 right-0 w-20 text-xs text-center mr-8">(experimenting with separate page)</span>
-    </div> #}
+    <div class="" x-data="{ hover: false }">
+        {# <a @pointerenter="hover = true" @pointerleave="hover = false" href="/preview-signup" class="btn ">Signup</a>
+        <span x-show="hover" x-transition class="absolute top-24 right-0 w-20 text-xs text-center mr-8">(experimenting with separate page)</span> #}
+        <a href="https://twitter.com/evently_cloud" class="text-5xl" target="_blank"
+        :class="hover ? 'text-button' : 'text-darkBase'"
+        @pointerenter="hover = true" @pointerleave="hover = false"
+        >
+            <i class="fab fa-twitter-square"></i>
+        </a>
+    </div>
 </nav>
 
 <main class="mx-auto max-w-3xl px-4 mt-2 lg:mt-52">

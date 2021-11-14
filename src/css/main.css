@@ -9,7 +9,7 @@ html {
 }
 
 a {
-    @apply text-lightBase;
+    @apply text-lightBase transition-all;
 }
 
 body {
@@ -25,9 +25,13 @@ h6 {
     @apply font-heading text-xl text-darkBase;
 }
 
-h1 {
-    @apply lg:text-6xl text-4xl my-4 bg-gradient-to-r from-darkBase to-lightBase text-transparent;
+.text-gradient {
+    @apply bg-gradient-to-r from-darkBase to-lightBase text-transparent;
     -webkit-background-clip: text;
+}
+
+h1 {
+    @apply lg:text-6xl text-4xl my-4 text-gradient;
 }
 
 h2 {
@@ -46,8 +50,32 @@ h5 {
     outline: none !important;
 }
 
+/**************************************************************** Button  */
+
 .btn {
-    @apply bg-darkBase text-white hover:bg-button px-4 py-3 cursor-pointer;
+    @apply bg-darkBase text-white px-4 py-3 cursor-pointer transition-all shiny;
+}
+
+.shiny {
+    position: relative;
+    overflow: hidden;
+}
+
+.shiny::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--y, 0) * 1px - 50px);
+    left: calc(var(--x, 0) * 1px - 50px);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(#ffa336, #ffa33600 80%);
+
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.shiny:hover::after {
+    opacity: 0.4;
 }
 
 /**************************************************************** Form  */

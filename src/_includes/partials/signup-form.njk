@@ -1,5 +1,5 @@
 <div x-data="{ open: false }" class="my-10">
-    <a class="btn m-auto block w-1/5 text-center" @click="open = !open">
+    <a class="btn m-auto block w-1/5 text-center" @click="open = !open" {% shinyAJSFunc %} >
         <span>Signup Now</span>
     </a>
     <div x-show="open" x-transition class="p-4 w-full bg-darkBG text-left">
@@ -97,7 +97,7 @@
                     <!---------template Container Starts Here---------->
                     <ul>
                         <li class="zf-fmFooter">
-                            <button class="zf-submitColor" >Submit</button>
+                            <button class="zf-submitColor shiny" {% shinyAJSFunc %} >Submit</button>
                         </li>
                     </ul>
                 </div>
