@@ -8,7 +8,7 @@ eleventyNavigation:
 
 This tutorial will take you through the features Evently has to offer in the context of a smart thermostat. Before you start, please request an access token and select your favorite http client. The code herein will be using [cURL](https://curl.se), the ubiquitous command-line http client. For simplicity, you can use the [online cURL site](https://reqbin.com/curl) to work through this tutorial.
 
-### Step 1: Validate access
+### Validate access
 
 In your terminal, enter this command:
 
@@ -53,12 +53,16 @@ Evently is a Hypermedia API, which means that every resource contains links to r
 
 :::
 
-### Step 2: Register an Event Type
+### Register an Event Type
 
 The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. Be sure to replace `<your-token-here>` with your preview access token.
 
 ```shell
-curl -X POST -H "Authorization: Bearer <your-token-here>" -H "Content-Type: application/json" https://preview.evently.cloud/registry/register-event -d '{"entity":"thermostat","event":"temperature-recorded"}'
+curl -X POST https://preview.evently.cloud/registry/register-event \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+       "event":"temperature-recorded"}'
 ```
 
 This command will register an event type called `temperature-recorded` with the `thermostat` entity. We will be using this event type during the tutorial.
@@ -66,7 +70,8 @@ This command will register an event type called `temperature-recorded` with the 
 To see what event types have been registered, read the `registry/entities` resource:
 
 ```shell
-curl -X GET -H "Authorization: Bearer <your-token-here>" https://preview.evently.cloud/registry/entities
+curl -X GET https://preview.evently.cloud/registry/entities \
+  -H "Authorization: Bearer <your-token-here>"
 ```
 
 Will return this result:
@@ -90,7 +95,7 @@ Will return this result:
 }
 ```
 
-### Step 3: Append a Factual Event
+### Append a Factual Event
 
 Now that you have registered an event type, you can append an event of this type to the ledger. Evently offers three different append actions, but the simples append action will add the event as an unconditional fact. In our thermostat example, we want to record a temperature measurement event, and we want to record it without regard to any other events in the ledger.
 
@@ -104,10 +109,17 @@ When a client appends a factual event, they need to provide the following inform
 | meta   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. |
 | data   | The event-specific data. In this step, we are sending the temperature in Celsius.                                                                                                                              |
 
-Send this requestin your terminal:
+Send this request in your terminal:
 
 ```shell
-curl -X POST -H "Authorization: Bearer <your-token-here>" -H "Content-Type: application/json" https://preview.evently.cloud/append/fact -d '{"entity":"thermostat","event":"temperature-recorded","key":"thermostat1","meta":{"causation":"1"},"data":{"celsius":18.5}}'
+curl -X POST https://preview.evently.cloud/append/fact \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+  		 "event":"temperature-recorded",
+  		 "key":"thermostat1",
+  		 "meta":{"causation":"1"},
+  		 "data":{"celsius":18.5}}'
 ```
 
 This request returns a success result:
@@ -122,6 +134,10 @@ This request returns a success result:
 ```
 
 The request body shows a status of `SUCCESS` as well as an `ok` value with the eventId of the newly-created event. Hang on to this eventId as we will be using it in the next tutorial.
+
+### Select Events for Replay
+
+
 
 TODO:
 
