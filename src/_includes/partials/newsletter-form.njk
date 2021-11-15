@@ -4,11 +4,11 @@
     <div class="hidden">
         <label>Don’t fill this out if you’re human: <input name="bot-field"/></label>
     </div>
-    <div>
-        <label>Name <input type="text" name="name"/></label>
+    <div class="flex flex-col items-start lg:m-auto lg:w-3/5">
+        <label>Name</label><input type="text" name="name"/>
     </div>
-    <div>
-        <label>Email <input type="email" name="email"/></label>
+    <div class="flex flex-col items-start lg:m-auto lg:w-3/5">
+        <label>Email</label><input type="email" name="email"/>
     </div>
-    <button type="submit" class="btn m-auto block w-1/5 text-center mt-5" x-data {% shinyAJSFunc %}>Submit</button>
+    <button type="submit" class="btn m-auto block lg:w-1/5 text-center mt-5" x-data {% shinyAJSFunc %}>Submit</button>
 </form>

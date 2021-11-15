@@ -31,7 +31,7 @@ h6 {
 }
 
 h1 {
-    @apply lg:text-6xl text-4xl my-4 text-gradient;
+    @apply lg:text-6xl text-5xl my-4 text-gradient;
 }
 
 h2 {
@@ -81,7 +81,7 @@ h5 {
 /**************************************************************** Form  */
 
 label {
-    @apply block mb-2 mt-4 font-extrabold;
+    @apply block mb-2 mt-4 font-extrabold bg-darkBG;
 }
 
 input[name='SingleLine'],
@@ -90,7 +90,7 @@ input[name='Email'] {
 }
 
 form#newsletter-signup input {
-    @apply w-3/5 ml-5;
+    @apply w-full;
 }
 
 textarea {
