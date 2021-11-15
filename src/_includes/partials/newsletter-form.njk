@@ -1,0 +1,14 @@
+<form name="newsletter" netlify action="/newsletter-signup-completed" netlify-honeypot="bot-field"
+    id="newsletter-signup" class="text-center"
+>
+    <div class="hidden">
+        <label>Don’t fill this out if you’re human: <input name="bot-field"/></label>
+    </div>
+    <div>
+        <label>Name <input type="text" name="name"/></label>
+    </div>
+    <div>
+        <label>Email <input type="email" name="email"/></label>
+    </div>
+    <button type="submit" class="btn m-auto block w-1/5 text-center mt-5" x-data {% shinyAJSFunc %}>Submit</button>
+</form>

@@ -1,21 +1,26 @@
 ---
 layout: main
+socialLinks:
+    -   url: https://twitter.com/evently_cloud
+        icon: <i class="fab fa-twitter-square"></i>
+    -   url: https://github.com/evently-cloud
+        icon: <i class="fab fa-github-square"></i>
 ---
 
 <nav class="fixed top-0 left-0 flex justify-between items-center h-32 w-full px-8">
-    <div class="flex h-full items-center gap-3">
+    <div class="flex h-full items-center">
         {# <img src="assets/{{ logo }}.png" class="h-full"/> #}
         <h1>Evently</h1>
     </div>
-    <div class="" x-data="{ hover: false }">
-        {# <a @pointerenter="hover = true" @pointerleave="hover = false" href="/preview-signup" class="btn ">Signup</a>
-        <span x-show="hover" x-transition class="absolute top-24 right-0 w-20 text-xs text-center mr-8">(experimenting with separate page)</span> #}
-        <a href="https://twitter.com/evently_cloud" class="text-5xl" target="_blank"
-        :class="hover ? 'text-button' : 'text-darkBase'"
-        @pointerenter="hover = true" @pointerleave="hover = false"
-        >
-            <i class="fab fa-twitter-square"></i>
-        </a>
+    <div class="flex gap-4">
+        {% for socialLink in socialLinks %}
+            <a x-data="{ hover: false }" href="{{ socialLink.url }}" class="text-5xl" target="_blank"
+                :class="hover ? 'text-button' : 'text-darkBase'"
+                @pointerenter="hover = true" @pointerleave="hover = false"
+            >
+                {{ socialLink.icon | safe }}
+            </a>
+        {% endfor %}
     </div>
 </nav>
 

@@ -89,6 +89,10 @@ input[name='Email'] {
     @apply w-3/5;
 }
 
+form#newsletter-signup input {
+    @apply w-3/5 ml-5;
+}
+
 textarea {
     @apply w-full;
 }
