@@ -1,27 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@500&family=Assistant&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**************************************************************** General  */
 
 html {
-  background-color: #f8f8ff;
-  font-family: 'Assistant', sans-serif;
+    scroll-behavior: smooth;
 }
 
-h1, h2 {
-  color: #2d0e5d;
-  font-family: 'Assistant', sans-serif;
-  font-weight: 600;
+a {
+    @apply text-lightBase transition-all;
 }
 
-.banner {
-  background-color: #0b051e;
-  color: #ff9d1c;
-  font-family: 'MuseoModerno', sans-serif;
-  font-size: 2em;
-  font-weight: 500;
-  padding-right: 1em;
-  text-align: right;
+body {
+    @apply font-body bg-darkBG text-darkBase text-lg;
 }
 
-.sidebar {
-  background-color: #f5d4a1;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-heading text-xl text-darkBase;
+}
+
+.text-gradient {
+    @apply bg-gradient-to-r from-darkBase to-lightBase text-transparent;
+    -webkit-background-clip: text;
+}
+
+h1 {
+    @apply lg:text-6xl text-5xl my-4 text-gradient;
+}
+
+h2 {
+    @apply lg:text-5xl text-2xl my-2;
+}
+
+h3 {
+    @apply lg:text-4xl text-xl my-1;
+}
+
+h5 {
+    @apply text-2xl my-2;
+}
+
+:focus {
+    outline: none !important;
+}
+
+/**************************************************************** Button  */
+
+.btn {
+    @apply bg-darkBase text-white px-4 py-3 cursor-pointer transition-all shiny;
+}
+
+.shiny {
+    position: relative;
+    overflow: hidden;
+}
+
+.shiny::after {
+    content: '';
+    position: absolute;
+    top: calc(var(--y, 0) * 1px - 50px);
+    left: calc(var(--x, 0) * 1px - 50px);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(#ffa336, #ffa33600 80%);
+
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.shiny:hover::after {
+    opacity: 0.4;
+}
+
+/**************************************************************** Form  */
+
+label {
+    @apply block mb-2 mt-4 font-extrabold bg-darkBG;
+}
+
+input[name='SingleLine'],
+input[name='Email'] {
+    @apply w-3/5;
+}
+
+form#newsletter-signup input {
+    @apply w-full;
+}
+
+textarea {
+    @apply w-full;
+}
+
+.zf-instruction {
+    @apply italic text-base;
+}
+
+.zf-termsMsg {
+    @apply px-5 pt-1;
+}
+
+.zf-termsMsg ul {
+    @apply list-disc ml-6 text-base;
+}
+
+.zf-termsAccept {
+    @apply flex justify-start items-center gap-3 mb-8;
+}
+
+.zf-termsAccept label {
+    @apply m-0;
+}
+
+.zf-submitColor {
+    @apply btn m-auto block;
 }

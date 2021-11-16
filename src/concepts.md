@@ -1,6 +1,9 @@
 ---
-layout: layout.liquid
+layout: main
+eleventyNavigation:
+    key: Concepts
 ---
+
 # Evently Concepts
 
 ## Entity
@@ -15,26 +18,26 @@ Here is an example:
 
 ```json
 {
-  "event": "Item Ordered",
-  "entity": "patron",
-  "key": "Harold_Cho",
-  "data": {
-    "menuItem": "Bean Burrito",
-    "toppings": ["chiles", "salsa verde"],
-    "spicy": true,
-    "peppers": 5
-  },
-  "meta": {
-    "actor": "register-2",
-    "commandId": "e33692e9-3e73-4028-8962-2753ddae2a0f",
-    "correlationId": "22341"
-  }
+    "event": "Item Ordered",
+    "entity": "patron",
+    "key": "Harold_Cho",
+    "data": {
+        "menuItem": "Bean Burrito",
+        "toppings": ["chiles", "salsa verde"],
+        "spicy": true,
+        "peppers": 5
+    },
+    "meta": {
+        "actor": "register-2",
+        "commandId": "e33692e9-3e73-4028-8962-2753ddae2a0f",
+        "correlationId": "22341"
+    }
 }
 ```
 
 The event is named `Item Ordered` and has an event-specific `data` value.
 
-The entity identifier is the entity type and key. In this example, the entity is identified as entity type  `patron` with the key `Harold_Cho`.
+The entity identifier is the entity type and key. In this example, the entity is identified as entity type `patron` with the key `Harold_Cho`.
 
 The `meta` field contains data that can be applied to any event. In this system, the value includes the `actor` and a `commandId` which has meaning to the application. Your application can store any values in the `meta` field.
 
@@ -58,13 +61,13 @@ The replay selector states the entity type, instance keys, and events of interes
 
 ```json
 {
-  "entity": "game",
-  "keys": ["Zirommok_Dun_&_Bradstreet_Inc._1968_Championship~15_1"],
-  "events": ["game-started", "game-finished"]
+    "entity": "game",
+    "keys": ["Zirommok_Dun_&_Bradstreet_Inc._1968_Championship~15_1"],
+    "events": ["game-started", "game-finished"]
 }
 ```
 
- A replay selector scopes to a single entity type, but can include more than one key in the selection. If desired, the selector can narrow the events returned by using the `events` property. If omitted, then all of the events that match the entity and keys will be returned.
+A replay selector scopes to a single entity type, but can include more than one key in the selection. If desired, the selector can narrow the events returned by using the `events` property. If omitted, then all of the events that match the entity and keys will be returned.
 
 #### Filter Selectors
 
@@ -72,11 +75,11 @@ The filter selector matches events by their meta and data values. They use SQL J
 
 ```json
 {
-  "data": {
-   "match": {
-     "match-created": "$.players ? (@==\"Elizabeth_Wilkerson\" || @==\"Amal_Hussein\")"
+    "data": {
+        "match": {
+            "match-created": "$.players ? (@==\"Elizabeth_Wilkerson\" || @==\"Amal_Hussein\")"
+        }
     }
-  }
 }
 ```
 

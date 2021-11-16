@@ -1,6 +1,9 @@
 ---
-layout: layout.liquid
+layout: main
+eleventyNavigation:
+    key: ACID
 ---
+
 # ACID for Event Ledgers
 
 Relational transaction-oriented databases have a set of properties called “ACID”, which stands for Atomic, Consistent, Isolated and Durable. Evently has similar properties, though with some reconceptualization given the append-only nature of a ledger. One notable difference is that Evently’s “I” stands for Immutable, which is a more valuable property than Isolation.
@@ -16,7 +19,7 @@ Consistency means the data changes in a way one expects.
 1. In an atomic append, the selector is consistent up to the new event. Between the time the selector is tested for quiescence and the new event is appended, no other events that match the selector are appended.
 2. Events match their registry definition. One cannot append an event to the wrong entity type.
 3. Append order in a ledger is known and never varies. Events are appended serially, and their ordering is maintained forever.
-4. An event ledger can be [validated with documented steps](event-id/#validate) (TODO add this and fix the link)  to ensure consistency of event contents and sequencing.
+4. An event ledger can be [validated with documented steps](event-id/#validate) (TODO add this and fix the link) to ensure consistency of event contents and sequencing.
 
 ## Immutable
 
@@ -27,4 +30,3 @@ Consistency means the data changes in a way one expects.
 
 1. Ledger events stay persisted once they are successfully appended.
 2. The ledger survives restarts.
-

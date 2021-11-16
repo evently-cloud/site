@@ -1,5 +1,10 @@
 yarn-error.log*
-.DS_Store
 .idea
-_site
-node_modules
+_site/
+_tmp/
+.DS_Store
+node_modules/
+package-lock.json
+# Local Netlify folder
+.netlify
+.env

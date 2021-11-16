@@ -1,5 +1,7 @@
 ---
-layout: layout.liquid
+layout: main
+eleventyNavigation:
+    key: Event ID Design
 ---
 
 # Event ID
@@ -8,8 +10,8 @@ layout: layout.liquid
 
 An Event ID is 128 bits in length.
 
-* String encoded as a hex string with Big Endian bytes.
-* Option to use UUID native types like Postgres UUID field type, but will not validate as a UUID version, so YMMV.
+-   String encoded as a hex string with Big Endian bytes.
+-   Option to use UUID native types like Postgres UUID field type, but will not validate as a UUID version, so YMMV.
 
 #### Sortable
 
@@ -33,8 +35,8 @@ The Event ID can provide the timestamp for when the event was added to the ledge
 
 The Event ID contains a CRC32C checksum (as defined in https://tools.ietf.org/html/rfc3385#section-4.1) to verify the content of the event. This is not a cryptographically-secure hash, but a validation checksum with which to verify the contents of the event. CRC32C is a 32-bit hash and was was chosen for these reasons:
 
-* Low probability of collisions, although every hash has collisions.
-*  Widespread adoption in software languages and hardware. Intel and AMD have CRC32C calculation instructions.
+-   Low probability of collisions, although every hash has collisions.
+-   Widespread adoption in software languages and hardware. Intel and AMD have CRC32C calculation instructions.
 
 Once computed, a checksum will never change.
 
@@ -42,33 +44,33 @@ Once computed, a checksum will never change.
 
 #### Components
 
-* Timestamp: timestamp is 64 bits
-* Ledger ID: 32 bits
-* Checksum: 32 bits
+-   Timestamp: timestamp is 64 bits
+-   Ledger ID: 32 bits
+-   Checksum: 32 bits
 
 #### Timestamp
 
- The timestamp component is a 64-bit microsecond value in the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time). Note that 1 millisecond = 1,000 microseconds.
+The timestamp component is a 64-bit microsecond value in the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time). Note that 1 millisecond = 1,000 microseconds.
 
 #### Ledger ID
 
-A Ledger ID is a 32-bit signed integer. It is computed as a partial checksum of the ledger’s genesis event, ANDed with the Ledger ID version. The genesis event is the ledger’s creation event, and does not have a Ledger ID itself for the checksum. As a result, the Ledger ID is computed by following steps 1-5 of the [Event checksum](#event-checksum) algorithm. 
+A Ledger ID is a 32-bit signed integer. It is computed as a partial checksum of the ledger’s genesis event, ANDed with the Ledger ID version. The genesis event is the ledger’s creation event, and does not have a Ledger ID itself for the checksum. As a result, the Ledger ID is computed by following steps 1-5 of the [Event checksum](#event-checksum) algorithm.
 
 Here is an example genesis event:
 
 ```json
 {
-  "entity": "ledger",
-  "key": "a-ledger-key",
-  "event": "ledger-created",
-  "meta": {
-    "actor": "matt",
-    "created": "2021-09-04T20:27:17.300Z"
-  },
-  "data": {
-    "name": "My Ledger",
-    "description": "This ledger is for my events."
-  }
+    "entity": "ledger",
+    "key": "a-ledger-key",
+    "event": "ledger-created",
+    "meta": {
+        "actor": "matt",
+        "created": "2021-09-04T20:27:17.300Z"
+    },
+    "data": {
+        "name": "My Ledger",
+        "description": "This ledger is for my events."
+    }
 }
 ```
 
@@ -76,7 +78,7 @@ New Ledger IDs need to be able to be generated offline and without registration.
 
 ###### Versioned Ledger ID means 2 bits for version
 
-- 00: 30 bit Ledger ID, 2 bit version
+-   00: 30 bit Ledger ID, 2 bit version
 
 To apply the version to Ledger ID: `ledgerId & 0xfffffffc`
 
@@ -94,10 +96,7 @@ The checksum calculation utilizes [CRC32C](https://datatracker.ietf.org/doc/html
 4. Sorted^1^ meta object as a compact^2^ JSON string
 5. Sorted^1^ data object as a compact^2^ JSON string
 
-_Skip the following steps for Ledger ID calculation_
-7. Ledger ID as lower-case, base-16 hex string
-8. Timestamp as lower-case base-16 hex string. When parsing the `timestamp` field in the event body, be sure to parse the microsecond portion. Some Date parsing libraries can only parse up to the millisecond. 
-9. Previous Event ID as lower-case base-16 hex string. If this is the genesis event, then this value is `000000000000000000000000` + Ledger ID as lower-case base-16 hex string. This is an event ID at timestamp 0, checksum 0, for this ledger.
+_Skip the following steps for Ledger ID calculation_ 7. Ledger ID as lower-case, base-16 hex string 8. Timestamp as lower-case base-16 hex string. When parsing the `timestamp` field in the event body, be sure to parse the microsecond portion. Some Date parsing libraries can only parse up to the millisecond. 9. Previous Event ID as lower-case base-16 hex string. If this is the genesis event, then this value is `000000000000000000000000` + Ledger ID as lower-case base-16 hex string. This is an event ID at timestamp 0, checksum 0, for this ledger.
 
 ^1^ A “sorted” object has its keys sorted in case-sensitive, ascending order. An object’s properties, if they are themselves objects, are sorted in the same way. This guarantees the objects are serialized to JSON consistently from the JSON parser’s results, which may be an unordered map.
 
@@ -107,11 +106,11 @@ _Skip the following steps for Ledger ID calculation_
 
 Timestamp + Checksum + Ledger ID (LID) means an Event list can be sorted by occurrence.
 
-#### Event ID encoded 
+#### Event ID encoded
 
-| Timestamp | Checksum | LID  | Version |
-| --------- | -------- | ---- | ------- |
-| 64        | 32 bits  | 30   | 2       |
+| Timestamp | Checksum | LID | Version |
+| --------- | -------- | --- | ------- |
+| 64        | 32 bits  | 30  | 2       |
 
 | Time Hi   | Time Lo   | CHECKSUM  | LID + Version |
 | --------- | --------- | --------- | ------------- |
@@ -143,8 +142,8 @@ The checksum can be used to validate an event ledger. It can validate the entire
 1. [Calculate the Ledger ID](#ledger-id-lid) using the genesis (first) event in the ledger.
 2. For each event, [calculate its checksum](#event-checksum).
 3. Compare this calculated eventId to the event’s ID field.
-   1. If they are equal, save the eventId as previousEventId and go ack to step 2.
-   2. If they are not equal, the ledger has been corrupted.
+    1. If they are equal, save the eventId as previousEventId and go ack to step 2.
+    2. If they are not equal, the ledger has been corrupted.
 
 ### Prior Art:
 
@@ -164,9 +163,9 @@ https://tools.ietf.org/html/rfc4122
 
 Sort of. UUID fields are:
 
-- Time: 48 bits
-- clock sequence: 16 bits
-- Node Id: 48 bits
-- version and variant
+-   Time: 48 bits
+-   clock sequence: 16 bits
+-   Node Id: 48 bits
+-   version and variant
 
 Big difference is time ordering; UUID puts lo word before hi word so they aren’t sortable.

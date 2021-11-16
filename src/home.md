@@ -1,6 +1,9 @@
 ---
-layout: layout.liquid
+layout: main
+eleventyNavigation:
+    key: Home
 ---
+
 # Event Sourcing for Everyone
 
 Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API. Simply [request your access key](signup/) to get started!
@@ -9,10 +12,10 @@ Start up your event-sourced applications with Evently's easy-to-use and reliable
 
 Evently’s [ACID](acid/) event storage gives you confidence to store all your business events with no data loss, forever. Keep your event models consistent with the Event Registry, so applications can only append correct events. Enjoy the performance of Evently’s SaaS architecture with near-instantaneous appends and event retrieval.
 
-* [Concepts](concepts/)
-* [Tutorial](tutorial/)
-* Cheat Sheet
-* API Reference
+-   [Concepts](concepts/)
+-   [Tutorial](tutorial/)
+-   Cheat Sheet
+-   API Reference
 
 ## What is Event Sourcing?
 
@@ -24,4 +27,3 @@ Event Sourcing is an application data model that record events that have happene
 
 Event sourcing has been used for hundreds of years in accounting, where events are called “account entries” and the log is called a “ledger”. Individual entries record credits or debits to an account, and the current value, or state, of the account. One calculates the current account value by summing up these credits and debits.
 :::
-
