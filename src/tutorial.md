@@ -4,7 +4,7 @@ eleventyNavigation:
     key: Tutorial
 ---
 
-# Tutorial: Smart Thermostat
+# Smart Thermostat Tutorial
 
 This tutorial will take you through the features Evently has to offer in the context of a smart thermostat. Before you start, please request an access token and select your favorite http client. The code herein will be using [cURL](https://curl.se), the ubiquitous command-line http client. For simplicity, you can use the [online cURL site](https://reqbin.com/curl) to work through this tutorial.
 
@@ -13,7 +13,7 @@ This tutorial will take you through the features Evently has to offer in the con
 In your terminal, enter this command:
 
 ```shell
-curl -X GET https://preview.evently.cloud
+curl https://preview.evently.cloud
 ```
 
 You should get back this JSON response, in [HAL format](https://tools.ietf.org/id/draft-kelly-json-hal-01.html):
@@ -53,12 +53,14 @@ Evently is a Hypermedia API, which means that every resource contains links to r
 
 :::
 
+## Tutorial 1: Measure and Check Temperature
+
 ### Register an Event Type
 
 The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. Be sure to replace `<your-token-here>` with your preview access token.
 
 ```shell
-curl -X POST https://preview.evently.cloud/registry/register-event \
+curl https://preview.evently.cloud/registry/register-event \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
   -d '{"entity":"thermostat",
@@ -70,7 +72,7 @@ This command will register an event type called `temperature-recorded` with the 
 To see what event types have been registered, read the `registry/entities` resource:
 
 ```shell
-curl -X GET https://preview.evently.cloud/registry/entities \
+curl https://preview.evently.cloud/registry/entities \
   -H "Authorization: Bearer <your-token-here>"
 ```
 
@@ -112,7 +114,7 @@ When a client appends a factual event, they need to provide the following inform
 Send this request in your terminal:
 
 ```shell
-curl -X POST https://preview.evently.cloud/append/fact \
+curl https://preview.evently.cloud/append/fact \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
   -d '{"entity":"thermostat",
@@ -133,13 +135,55 @@ This request returns a success result:
 }
 ```
 
-The request body shows a status of `SUCCESS` as well as an `ok` value with the eventId of the newly-created event. Hang on to this eventId as we will be using it in the next tutorial.
+The request body shows a status of `SUCCESS` as well as an `ok` value with the `eventId`of the newly-created event.
 
 ### Select Events for Replay
 
+Now that we have persisted an event, we will replay that entity’s events and find it in the event log. To do so, we use the Replay Selector API at `/selectors/replay` to fetch this thermostat’s `temperature-recorded` events.
 
+```shell
+curl -L https://preview.evently.cloud/selectors/replay \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+       "events":["temperature-recorded"],
+       "keys":["thermostat1"]}'
+```
 
-TODO:
+This request will replay all of the `temperature-recorded` events for entity `thermostat` with entity key `thermostat1`. The response is a stream of newline-delimited JSON, followed by a footer line.
 
--   Select that event for replay (latest temperature)
--   Register a thermostat account (atomic append), add in idempotency-key header
+```json lines
+{"entity":"thermostat","key":"thermostat1","event":"temperature-recorded","eventId":"0005d0df8d1e990f13658533a0f8f294","timestamp":"2021-11-16T03:30:47.430415Z","meta":{"causation":"1"},"data":{"celsius":18.5}}
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294"}
+```
+
+Line 1 has the single event appended for this entity. The JSON in this line contains the event details, eventId and the server’s append timestamp.
+
+Line 2 has the selector footer information. It contains a `selectorId` which identifies the declared selector. In this example, it represents the object we sent in with the `/selectors/replay` request.
+
+```json
+{
+  "entity": "thermostat",
+  "events": ["temperature-recorded"],
+  "keys": ["thermostat1"]
+}
+```
+
+The second footer value, `mark`, is a ledger mark and it points to a place in the ledger that this selector has read to.
+
+### Select New Events
+
+Temperature events may be appended at any time, so an application can ask Evently to send only the events that have occurred _after_ a ledger mark. This will let the application skip events it has already seen and only retrieve new events. POST the selector request, as before, but with a new property called `after`. Use the `mark` value from the selector footer, or use an `eventId` value if easier.
+
+```shell
+curl -L https://preview.evently.cloud/selectors/replay \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+       "events":["temperature-recorded"],
+       "keys":["thermostat1"],
+       "after":"<your-mark-or-eventId-here"}'
+```
+
+## Tutorial 2: Register a thermostat account
+
