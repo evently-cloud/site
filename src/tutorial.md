@@ -116,10 +116,10 @@ curl -X POST https://preview.evently.cloud/append/fact \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
   -d '{"entity":"thermostat",
-  		 "event":"temperature-recorded",
-  		 "key":"thermostat1",
-  		 "meta":{"causation":"1"},
-  		 "data":{"celsius":18.5}}'
+       "event":"temperature-recorded",
+       "key":"thermostat1",
+       "meta":{"causation":"1"},
+       "data":{"celsius":18.5}}'
 ```
 
 This request returns a success result:
