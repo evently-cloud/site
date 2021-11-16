@@ -185,5 +185,13 @@ curl -L https://preview.evently.cloud/selectors/replay \
        "after":"<your-mark-or-eventId-here"}'
 ```
 
+The result is:
+
+```json lines
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294"}
+```
+
+No new events have been appended, so the response only has the selector footer.
+
 ## Tutorial 2: Register a thermostat account
 
