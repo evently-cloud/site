@@ -4,7 +4,7 @@ Here are the pages I think I need to create:
 
 1. Home page - What is this place, Talk about the preview
 2. Concepts - This might be the home page too, but it talks about
-   1. Ledger
+   1. Ledger - ACID
    2. Events
    3. Selectors
    4. Appending

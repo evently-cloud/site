@@ -6,16 +6,27 @@ eleventyNavigation:
 
 # Event Sourcing for Everyone
 
-Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API. Simply [request your access key](signup/) to get started!
+Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API. Simply [request your access key](preview-signup) to get started!
 
-### Safe, Fast and Secure
+### Append Forever
 
-Evently’s [ACID](acid/) event storage gives you confidence to store all your business events with no data loss, forever. Keep your event models consistent with the Event Registry, so applications can only append correct events. Enjoy the performance of Evently’s SaaS architecture with near-instantaneous appends and event retrieval.
+Evently’s [ACID](acid) event storage gives you confidence to store all your business events with no data loss, forever.
 
--   [Concepts](concepts/)
--   [Tutorial](tutorial/)
--   Cheat Sheet
--   API Reference
+### Append Atomically
+
+Conditionally append your events to eliminate cross-ledger race conditions, and never write a  “fixup” process manager again.
+
+### Every Event Has Its Place 
+
+Keep your event models consistent with the Event Registry, so applications only append the right events.
+
+### SaaS means Fast (and always available)
+
+Enjoy the performance of Evently’s SaaS architecture with near-instantaneous appends and event retrieval.
+
+### Connect without Clients
+
+Evently’s HTTP hypermedia API is easy to use and requires no extra client libraries to manage and configure.
 
 ## What is Event Sourcing?
 
