@@ -49,7 +49,9 @@ This root document contains links to Evently services. You can GET each link and
 
 ::: sidebar
 
-Evently is a Hypermedia API, which means that every resource contains links to related resources. Client developers can GET the resources at each level to learn how to use them, as well as discover other related resources in the `_links` section of the body or in the http `Link` headers. Additionally, each resource has one or more `Profile` headers with links to what they offer and how they can be used.
+Evently is a Hypermedia API, which means that every resource contains links to related resources. Client developers can GET the resources at each level to learn how to use them, as well as discover other related resources in the `_links` section of the body or in the http `Link` headers. Additionally, each resource has one or more `Profile` headers with links to documentation describing they offer and how they can be used.
+
+Evently’s API is self-documenting so you can `GET` any URL and learn about the resource, including links to related resources. Form resources will return a JSON Schema document that clients use to construct valid `POST` requests.
 
 :::
 
@@ -69,7 +71,7 @@ curl https://preview.evently.cloud/registry/register-event \
 
 This command will register an event type called `temperature-recorded` with the `thermostat` entity. We will be using this event type during the tutorial.
 
-To see what event types have been registered, read the `registry/entities` resource:
+To see what event types have been registered, read the `registry/entities` resource. Your access token gains you access to your own entities:
 
 ```shell
 curl https://preview.evently.cloud/registry/entities \
@@ -94,6 +96,29 @@ Will return this result:
             "profile": "<https://level3.rest/profiles/form>"
         }
     }
+}
+```
+
+The thermostat entity is listed, along with a link to the form resource to add new event entries. Follow the thermostat link:
+
+```shell
+curl https://preview.evently.cloud/registry/entities/thermostat \
+  -H "Authorization: Bearer <your-token-here>"
+```
+
+Here you will find the events registered to the thermostat entity:
+
+```json
+{
+  "_links": {
+    "https://level3.rest/patterns/list#list-entry": [
+      {
+        "name": "temperature-recorded",
+        "href": "/registry/entities/thermostat/temperature-recorded",
+        "profile": "<https://level3.rest/profiles/data>"
+      }
+    ]
+  }
 }
 ```
 
@@ -139,10 +164,10 @@ The request body shows a status of `SUCCESS` as well as an `ok` value with the `
 
 ### Select Events for Replay
 
-Now that we have persisted an event, we will replay that entity’s events and find it in the event log. To do so, we use the Replay Selector API at `/selectors/replay` to fetch this thermostat’s `temperature-recorded` events.
+Now that we have persisted an event, we will replay that entity’s events and find it in the event log. To do so, we use the Replay Selector API at `/selectors/replay` to fetch this thermostat’s `temperature-recorded` events. This cURL command uses the `-i` flag to show response headers, and the `-L` flag to follow the `Location` header in the initial `POST` response.
 
 ```shell
-curl -L https://preview.evently.cloud/selectors/replay \
+curl -i -L https://preview.evently.cloud/selectors/replay \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
   -d '{"entity":"thermostat",
@@ -152,14 +177,27 @@ curl -L https://preview.evently.cloud/selectors/replay \
 
 This request will replay all of the `temperature-recorded` events for entity `thermostat` with entity key `thermostat1`. The response is a stream of newline-delimited JSON, followed by a footer line.
 
-```json lines
+```http request
+HTTP/1.1 200 OK
+Allow: HEAD, GET
+Cache-Control: public; max-age=0
+Etag: "0000000000000000bee3f960"
+Content-Type: application/x-ndjson; charset=utf-8
+Link: </selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson>; rel="start"
+Link: </selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson>; rel="self"
+Link: </selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAAAAAAAAAC-4_lg.ndjson>; rel="current"
+Link: </selectors/replay>; rel="https://level3.rest/profiles/lookup"
+Link: </append/selector>; title="Append an Event with this Selector"; rel="https://level3.rest/profiles/form"
+Profile: <https://level3.rest/profiles/info>
+Profile: <https://level3.rest/profiles/mixins/entity>
+
 {"entity":"thermostat","key":"thermostat1","event":"temperature-recorded","eventId":"0005d0df8d1e990f13658533a0f8f294","timestamp":"2021-11-16T03:30:47.430415Z","meta":{"causation":"1"},"data":{"celsius":18.5}}
 {"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294"}
 ```
 
-Line 1 has the single event appended for this entity. The JSON in this line contains the event details, eventId and the server’s append timestamp.
+The body’s first line has the single event appended for this entity. The JSON in this line contains the event details, eventId and the server’s append timestamp.
 
-Line 2 has the selector footer information. It contains a `selectorId` which identifies the declared selector. In this example, it represents the object we sent in with the `/selectors/replay` request.
+The second body line has the selector footer information. It contains a `selectorId` which identifies the declared selector. In this example, it represents the object we sent in with the `/selectors/replay` request, which was:
 
 ```json
 {
@@ -170,6 +208,8 @@ Line 2 has the selector footer information. It contains a `selectorId` which ide
 ```
 
 The second footer value, `mark`, is a ledger mark and it points to a place in the ledger that this selector has read to.
+
+The headers have several `Link` values that give you access to the start of the ledger (see `start` link) and a `current` link to fetch new events that have occurred since this selector was executed. The links are in the headers because the content type `application/x-ndjson` does not specify a place to put links.
 
 ### Select New Events
 
