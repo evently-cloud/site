@@ -8,7 +8,7 @@ eleventyNavigation:
 
 ## Entity
 
-An Entity can be anything that has distinct state in a domain, such as a shopper, a rental car, or a hotel room. An entity instance is identified by its key, which is often a business identifier string.
+An Entity can be anything that has distinct state in a domain, such as a shopper, a rental car, or a hotel room. An entity instance is identified by its key, often a business identifier string.
 
 ## Events
 
@@ -45,11 +45,11 @@ All of the values in an event can be queried with [Selectors](#selectors).
 
 ## Ledger
 
-The ledger stores events that have been appended by an application. Applications append events to a ledger and retrieve events from a ledger using a Selector.
+The ledger stores events that have been appended by an application. Applications append events to a ledger and retrieve events from a ledger using a Selector. Ledgers have [ACID properties](acid), similar to relational databases.
 
 ## Selectors
 
-Applications find relevant events with selectors. A selector object tells the Ledger which events to select and return to the application. The selector result contains a selector ID that points to where the results leave off, and that selector Id can be used to fetch events that occur after the selector to catch up with matching current events.
+Applications find relevant events with selectors. A selector object tells the Ledger which events to select and return to the application. 
 
 Selector statements can contain a `limit` property to control the number of events to be retrieved. Additionally they can contain an `after` property to indicate where to start selecting events from. Together these two properties can be used to page through large selector results.
 
@@ -83,8 +83,8 @@ The filter selector matches events by their meta and data values. They use SQL J
 }
 ```
 
-These same selectors can also be use to control event append actions. The Append Event API accepts a Selector ID (part of the Selector response) for atomic appends.
+These same selectors can also be use to atomically append events to the ledger.
 
 ## Event Registry
 
-Event names are registered before they can be appended. Once an event has been appended, that Event name cannot be deleted from the registry.
+Event names are registered before they can be appended. The ledger will reject events that have not been registered for the entity. Applications benefit by keeping the correct events in the right entity and blocking many programming mistakes before they pollute the permanent ledger.
