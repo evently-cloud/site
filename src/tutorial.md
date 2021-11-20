@@ -164,10 +164,10 @@ The request body shows a status of `SUCCESS` as well as an `ok` value with the `
 
 ### Select Events for Replay
 
-Now that we have persisted an event, we will replay that entity’s events and find it in the event log. To do so, we use the Replay Selector API at `/selectors/replay` to fetch this thermostat’s `temperature-recorded` events. This cURL command uses the `-i` flag to show response headers, and the `-L` flag to follow the `Location` header in the initial `POST` response.
+Now that we have persisted an event, we will replay that entity’s events and find it in the event log. To do so, we use the Replay Selector API at `/selectors/replay` to fetch this thermostat’s `temperature-recorded` events. This cURL command uses the `-L` flag to follow the `Location` header in the initial `POST` response.
 
 ```shell
-curl -i -L https://preview.evently.cloud/selectors/replay \
+curl -L https://preview.evently.cloud/selectors/replay \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
   -d '{"entity":"thermostat",
@@ -177,22 +177,9 @@ curl -i -L https://preview.evently.cloud/selectors/replay \
 
 This request will replay all of the `temperature-recorded` events for entity `thermostat` with entity key `thermostat1`. The response is a stream of newline-delimited JSON, followed by a footer line.
 
-```http request
-HTTP/1.1 200 OK
-Allow: HEAD, GET
-Cache-Control: public; max-age=0
-Etag: "0000000000000000bee3f960"
-Content-Type: application/x-ndjson; charset=utf-8
-Link: </selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson>; rel="start"
-Link: </selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson>; rel="self"
-Link: </selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAAAAAAAAAC-4_lg.ndjson>; rel="current"
-Link: </selectors/replay>; rel="https://level3.rest/profiles/lookup"
-Link: </append/selector>; title="Append an Event with this Selector"; rel="https://level3.rest/profiles/form"
-Profile: <https://level3.rest/profiles/info>
-Profile: <https://level3.rest/profiles/mixins/entity>
-
+```json lines
 {"entity":"thermostat","key":"thermostat1","event":"temperature-recorded","eventId":"0005d0df8d1e990f13658533a0f8f294","timestamp":"2021-11-16T03:30:47.430415Z","meta":{"causation":"1"},"data":{"celsius":18.5}}
-{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294"}
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
 ```
 
 The body’s first line has the single event appended for this entity. The JSON in this line contains the event details, eventId and the server’s append timestamp.
@@ -209,7 +196,7 @@ The second body line has the selector footer information. It contains a `selecto
 
 The second footer value, `mark`, is a ledger mark and it points to a place in the ledger that this selector has read to.
 
-The headers have several `Link` values that give you access to the start of the ledger (see `start` link) and a `current` link to fetch new events that have occurred since this selector was executed. The links are in the headers because the content type `application/x-ndjson` does not specify a place to put links.
+The footer has two `_link` values that give you access to the selector’s events from the `start` of the ledger, and a `current` link to fetch new events that have occurred since this selector was executed.
 
 ### Select New Events
 
@@ -227,8 +214,8 @@ curl -L https://preview.evently.cloud/selectors/replay \
 
 The result is:
 
-```json lines
-{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294"}
+```json
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
 ```
 
 No new events have been appended, so the response only has the selector footer.
