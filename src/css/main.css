@@ -30,7 +30,8 @@ h6 {
     -webkit-background-clip: text;
 }
 
-h1 {
+h1,
+h1 em {
     @apply lg:text-6xl text-5xl my-4 text-gradient;
 }
 
