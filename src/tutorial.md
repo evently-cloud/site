@@ -69,7 +69,11 @@ curl https://preview.evently.cloud/registry/register-event \
        "event":"temperature-recorded"}'
 ```
 
-This command will register an event type called `temperature-recorded` with the `thermostat` entity. We will be using this event type during the tutorial.
+This returns a success message:
+
+```
+registered thermostat.temperature-recorded
+```
 
 To see what event types have been registered, read the `registry/entities` resource. Your access token gains you access to your own entities:
 
@@ -128,13 +132,13 @@ Now that you have registered an event type, you can append an event of this type
 
 When a client appends a factual event, they need to provide the following information in the body of the request:
 
-| field  | description                                                                                                                                                                                                    |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| entity | The name of the entity. In this tutorial, it is `thermostat`                                                                                                                                                   |
-| event  | The type of event. In this step, it is `temperature-recorded`                                                                                                                                                  |
-| key    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`.                                                                                                          |
-| meta   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. |
-| data   | The event-specific data. In this step, we are sending the temperature in Celsius.                                                                                                                              |
+| field  | description                                                  |
+| ------ | ------------------------------------------------------------ |
+| entity | The name of the entity. In this tutorial, it is `thermostat` |
+| event  | The type of event. In this step, it is `temperature-recorded` |
+| key    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`. |
+| meta   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. If your application has no meta information, then send an empty object as the value: `{}` |
+| data   | The event-specific data. In this step, we are sending the temperature in Celsius. |
 
 Send this request in your terminal:
 
@@ -220,5 +224,98 @@ The result is:
 
 No new events have been appended, so the response only has the selector footer.
 
-## Tutorial 2: Register a thermostat account
+## Tutorial 2: Associate a thermostat to an account
+
+Now that your thermostat is measuring temperature and sending events, it’s owner wants to link the termostat to an application account. We will call this new event `associated-to-account`.
+
+First, register this new event type in the Event Registry:
+
+```shell
+curl https://preview.evently.cloud/registry/register-event \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+       "event":"associated-to-account"}'
+```
+
+This returns a success message:
+
+```
+registered thermostat.temperature-recorded
+```
+
+We also need to create an account entity with a creation event:
+
+
+
+```shell
+curl https://preview.evently.cloud/registry/register-event \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"account",
+       "event":"account-created"}'
+```
+
+This returns a success message:
+
+```
+registered account.account-created
+```
+
+TODO create an account, but use filter selector to ensure only one `mike_meyers@example.com` can exist.
+
+
+
+In your business model, thermostats can only be associated to a single account. Your thermostat owner has an account in your system with a key, say `mike_meyers@example.com`. To satisfy this business requirement, your application should look for an `associated-to-account` event in the thermostat’s entity log.
+
+```shell
+curl -L https://preview.evently.cloud/selectors/replay \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+       "events":["associated-to-account"],
+       "keys":["thermostat1"]}'
+```
+
+This should return an empty selector, with just the selector footer object:
+
+```json
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50","mark":"0000000000000000bee3f960","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"}}}
+```
+
+Now that you know this thermostat has no `associated-to-account` events, use the `selectorId` and `mark` to conditionally append the event. You find these values in the selector footer you just fetched above.
+
+```shell
+curl https://preview.evently.cloud/append/selector \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"thermostat",
+       "event":"associated-to-account",
+       "key":"thermostat1",
+       "meta":{},
+       "data":{"account-key":"mike_meyers@example.com"},
+       "selector": {
+         "selectorId":"<your-selectorId>",
+         "mark":"<your-mark>"}}}'
+```
+
+You will get back a success message:
+
+```json
+{
+    "status": "SUCCESS",
+    "ok": {
+        "eventId": "0005d13ee253e847da62cab2bee3f960"
+    }
+}
+```
+
+Now, to show that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see an error result:
+
+```json
+{
+    "status": "RACE CONDITION",
+    "error": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events."
+}
+```
 
