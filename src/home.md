@@ -1,7 +1,5 @@
 ---
-layout: main
-eleventyNavigation:
-    key: Home
+layout: body
 ---
 
 # Event Sourcing for Everyone

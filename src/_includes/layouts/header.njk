@@ -8,10 +8,12 @@ socialLinks:
 ---
 
 <nav class="bg-myGreen" x-data="{ isOpen: false }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-8">
-        <div class="flex items-center w-full h-16">
+    <div class="mx-auto pl-6 pr-8 md:px-8 mt-4 md:mt-8">
+        <div class="flex items-center w-full h-16 justify-between">
             <div class="flex-shrink-0">
-                <h1>Evently</h1>
+                <a href="/">
+                    <h1>Evently</h1>
+                </a>
             </div>
             <div class="hidden md:flex ml-10 items-center gap-6 justify-start w-full">
                 {% include "partials/header-menu.njk" %}
@@ -19,7 +21,7 @@ socialLinks:
 
             <div class="-mr-2 flex md:hidden">
                 <!-- Mobile menu button -->
-                <button type="button" @click="isOpen = !isOpen" class="btn inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                <button type="button" @click="isOpen = !isOpen" class="btn inline-flex items-center justify-center p-2 rounded-md text-gray-400" aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="block h-6 w-6" :class="{'hidden': isOpen, 'block': !isOpen }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
@@ -33,8 +35,8 @@ socialLinks:
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="md:hidden" id="mobile-menu" x-show="isOpen">
-        <div class="flex flex-col items-center px-2 pt-2 pb-3 space-y-1 sm:px-3">
+    <div class="md:hidden" id="mobile-menu" x-show="isOpen" x-collapse>
+        <div class="flex flex-col items-center px-2 pt-2 pb-3 sm:px-3 gap-6 mt-6">
             {% include "partials/header-menu.njk" %}
         </div>
     </div>
@@ -43,3 +45,10 @@ socialLinks:
 {% block content %}
     {{ content | safe }}
 {% endblock %}
+
+<footer class="flex flex-col text-center justify-center my-32 gap-2">
+    <div class="">
+        <i class="far fa-copyright"></i> 2021 Evently. All Rights Reserved.
+    </div>
+    <div class="flex justify-center gap-4">{% include "partials/social-links.njk" %}</div>
+</footer>

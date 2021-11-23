@@ -11,9 +11,9 @@
         {{ entry.title }}
     </a>
 {%- endfor %}
-<div class="flex gap-4 ml-auto">
+<div class="flex gap-6 md:gap-4 md:my-0 md:ml-auto">
     {% include "partials/social-links.njk" %}
 </div>
-<a class="btn block text-center" @click="signupFormOpen = !signupFormOpen" {% shinyAJSFunc %} href="#signup-form-container">
+<a class="btn block text-center" @click="signupFormOpen = true; $refs.signup.scrollIntoView()" {% shinyAJSFunc %}>
     <span>Signup</span>
 </a>

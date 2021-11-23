@@ -51,32 +51,42 @@ h5 {
     outline: none !important;
 }
 
+.w-fit {
+    width: fit-content;
+}
+
 /**************************************************************** Button  */
 
 .btn {
     @apply bg-darkBase text-white px-4 py-3 cursor-pointer transition-all shiny;
 }
 
-.shiny {
-    position: relative;
-    overflow: hidden;
+.btn-active {
+    @apply bg-button;
 }
 
-.shiny::after {
-    content: '';
-    position: absolute;
-    top: calc(var(--y, 0) * 1px - 50px);
-    left: calc(var(--x, 0) * 1px - 50px);
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(#ffa336, #ffa33600 80%);
+@media (min-width: 768px) {
+    .shiny {
+        position: relative;
+        overflow: hidden;
+    }
 
-    opacity: 0;
-    transition: opacity 0.2s;
-}
+    .shiny::after {
+        content: '';
+        position: absolute;
+        top: calc(var(--y, 0) * 1px - 50px);
+        left: calc(var(--x, 0) * 1px - 50px);
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(#ffa336, #ffa33600 80%);
 
-.shiny:hover::after {
-    opacity: 0.4;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .shiny:hover::after {
+        opacity: 0.4;
+    }
 }
 
 /**************************************************************** Form  */
@@ -87,7 +97,7 @@ label {
 
 input[name='SingleLine'],
 input[name='Email'] {
-    @apply w-3/5;
+    @apply w-full md:w-3/5;
 }
 
 form#newsletter-signup input {

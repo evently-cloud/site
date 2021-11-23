@@ -1,5 +1,5 @@
 ---
-layout: main
+layout: body
 eleventyNavigation:
     key: Event ID Design
 ---

@@ -1,5 +1,5 @@
 ---
-layout: main
+layout: body
 eleventyNavigation:
     key: Concepts
 ---
@@ -49,7 +49,7 @@ The ledger stores events that have been appended by an application. Applications
 
 ## Selectors
 
-Applications find relevant events with selectors. A selector object tells the Ledger which events to select and return to the application. 
+Applications find relevant events with selectors. A selector object tells the Ledger which events to select and return to the application.
 
 Selector statements can contain a `limit` property to control the number of events to be retrieved. Additionally they can contain an `after` property to indicate where to start selecting events from. Together these two properties can be used to page through large selector results.
 

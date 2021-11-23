@@ -1,19 +1,54 @@
 ---
 layout: body
+enableParticles: true
 featureTiles:
     -   title: Append Forever
-        description: Evently’s <href="/acid">ACID</a> event storage gives you confidence to store all your business events with no data loss, forever.
+        description: Evently’s <a href="/acid">ACID</a> event storage gives you confidence to store all your business events with no data loss, forever.
         icon: <i class="fas fa-database"></i>
+    -   title: Append Atomically
+        description: Conditionally append your events to eliminate cross-ledger race conditions, and never write a “fixup” process manager again.
+        icon: <i class="fas fa-icons"></i>
+    -   title: Every Event Has Its Place
+        description: Keep your event models consistent with the Event Registry, so applications only append the right events.
+        icon: <i class="fas fa-icons"></i>
+    -   title: SaaS means Fast<br>(and always available)
+        description: Enjoy the performance of Evently’s SaaS architecture with near-instantaneous appends and event retrieval.
+        icon: <i class="fas fa-bolt"></i>
+    -   title: Connect without Clients
+        description: Evently’s HTTP hypermedia API is easy to use and requires no extra client libraries to manage and configure.
+        icon: <i class="fas fa-icons"></i>
 ---
 
-<div class="flex md:my-44 gap-10">
-    <div class="md:w-1/2">
-        <h1 class="text-7xl">Event Sourcing for Everyone</h1>
-        <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API. Simply <a href="#signup-form-container">request your access key</a> to get started!</div>
+<div class="flex flex-col md:flex-row gap-10 mb-20 md:my-44 items-center">
+    <div class="md:w-1/2 my-10 md:my-0">
+        <h1 class="text-6xl md:text-7xl text-center md:text-left my-10">Event Sourcing for Everyone</h1>
+        <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API.</div>
+        <a href="#signup-form-container" class="btn m-auto block mt-10 w-2/3 text-center" @click="signupFormOpen = true" {% shinyAJSFunc %} >
+            <span>Request your access key to get started!</span>
+        </a>
     </div>
     <div class="md:w-1/2">
         <img class="m-auto" src="assets/event-storming-anim-placeholder.png"/>
     </div>
+</div>
+
+<div class="flex flex-wrap justify-center">
+    {% for tile in featureTiles %}
+        <div class="md:w-1/3 py-8 px-2 md:p-10">
+            <div class="text-center p-10 h-72 bg-darkBGHighlight1">
+                <div class="mx-auto -mt-16 p-3 text-3xl w-16 h-16 bg-darkBGHighlight2">{{ tile.icon | safe }}</div>
+                <div class="flex flex-col justify-center h-full">
+                    <h5 class="font-extrabold my-6 text-gradient w-fit m-auto">{{ tile.title | safe }}</h5>
+                    <div class="">{{ tile.description | safe }}</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="text-center my-20 mx-auto md:w-2/3">
+    <h1 class="my-10 mx-auto w-fit">What is Event Sourcing?</h1>
+    <div class="bg-darkBG p-4">Event Sourcing is an application data model that record events that have happened to an entity in a permanent log. Then, when the application needs to determine the current state of an entity, it “replays” the relevant events and calculates the state from these events. When the application wants to add a new event for an entity, it can use this current state calculation to decide if the event should be recorded.</div>
 </div>
 
 {% include 'partials/signup-form.njk' %}

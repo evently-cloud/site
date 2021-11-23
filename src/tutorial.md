@@ -1,5 +1,5 @@
 ---
-layout: main
+layout: body
 eleventyNavigation:
     key: Tutorial
 ---
@@ -114,15 +114,15 @@ Here you will find the events registered to the thermostat entity:
 
 ```json
 {
-  "_links": {
-    "https://level3.rest/patterns/list#list-entry": [
-      {
-        "name": "temperature-recorded",
-        "href": "/registry/entities/thermostat/temperature-recorded",
-        "profile": "<https://level3.rest/profiles/data>"
-      }
-    ]
-  }
+    "_links": {
+        "https://level3.rest/patterns/list#list-entry": [
+            {
+                "name": "temperature-recorded",
+                "href": "/registry/entities/thermostat/temperature-recorded",
+                "profile": "<https://level3.rest/profiles/data>"
+            }
+        ]
+    }
 }
 ```
 
@@ -132,13 +132,13 @@ Now that you have registered an event type, you can append an event of this type
 
 When a client appends a factual event, they need to provide the following information in the body of the request:
 
-| field  | description                                                  |
-| ------ | ------------------------------------------------------------ |
-| entity | The name of the entity. In this tutorial, it is `thermostat` |
-| event  | The type of event. In this step, it is `temperature-recorded` |
-| key    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`. |
+| field  | description                                                                                                                                                                                                                                                                                              |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| entity | The name of the entity. In this tutorial, it is `thermostat`                                                                                                                                                                                                                                             |
+| event  | The type of event. In this step, it is `temperature-recorded`                                                                                                                                                                                                                                            |
+| key    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`.                                                                                                                                                                                                    |
 | meta   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. If your application has no meta information, then send an empty object as the value: `{}` |
-| data   | The event-specific data. In this step, we are sending the temperature in Celsius. |
+| data   | The event-specific data. In this step, we are sending the temperature in Celsius.                                                                                                                                                                                                                        |
 
 Send this request in your terminal:
 
@@ -192,9 +192,9 @@ The second body line has the selector footer information. It contains a `selecto
 
 ```json
 {
-  "entity": "thermostat",
-  "events": ["temperature-recorded"],
-  "keys": ["thermostat1"]
+    "entity": "thermostat",
+    "events": ["temperature-recorded"],
+    "keys": ["thermostat1"]
 }
 ```
 
@@ -219,7 +219,18 @@ curl -L https://preview.evently.cloud/selectors/replay \
 The result is:
 
 ```json
-{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
+{
+    "selectorId": "g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ",
+    "mark": "0005d0df8d1e990fa0f8f294",
+    "_links": {
+        "start": {
+            "href": "/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"
+        },
+        "current": {
+            "href": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"
+        }
+    }
+}
 ```
 
 No new events have been appended, so the response only has the selector footer.
@@ -246,8 +257,6 @@ registered thermostat.temperature-recorded
 
 We also need to create an account entity with a creation event:
 
-
-
 ```shell
 curl https://preview.evently.cloud/registry/register-event \
   -H "Authorization: Bearer <your-token-here>" \
@@ -264,8 +273,6 @@ registered account.account-created
 
 TODO create an account, but use filter selector to ensure only one `mike_meyers@example.com` can exist.
 
-
-
 In your business model, thermostats can only be associated to a single account. Your thermostat owner has an account in your system with a key, say `mike_meyers@example.com`. To satisfy this business requirement, your application should look for an `associated-to-account` event in the thermostat’s entity log.
 
 ```shell
@@ -280,7 +287,18 @@ curl -L https://preview.evently.cloud/selectors/replay \
 This should return an empty selector, with just the selector footer object:
 
 ```json
-{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50","mark":"0000000000000000bee3f960","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"}}}
+{
+    "selectorId": "g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50",
+    "mark": "0000000000000000bee3f960",
+    "_links": {
+        "start": {
+            "href": "/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50.ndjson"
+        },
+        "current": {
+            "href": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
+        }
+    }
+}
 ```
 
 Now that you know this thermostat has no `associated-to-account` events, use the `selectorId` and `mark` to conditionally append the event. You find these values in the selector footer you just fetched above.
@@ -318,4 +336,3 @@ Now, to show that Evently is only appending an event if the supplied selector is
     "error": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events."
 }
 ```
-

@@ -1,8 +1,8 @@
-<div id="signup-form-container" class="my-10">
-    <a class="btn m-auto block w-1/5 text-center" @click="signupFormOpen = !signupFormOpen" {% shinyAJSFunc %} >
+<div id="signup-form-container" x-ref="signup" class="my-10">
+    <a class="btn m-auto block w-fit text-center" @click="signupFormOpen = !signupFormOpen" {% shinyAJSFunc %} :class="signupFormOpen ? 'btn-active' : ''">
         <span>Signup Now</span>
     </a>
-    <div x-show="signupFormOpen" x-transition class="p-4 w-full bg-darkBG text-left">
+    <div x-show="signupFormOpen" x-collapse.duration.1000ms class="px-4 w-full bg-darkBG text-left">
         <div class="zf-templateWidth">
             <form action='https://forms.zohopublic.com/evently/form/PreviewSignup2021/formperma/9zLZsrjf5VspKUJ4nh4ykb6v2xxgzOtWHo5SP08O7TQ/htmlRecords/submit' name='form' method='POST' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();' accept-charset='UTF-8' enctype='multipart/form-data' id='form'><input type="hidden" name="zf_referrer_name" value="">
                 <!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
