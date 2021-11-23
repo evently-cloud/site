@@ -6,7 +6,7 @@ eleventyNavigation:
 
 # Smart Thermostat Tutorial
 
-This tutorial will take you through the features Evently has to offer in the context of a smart thermostat. Before you start, please request an access token and select your favorite http client. The code herein will be using [cURL](https://curl.se), the ubiquitous command-line http client. For simplicity, you can use the [online cURL site](https://reqbin.com/curl) to work through this tutorial.
+This tutorial will take you through the features Evently has to offer in the context of a smart thermostat. Before you start, please request an access token and select your favorite http client. The code herein uses [cURL](https://curl.se), the ubiquitous command-line http client. Please avoid using ReqBin, or other online curl client, as they have bugs and also collect your information.
 
 ### Validate access
 
@@ -237,7 +237,9 @@ No new events have been appended, so the response only has the selector footer.
 
 ## Tutorial 2: Associate a thermostat to an account
 
-Now that your thermostat is measuring temperature and sending events, it’s owner wants to link the termostat to an application account. We will call this new event `associated-to-account`.
+Now that your thermostat is measuring temperature and sending events, its owner wants to link the thermostat to an application account. We will call this new event `associated-to-account`.
+
+### Register New Events
 
 First, register this new event type in the Event Registry:
 
@@ -271,7 +273,64 @@ This returns a success message:
 registered account.account-created
 ```
 
-TODO create an account, but use filter selector to ensure only one `mike_meyers@example.com` can exist.
+### Create a Unique Account
+
+Now you want to create a new account for your user, Mike Meyers. Your business rules require that an account name cannot be used for more than one account, so a filter selector can check to see if an account named `mike_meyers@example.com` already exists.
+
+```shell
+curl -L https://preview.evently.cloud/selectors/filter \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"data":{
+        "account":{
+          "account-created":"$.name ? (@==\"mike_meyers@example.com\")"}}}'
+```
+
+The filter selector looks inside every event for a match in `meta` and/or `data`. In this example, it filters on `data` values. The first key is the entity name `account` and the keys inside `account` are event names. Each event name key has a [SQL JSONPath](sql-json-path) query statement that is applied to every `account.account-created` event, and matching events come back in the selector result. If you are familiar with JSONPath dialects, then Evently’s SQL JSONPath should be straightforward to pick up.
+
+This statement returns an empty selector, or a result with only a footer object:
+
+```json
+{"selectorId":"gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik","mark":"0000000000000000bee3f960","_links":{"start":{"href":"/selectors/filter/gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik.ndjson"},"current":{"href":"/selectors/filter/gqFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIimhYcQMAAAAAAAAAAC-4_lg.ndjson"}}}
+```
+
+Now that you know the event to create Mike Meyer’s account will be unique, append the event using the footer’s `selectorId` and `mark` values as an append conditional. The `key` value must be a unique value, and is usually a business-relevant key:
+
+```shell
+curl https://preview.evently.cloud/append/selector \
+  -H "Authorization: Bearer <your-token-here>" \
+  -H "Content-Type: application/json" \
+  -d '{"entity":"account",
+       "event":"account-created",
+       "key":"wqeuru4594",
+       "meta":{},
+       "data":{"name":"mike_meyers@example.com"},
+       "selector": {
+         "selectorId":"<your-selectorId>",
+         "mark":"<your-mark>"}}}'
+```
+
+You will get back a success message:
+
+```json
+{
+    "status": "SUCCESS",
+    "ok": {
+        "eventId": "0005d13ee253e847da62cab2bee3f960"
+    }
+}
+```
+
+Now, to show that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see an error result:
+
+```json
+{
+    "status": "RACE CONDITION",
+    "error": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events."
+}
+```
+
+### Associate Thermostat to Account
 
 In your business model, thermostats can only be associated to a single account. Your thermostat owner has an account in your system with a key, say `mike_meyers@example.com`. To satisfy this business requirement, your application should look for an `associated-to-account` event in the thermostat’s entity log.
 
@@ -311,7 +370,7 @@ curl https://preview.evently.cloud/append/selector \
        "event":"associated-to-account",
        "key":"thermostat1",
        "meta":{},
-       "data":{"account-key":"mike_meyers@example.com"},
+       "data":{"account-key":"wqeuru4594"},
        "selector": {
          "selectorId":"<your-selectorId>",
          "mark":"<your-mark>"}}}'
