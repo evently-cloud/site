@@ -23,7 +23,7 @@ featureTiles:
     <div class="md:w-1/2 my-10 md:my-0">
         <h1 class="text-6xl md:text-7xl text-center md:text-left my-10">Event Sourcing for Everyone</h1>
         <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API.</div>
-        <a href="#signup-form-container" class="btn m-auto block mt-10 w-2/3 text-center" @click="signupFormOpen = true" {% shinyAJSFunc %} >
+        <a class="btn m-auto block mt-10 w-2/3 text-center" @click="signupFormOpen = true; $refs.signup.scrollIntoView()" {% shinyAJSFunc %} >
             <span>Request your access key to get started!</span>
         </a>
     </div>
