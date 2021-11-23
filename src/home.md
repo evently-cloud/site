@@ -14,9 +14,9 @@ Evently’s [ACID](acid) event storage gives you confidence to store all your bu
 
 ### Append Atomically
 
-Conditionally append your events to eliminate cross-ledger race conditions, and never write a  “fixup” process manager again.
+Conditionally append your events to eliminate cross-ledger race conditions, and never write a “fixup” process manager again.
 
-### Every Event Has Its Place 
+### Every Event Has Its Place
 
 Keep your event models consistent with the Event Registry, so applications only append the right events.
 
@@ -38,3 +38,7 @@ Event Sourcing is an application data model that record events that have happene
 
 Event sourcing has been used for hundreds of years in accounting, where events are called “account entries” and the log is called a “ledger”. Individual entries record credits or debits to an account, and the current value, or state, of the account. One calculates the current account value by summing up these credits and debits.
 :::
+
+Event sourcing has never been easier! Evently brings simplicity and ease-of-use to event-sourced applications with
+refreshing new concepts and features. When Evently becomes available, we can let you know. Submit this form and
+get ready to hydrate!

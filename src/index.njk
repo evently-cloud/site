@@ -1,14 +1,19 @@
 ---
-layout: coming-soon
+layout: body
+featureTiles:
+    -   title: Append Forever
+        description: Evently’s <href="/acid">ACID</a> event storage gives you confidence to store all your business events with no data loss, forever.
+        icon: <i class="fas fa-database"></i>
 ---
 
-<div class="bg-darkBG p-2 lg:p-5">
-    <h1><em>Coming Soon...</em></h1>
-    <p>
-    Event sourcing has never been easier! Evently brings simplicity and ease-of-use to event-sourced applications with
-    refreshing new concepts and features. When Evently becomes available, we can let you know. Submit this form and
-    <em>get ready to hydrate!</em>
+<div class="flex md:my-44 gap-10">
+    <div class="md:w-1/2">
+        <h1 class="text-7xl">Event Sourcing for Everyone</h1>
+        <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API. Simply <a href="#signup-form-container">request your access key</a> to get started!</div>
+    </div>
+    <div class="md:w-1/2">
+        <img class="m-auto" src="assets/event-storming-anim-placeholder.png"/>
+    </div>
 </div>
 
-{% include 'partials/newsletter-form.njk' %}
-{# {% include 'partials/signup-form.njk' %} #}
+{% include 'partials/signup-form.njk' %}

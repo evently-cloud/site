@@ -2,13 +2,18 @@
 {%- for extraLink in extraNav %}
     {% set navPages = (navPages.push(extraLink), navPages) %}
 {%- endfor %}
-{# <script>console.log('navPages',{{navPages | dump | safe}});</script> #}
 {%- for entry in navPages %}
     <a
         href="{{ entry.url | url }}"
-        class="btn {% if entry.url == page.url %} active {% endif %}"
+        class="{% if entry.url == page.url %} active {% endif %}"
         {% if entry.clickFunc %} @click="{{ entry.clickFunc }}" {% endif %}
     >
         {{ entry.title }}
     </a>
 {%- endfor %}
+<div class="flex gap-4 ml-auto">
+    {% include "partials/social-links.njk" %}
+</div>
+<a class="btn block text-center" @click="signupFormOpen = !signupFormOpen" {% shinyAJSFunc %} href="#signup-form-container">
+    <span>Signup</span>
+</a>

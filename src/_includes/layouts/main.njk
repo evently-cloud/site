@@ -34,7 +34,7 @@ logo: logo-4
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     </head>
-    <body>
+    <body x-data="{ signupFormOpen: false }" >
         {% if wip %}
             <div class="overflow-hidden absolute transform -rotate-45 bg-gray-300 text-gray-600 top-9 z-0 left-12 text-sm w-56 -translate-x-1/2 p-x text-center origin-center" style="z-index: -10;">Work in Progress</div>
         {% endif %}
