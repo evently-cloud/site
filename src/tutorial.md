@@ -275,7 +275,7 @@ registered account.account-created
 
 ### Create a Unique Account
 
-Now you want to create a new account for your user, Mike Meyers. Your business rules require that an account name cannot be used for more than one account, so a filter selector can check to see if an account named `mike_meyers@example.com` already exists.
+Now you want to create a new account for your user, Mike Meyers. Your business rules require that an account’s `username` cannot be used for more than one account, so a filter selector can check to see if an account with username `mikemeyers` already exists.
 
 ```shell
 curl -L https://preview.evently.cloud/selectors/filter \
@@ -283,10 +283,10 @@ curl -L https://preview.evently.cloud/selectors/filter \
   -H "Content-Type: application/json" \
   -d '{"data":{
         "account":{
-          "account-created":"$.name ? (@==\"mike_meyers@example.com\")"}}}'
+          "account-created":"$.username ? (@==\"mikemeyers\")"}}}'
 ```
 
-The filter selector looks inside every event for a match in `meta` and/or `data`. In this example, it filters on `data` values. The first key is the entity name `account` and the keys inside `account` are event names. Each event name key has a [SQL JSONPath](sql-json-path) query statement that is applied to every `account.account-created` event, and matching events come back in the selector result. If you are familiar with JSONPath dialects, then Evently’s SQL JSONPath should be straightforward to pick up.
+The filter selector looks inside every event for a match in the `data` event field. The first key in the query is the entity name `account` and the keys inside `account` are event names. Each event name key has a [SQL JSONPath](sql-jsonpath) query statement that is applied to every `account.account-created` event, and matching events come back in the selector result. If you are familiar with JSONPath dialects, then Evently’s SQL JSONPath should be straightforward to pick up.
 
 This statement returns an empty selector, or a result with only a footer object:
 
@@ -294,7 +294,7 @@ This statement returns an empty selector, or a result with only a footer object:
 {"selectorId":"gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik","mark":"0000000000000000bee3f960","_links":{"start":{"href":"/selectors/filter/gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik.ndjson"},"current":{"href":"/selectors/filter/gqFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIimhYcQMAAAAAAAAAAC-4_lg.ndjson"}}}
 ```
 
-Now that you know the event to create Mike Meyer’s account will be unique, append the event using the footer’s `selectorId` and `mark` values as an append conditional. The `key` value must be a unique value, and is usually a business-relevant key:
+Now that you know the event to create Mike Meyer’s username will be unique, append the event using the footer’s `selectorId` and `mark` values as an append conditional. The `key` value must be a unique value, and is usually a business-relevant key:
 
 ```shell
 curl https://preview.evently.cloud/append/selector \
@@ -304,7 +304,7 @@ curl https://preview.evently.cloud/append/selector \
        "event":"account-created",
        "key":"wqeuru4594",
        "meta":{},
-       "data":{"name":"mike_meyers@example.com"},
+       "data":{"username":"mikemeyers"},
        "selector": {
          "selectorId":"<your-selectorId>",
          "mark":"<your-mark>"}}}'
@@ -332,7 +332,7 @@ Now, to show that Evently is only appending an event if the supplied selector is
 
 ### Associate Thermostat to Account
 
-In your business model, thermostats can only be associated to a single account. Your thermostat owner has an account in your system with a key, say `mike_meyers@example.com`. To satisfy this business requirement, your application should look for an `associated-to-account` event in the thermostat’s entity log.
+In your business model, thermostats can only be associated to a single account. To satisfy this business requirement, your application should look for an `associated-to-account` event in the thermostat’s entity log.
 
 ```shell
 curl -L https://preview.evently.cloud/selectors/replay \
@@ -360,7 +360,7 @@ This should return an empty selector, with just the selector footer object:
 }
 ```
 
-Now that you know this thermostat has no `associated-to-account` events, use the `selectorId` and `mark` to conditionally append the event. You find these values in the selector footer you just fetched above.
+Now that you know this thermostat has no `associated-to-account` events, use the `selectorId` and `mark` to conditionally append the new event. You find these values in the selector footer you just fetched above. The thermostat’s owner `mikemeyers` has an account with the key `wqeuru4594`. Your event stores this association in an `account-key` field in the `data` field.
 
 ```shell
 curl https://preview.evently.cloud/append/selector \
@@ -387,7 +387,7 @@ You will get back a success message:
 }
 ```
 
-Now, to show that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see an error result:
+To verify that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see an error result:
 
 ```json
 {
