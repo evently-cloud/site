@@ -20,8 +20,8 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('assets/*.png');
     eleventyConfig.addPassthroughCopy('assets/*.jpg');
     eleventyConfig.addPassthroughCopy('assets/*.ico');
-    eleventyConfig.addWatchTarget('assets/particlesjs.json');
-    eleventyConfig.addPassthroughCopy('assets/particlesjs.json');
+    eleventyConfig.addWatchTarget('assets/*.json');
+    eleventyConfig.addPassthroughCopy('assets/*.json');
     eleventyConfig.addPassthroughCopy('src/css/svg-noise.svg');
 
     eleventyConfig.addShortcode('shinyAJSFunc', function () {
@@ -30,7 +30,7 @@ module.exports = function (eleventyConfig) {
 
     // If being deployed (build rather than start), minify everything
     eleventyConfig.addTransform('htmlmin', function (content, outputPath) {
-        if (process.env.ELEVENTY_PRODUCTION && outputPath && outputPath.endsWith('.html')) {
+        if (process.env.ELEVENTY_PRODUCTION == true && outputPath && outputPath.endsWith('.html')) {
             let minified = htmlmin.minify(content, {
                 useShortDoctype: true,
                 removeComments: true,
@@ -51,7 +51,7 @@ module.exports = function (eleventyConfig) {
             parentHTML += `<a href='${parent.url}'>${parent.key}</a>`;
             // Add children list, if any
             if (parent.children.length > 0) {
-                var childHTML = '<ul x-show="open" x-collapse>'; //
+                var childHTML = '<ul x-show="open" x-collapse x-cloak>'; //
                 parent.children.forEach(child => {
                     childHTML += `<li><a href='${child.url}'>${child.key}</a></li>`;
                 });
@@ -63,6 +63,17 @@ module.exports = function (eleventyConfig) {
         });
         navHTML += '</ul>';
         return navHTML;
+    });
+
+    eleventyConfig.addFilter('mdChanges', function (content) {
+        var changedContent = '';
+        // Handle superscript
+        changedContent = content.replace(/\^\S+\^/g, function (match) {
+            var superStr = match.match(/(?<=\^)\S+(?=\^)/g);
+            return `<sup>${superStr}</sup>`;
+        });
+
+        return changedContent;
     });
 
     return {

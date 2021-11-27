@@ -157,3 +157,69 @@ nav > ul li > ul {
 li a {
     @apply block w-full p-2 hover:bg-button; /* debug: bg-blue-500 */
 }
+
+/**************************************************************** Markdown-specific  */
+.md {
+    /* NB this is applied to <main> */
+    @apply max-w-5xl bg-darkBG;
+}
+
+.md h1 {
+    @apply mt-20 mb-5;
+}
+
+.md h2 {
+    @apply mt-16 mb-5;
+}
+
+.md h3 {
+    @apply mt-5;
+}
+
+.md h4 {
+    @apply text-2xl mt-6 mb-0;
+}
+
+.md p {
+    @apply my-2;
+}
+
+.md a {
+    @apply contents p-0;
+}
+
+.md ol {
+    @apply list-decimal ml-5;
+}
+
+.md ul {
+    @apply list-disc ml-5;
+}
+
+.md code {
+    @apply text-button text-base;
+}
+
+.md code[class*='language-'],
+.md pre[class*='language-'] {
+    @apply text-base;
+}
+
+.md table,
+.md td,
+.md th {
+    @apply border border-darkBase border-collapse;
+}
+
+.md table {
+    @apply m-3;
+}
+
+.md th {
+    @apply font-extrabold;
+}
+
+.md td,
+.md th {
+    @apply p-2;
+}
