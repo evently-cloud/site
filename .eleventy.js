@@ -41,6 +41,30 @@ module.exports = function (eleventyConfig) {
         return content;
     });
 
+    eleventyConfig.addFilter('alpineNav', function (navData) {
+        // Prepare overarching unordered list element
+        var navHTML = '<ul>';
+        navData.forEach(parent => {
+            // Prepare empty list item for parent menu
+            var parentHTML = '<li x-data="{open: false}" @pointerenter="open = true" @pointerleave="open = false">';
+            // Add parent link
+            parentHTML += `<a href='${parent.url}'>${parent.key}</a>`;
+            // Add children list, if any
+            if (parent.children.length > 0) {
+                var childHTML = '<ul x-show="open" x-collapse>'; //
+                parent.children.forEach(child => {
+                    childHTML += `<li><a href='${child.url}'>${child.key}</a></li>`;
+                });
+                childHTML += '</ul>';
+                parentHTML += childHTML;
+            }
+            parentHTML += '</li>';
+            navHTML += parentHTML;
+        });
+        navHTML += '</ul>';
+        return navHTML;
+    });
+
     return {
         dir: {
             input: 'src',

@@ -1,16 +1,16 @@
-{% set navPages = collections.all | eleventyNavigation %}
-{%- for extraLink in extraNav %}
-    {% set navPages = (navPages.push(extraLink), navPages) %}
-{%- endfor %}
+{# {% set navPages = collections.all | eleventyNavigation %}
 {%- for entry in navPages %}
     <a
         href="{{ entry.url | url }}"
         class="{% if entry.url == page.url %} active {% endif %}"
-        {% if entry.clickFunc %} @click="{{ entry.clickFunc }}" {% endif %}
     >
         {{ entry.title }}
     </a>
-{%- endfor %}
+{%- endfor %} #}
+
+{# <nav>{{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}</nav> #}
+<nav>{{ collections.all | eleventyNavigation | alpineNav | safe }}</nav>
+
 <div class="flex gap-6 md:gap-4 md:my-0 md:ml-auto">
     {% include "partials/social-links.njk" %}
 </div>

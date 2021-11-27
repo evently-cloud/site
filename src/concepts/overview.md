@@ -1,7 +1,10 @@
 ---
 layout: body
 eleventyNavigation:
-    key: Concepts
+    key: Overview
+    parent: Concepts
+    order: 1
+permalink: concepts/overview/
 ---
 
 # Evently Concepts

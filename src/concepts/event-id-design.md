@@ -2,6 +2,9 @@
 layout: body
 eleventyNavigation:
     key: Event ID Design
+    parent: Concepts
+    order: 3
+permalink: concepts/event-id-design/
 ---
 
 # Event ID

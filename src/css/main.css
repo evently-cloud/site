@@ -9,7 +9,7 @@ html {
 }
 
 a {
-    @apply text-lightBase transition-all;
+    @apply text-lightBase transition-all hover:text-lightHighlight;
 }
 
 body {
@@ -32,7 +32,7 @@ h6 {
 
 h1,
 h1 em {
-    @apply lg:text-6xl text-5xl my-4 text-gradient;
+    @apply lg:text-6xl text-5xl my-4 text-gradient w-fit;
 }
 
 h2 {
@@ -130,4 +130,30 @@ textarea {
 
 .zf-submitColor {
     @apply btn m-auto block;
+}
+
+/**************************************************************** Nav  */
+/* Parent container */
+nav > ul {
+    @apply flex gap-2 list-none absolute text-center;
+    top: 38px;
+}
+
+/* Parent menu */
+nav > ul > li {
+    @apply p-2 w-44 self-start transition duration-300 bg-darkBGHighlight2 hover:bg-darkBase; /* debug: bg-red-600 */
+}
+
+nav > ul > li > a {
+    @apply hover:bg-transparent;
+}
+
+/* Child menu */
+nav > ul li > ul {
+    @apply p-2; /* debug: bg-green-500 */
+}
+
+/* Child menu items */
+li a {
+    @apply block w-full p-2 hover:bg-button; /* debug: bg-blue-500 */
 }

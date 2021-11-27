@@ -2,6 +2,9 @@
 layout: body
 eleventyNavigation:
     key: ACID
+    parent: Concepts
+    order: 2
+permalink: concepts/acid/
 ---
 
 # ACID for Event Ledgers

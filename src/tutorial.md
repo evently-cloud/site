@@ -2,6 +2,7 @@
 layout: body
 eleventyNavigation:
     key: Tutorial
+    order: 2
 ---
 
 # Smart Thermostat Tutorial
@@ -291,7 +292,18 @@ The filter selector looks inside every event for a match in the `data` event fie
 This statement returns an empty selector, or a result with only a footer object:
 
 ```json
-{"selectorId":"gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik","mark":"0000000000000000bee3f960","_links":{"start":{"href":"/selectors/filter/gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik.ndjson"},"current":{"href":"/selectors/filter/gqFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIimhYcQMAAAAAAAAAAC-4_lg.ndjson"}}}
+{
+    "selectorId": "gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik",
+    "mark": "0000000000000000bee3f960",
+    "_links": {
+        "start": {
+            "href": "/selectors/filter/gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik.ndjson"
+        },
+        "current": {
+            "href": "/selectors/filter/gqFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIimhYcQMAAAAAAAAAAC-4_lg.ndjson"
+        }
+    }
+}
 ```
 
 Now that you know the event to create Mike Meyer’s username will be unique, append the event using the footer’s `selectorId` and `mark` values as an append conditional. The `key` value must be a unique value, and is usually a business-relevant key:
