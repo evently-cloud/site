@@ -223,3 +223,13 @@ li a {
 .md th {
     @apply p-2;
 }
+
+/**************************************************************** Copy code button  */
+
+.md pre {
+    position: relative;
+}
+
+.md .copy-button {
+    @apply font-body text-base bg-darkBase text-lightBase absolute right-3 bottom-3 px-3 py-1 cursor-pointer;
+}
