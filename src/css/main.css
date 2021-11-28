@@ -135,13 +135,13 @@ textarea {
 /**************************************************************** Nav  */
 /* Parent container */
 nav > ul {
-    @apply flex gap-2 list-none absolute text-center;
+    @apply flex flex-col md:flex-row gap-2 list-none md:absolute text-center;
     top: 38px;
 }
 
 /* Parent menu */
 nav > ul > li {
-    @apply p-2 w-44 self-start transition duration-300 bg-darkBGHighlight2 hover:bg-darkBase; /* debug: bg-red-600 */
+    @apply p-2 w-52 md:w-44 self-start transition duration-300 bg-darkBase md:bg-darkBGHighlight2 hover:bg-darkBase text-left md:text-center; /* debug: bg-red-600 */
 }
 
 nav > ul > li > a {
@@ -153,9 +153,19 @@ nav > ul li > ul {
     @apply p-2; /* debug: bg-green-500 */
 }
 
-/* Child menu items */
+/* Menu items */
 li a {
-    @apply block w-full p-2 hover:bg-button; /* debug: bg-blue-500 */
+    @apply block w-full p-2 md:hover:bg-button; /* debug: bg-blue-500 */
+}
+
+/* Child menu items */
+nav > ul li > ul li a {
+    /* @apply bg-red-500; */
+}
+
+nav > ul li > ul li a:before {
+    content: '>';
+    @apply mr-3;
 }
 
 /**************************************************************** Markdown-specific  */
