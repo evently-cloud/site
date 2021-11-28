@@ -16,6 +16,7 @@ module.exports = {
                 darkBGHighlight1: '#092034',
                 darkBGHighlight2: '#0C2B45',
                 button: '#2C5197',
+                sidebar: '#FFE3C2',
             },
             fontFamily: {
                 heading: ['"Baloo 2"', 'cursive'],

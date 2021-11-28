@@ -67,11 +67,13 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.addFilter('mdChanges', function (content) {
         var changedContent = content;
+
         // Handle superscript
         changedContent = changedContent.replace(/\^\S+\^/g, function (match) {
             var superStr = match.match(/(?<=\^)\S+(?=\^)/g);
             return `<sup>${superStr}</sup>`;
         });
+
         // Add copy code button
         changedContent = changedContent.replace(/<pre/g, function (match) {
             return '<pre x-data=\'{code : "", hover: false, copyText: "Copy"}\' x-init=\'code = $refs.codeBlock.innerHTML.replace(/(<([^>]+)>)/gi, "")\' @pointerenter="hover = true" @pointerleave="hover = false; setTimeout(() => {copyText = \'Copy\'}, 300)"';
@@ -82,6 +84,11 @@ module.exports = function (eleventyConfig) {
         changedContent = changedContent.replace(/<\/pre>/g, function (match) {
             return "<div class='copy-button' x-show='hover' x-transition.duration.300ms @click='navigator.clipboard.writeText(code); copyText = \"Copied!\";'><span x-text='copyText'></span</div></pre>";
         });
+
+        // Handle sidebar content
+        changedContent = changedContent.replace(/::: sidebar/g, '<div class="sidebar">');
+        changedContent = changedContent.replace(/:::/g, '</div>');
+
         return changedContent;
     });
 

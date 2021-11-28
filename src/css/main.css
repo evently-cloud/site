@@ -254,3 +254,12 @@ body.md.dark-mode {
 .md main .copy-button {
     @apply font-body text-base bg-darkBase text-lightBase absolute right-3 bottom-3 px-3 py-1 cursor-pointer;
 }
+
+/**************************************************************** Sidebar  */
+.md .sidebar {
+    @apply bg-sidebar m-2 md:m-5 py-2 md:py-5 px-5 md:px-10;
+}
+
+.md.dark-mode .sidebar {
+    @apply bg-darkBGHighlight1;
+}
