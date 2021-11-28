@@ -34,7 +34,7 @@ logo: logo-4
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
     </head>
-    <body x-data="{ signupFormOpen: false }">
+    <body x-data="{ signupFormOpen: false, darkMode: false }" class="transition-all {% if markdownFile != false %} md {% endif %}" :class="darkMode && 'dark-mode'">
 
         {% if enableParticles == true %}
             {% set particleConfig = "'/assets/particlesjs.json'" %}

@@ -159,40 +159,51 @@ li a {
 }
 
 /**************************************************************** Markdown-specific  */
-.md {
-    /* NB this is applied to <main> */
-    @apply max-w-5xl bg-darkBG;
+body.md {
+    @apply bg-white;
 }
 
-.md h1 {
+.md main {
+    @apply max-w-5xl bg-white text-darkBG;
+}
+
+body.md.dark-mode {
+    @apply bg-darkBG;
+}
+
+.md.dark-mode main {
+    @apply bg-darkBG text-darkBase;
+}
+
+.md main h1 {
     @apply mt-20 mb-5;
 }
 
-.md h2 {
+.md main h2 {
     @apply mt-16 mb-5;
 }
 
-.md h3 {
+.md main h3 {
     @apply mt-5;
 }
 
-.md h4 {
+.md main h4 {
     @apply text-2xl mt-6 mb-0;
 }
 
-.md p {
+.md main p {
     @apply my-2;
 }
 
-.md a {
+.md main a {
     @apply contents p-0;
 }
 
-.md ol {
+.md main ol {
     @apply list-decimal ml-5;
 }
 
-.md ul {
+.md main ul {
     @apply list-disc ml-5;
 }
 
@@ -200,36 +211,36 @@ li a {
     @apply text-button text-base;
 }
 
-.md code[class*='language-'],
-.md pre[class*='language-'] {
+.md main code[class*='language-'],
+.md main pre[class*='language-'] {
     @apply text-base;
 }
 
-.md table,
-.md td,
-.md th {
+.md main table,
+.md main td,
+.md main th {
     @apply border border-darkBase border-collapse;
 }
 
-.md table {
+.md main table {
     @apply m-3;
 }
 
-.md th {
+.md main th {
     @apply font-extrabold;
 }
 
-.md td,
-.md th {
+.md main td,
+.md main th {
     @apply p-2;
 }
 
 /**************************************************************** Copy code button  */
 
-.md pre {
+.md main pre {
     position: relative;
 }
 
-.md .copy-button {
+.md main .copy-button {
     @apply font-body text-base bg-darkBase text-lightBase absolute right-3 bottom-3 px-3 py-1 cursor-pointer;
 }
