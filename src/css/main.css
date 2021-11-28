@@ -163,9 +163,16 @@ nav > ul li > ul li a {
     /* @apply bg-red-500; */
 }
 
+/* Make child items cleaerer on mobile (as there is no hover effect or dropdown) */
 nav > ul li > ul li a:before {
     content: '>';
-    @apply mr-3;
+    @apply mr-3 md:mr-0;
+}
+
+@media (min-width: 768px) {
+    nav > ul li > ul li a:before {
+        content: '';
+    }
 }
 
 /**************************************************************** Markdown-specific  */
