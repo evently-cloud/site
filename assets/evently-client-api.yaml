@@ -1,0 +1,341 @@
+openapi: 3.1.0
+info:
+  title: Evently.cloud Preview
+  version: '1.0'
+  summary: 'API for Evently preview clients to use to register new event types, append events and select existing events.'
+  description: This API expresses capabilities using Level 3 REST profiles and patterns.
+  contact:
+    name: Preview Support
+    url: 'https://evently.cloud/preview'
+    email: preview@evently.cloud
+  termsOfService: 'https://evently.cloud/preview'
+servers:
+  - url: 'https://preview.evently.cloud'
+paths:
+  /registry/register-event:
+    get:
+      summary: Event Registration Form
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+                  - '<https://level3.rest/patterns/list#add-entry-resource>'
+            Link:
+              schema:
+                default:
+                  - '</registry/entities>; rel="https://level3.rest/patterns/list/editable#adds-to-list"'
+                type: array
+      operationId: get-register-event
+      description: 'Form to register an entity event. GET the schema, create a JSON object with it and POST it back this endpoint.'
+      security:
+        - opaque-token: []
+    parameters: []
+    post:
+      summary: Register an Event
+      operationId: post-register-event
+      responses:
+        '201':
+          description: Created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  type: string
+                  maxLength: 80
+                  pattern: '^[^\x00-\x1F\x80-\x9F]+$'
+                event:
+                  type: string
+                  maxLength: 80
+                  pattern: '^[^\x00-\x1F\x80-\x9F]+$'
+              required:
+                - entity
+                - event
+            examples:
+              register-event:
+                value:
+                  entity: account
+                  event: account-created
+      description: Accepts a form object to register a new Entity Event type.
+      security:
+        - opaque-token: []
+  /registry/entities:
+    get:
+      summary: Entities with Registered Events
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/home>'
+                  - '<https://level3.rest/patterns/list#list-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-registry-entities
+      description: Get links to entities that have registered events.
+      security:
+        - opaque-token: []
+  '/registry/entities/{entity}':
+    get:
+      summary: An Entity's Events
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/home>'
+                  - '<https://level3.rest/patterns/list#list-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-registry-entity
+      description: Get links to events registered to an entity.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: entity
+        in: path
+        required: true
+        description: entity name
+  '/registry/entities/{entity}/{event}':
+    get:
+      summary: An Entity Event
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/data>'
+                  - '<https://level3.rest/patterns/list#entry-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-registered-entity-event
+      description: Get a registered entity event.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: entity
+        in: path
+        required: true
+        description: entity name
+      - schema:
+          type: string
+        name: event
+        in: path
+        required: true
+        description: event name
+    delete:
+      summary: Delete Entity Event
+      operationId: delete-registered-entity-event
+      responses:
+        '204':
+          description: No Content
+      description: Deletes this entity event registration. Only succeeds if no events of this type have been appended to the ledger.
+      security:
+        - opaque-token: []
+  /ledgers/reset:
+    get:
+      summary: Reset Ledger Form
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+      operationId: get-ledgers-reset
+      description: Create a ledger reset request with this form schema and POST it back.
+    post:
+      summary: Reset Ledger
+      operationId: post-ledgers-reset
+      responses:
+        '204':
+          description: No Content
+      security:
+        - opaque-token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                after:
+                  type: string
+                  pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
+            examples:
+              reset-all:
+                value: {}
+              reset-after:
+                value:
+                  after: 0005c7f976b819003a78cb08
+        description: 'To reset the entire ledger, send an empty JSON object ''{}''. To reset after a ledger mark or an event ID, send an object with an ''after'' property containing the mark/event ID.'
+      description: 'Reset the ledger to remove events, either completely or after a specific point.'
+  /ledgers/download:
+    get:
+      summary: Download Ledger Form
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+      operationId: get-ledger-download-form
+      description: Download the entire ledger or the ledger after a specified ledger mark / event ID.
+    post:
+      summary: Download Ledger
+      operationId: post-ledgers-download
+      responses:
+        '200':
+          description: OK
+          headers:
+            Preference-Applied:
+              schema:
+                type: string
+                enum:
+                  - return=representation
+              description: 'If the Prefer header was sent with the request, this will hold the Preference that was applied.'
+            Content-Location:
+              schema:
+                type: string
+                format: uri
+              description: The URL of the download ledger resource.
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/info>'
+                  - '<https://level3.rest/profiles/entity>'
+            Link:
+              schema:
+                default:
+                  - '</ledgers/download/{start-info}>; rel="start"'
+                  - '</ledgers/download/{current-info}>; rel="current"'
+                  - '</ledgers/download>; rel="https://level3.rest/profiles/lookup"'
+                type: array
+          content:
+            application/x-ndjson:
+              schema:
+                type: any
+        '303':
+          description: See Other
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: The URI of the download ledger resource that fulfills the POST form's specification.
+      security:
+        - opaque-token: []
+      description: Submit form to download ledger.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                after:
+                  type: string
+                  pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
+            examples:
+              download-all:
+                value: {}
+              download-after:
+                value:
+                  after: 0005c7f976b819003a78cb08
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - return=representation
+          in: header
+          name: Prefer
+          description: Tells the download resource to send the ledger in response to the POST request instead of sending a redirect to the download URL.
+  '/ledgers/download/{download-info}':
+    get:
+      summary: Download Ledger
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/info>'
+                  - '<https://level3.rest/profiles/entity>'
+            Link:
+              schema:
+                default:
+                  - '</ledgers/download/{start-info}>; rel="start"'
+                  - '</ledgers/download/{current-info}>; rel="current"'
+                  - '</ledgers/download>; rel="https://level3.rest/profiles/lookup"'
+                type: array
+          content:
+            application/x-ndjson:
+              schema:
+                type: any
+      operationId: get-ledger-download-data
+      description: Download the ledger as configured by a download ledger form.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: download-info
+        in: path
+        required: true
+components:
+  schemas: {}
+  securitySchemes:
+    opaque-token:
+      type: http
+      scheme: bearer
