@@ -287,7 +287,7 @@ curl -L https://preview.evently.cloud/selectors/filter \
           "account-created":"$.username ? (@==\"mikemeyers\")"}}}'
 ```
 
-The filter selector looks inside every event for a match in the `data` event field. The first key in the query is the entity name `account` and the keys inside `account` are event names. Each event name key has a [SQL JSONPath](sql-jsonpath) query statement that is applied to every `account.account-created` event, and matching events come back in the selector result. If you are familiar with JSONPath dialects, then Evently’s SQL JSONPath should be straightforward to pick up.
+The filter selector looks inside every event for a match in the `data` event field. The first key in the query is the entity name `account` and the keys inside `account` are event names. Each event name key has a [SQL JSONPath](concepts/sql-jsonpath) query statement that is applied to every `account.account-created` event, and matching events come back in the selector result. If you are familiar with JSONPath dialects, then Evently’s SQL JSONPath should be straightforward to pick up.
 
 This statement returns an empty selector, or a result with only a footer object:
 

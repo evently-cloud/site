@@ -74,7 +74,7 @@ A replay selector scopes to a single entity type, but can include more than one 
 
 #### Filter Selectors
 
-The filter selector matches events by their meta and data values. They use SQL JSON Path statements to find events that match the event’s `data` and `meta` fields.
+The filter selector matches events by their meta and data values. They use [SQL JSONPath](sql-jsonpath) statements to find events that match the event’s `data` and `meta` fields.
 
 ```json
 {
