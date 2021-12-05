@@ -158,7 +158,7 @@ nav > ul li > ul {
 }
 
 /* Menu items */
-li a {
+nav li a {
     @apply block w-full p-2 md:hover:bg-button; /* debug: bg-blue-500 */
 }
 
