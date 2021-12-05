@@ -14,15 +14,12 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addWatchTarget('./_tmp/main.css');
     eleventyConfig.addPassthroughCopy({ './_tmp/main.css': './css/main.css' });
     eleventyConfig.addPassthroughCopy('src/css/prism.css');
-    eleventyConfig.addWatchTarget('src/css/eclipse.css');
-    eleventyConfig.addPassthroughCopy('src/css/eclipse.css');
     eleventyConfig.addPassthroughCopy('src/preview-signup');
     eleventyConfig.addPassthroughCopy('assets/*.png');
     eleventyConfig.addPassthroughCopy('assets/*.jpg');
     eleventyConfig.addPassthroughCopy('assets/*.ico');
     eleventyConfig.addWatchTarget('assets/*.json');
     eleventyConfig.addPassthroughCopy('assets/*.json');
-    eleventyConfig.addPassthroughCopy('src/css/svg-noise.svg');
 
     eleventyConfig.addShortcode('shinyAJSFunc', function () {
         return "@mousemove=\"$el.style.setProperty('--x', $event.clientX - $el.getBoundingClientRect().x);$el.style.setProperty('--y', $event.clientY - $el.getBoundingClientRect().y)\"";
