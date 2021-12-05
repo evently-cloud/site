@@ -17,7 +17,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('src/preview-signup');
     eleventyConfig.addPassthroughCopy('assets/*.png');
     eleventyConfig.addPassthroughCopy('assets/*.jpg');
-    eleventyConfig.addPassthroughCopy('assets/*.ico');
+    eleventyConfig.addPassthroughCopy({ 'assets/favicon.ico': '/favicon.ico' });
     eleventyConfig.addWatchTarget('assets/*.json');
     eleventyConfig.addPassthroughCopy('assets/*.json');
 
@@ -48,7 +48,7 @@ module.exports = function (eleventyConfig) {
             parentHTML += `<a href='${parent.url}'>${parent.key}</a>`;
             // Add children list, if any
             if (parent.children.length > 0) {
-                var childHTML = '<ul x-show="open" x-collapse x-cloak>'; //
+                var childHTML = '<ul x-show="open" x-cloak x-collapse>'; //
                 parent.children.forEach(child => {
                     childHTML += `<li><a href='${child.url}'>${child.key}</a></li>`;
                 });

@@ -55,6 +55,10 @@ h5 {
     width: fit-content;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 /**************************************************************** Button  */
 
 .btn {
