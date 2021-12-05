@@ -66,14 +66,14 @@ The Evently Registry contains a listing of all the entity events available in to
 curl https://preview.evently.cloud/registry/register-event \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "event":"temperature-recorded"}'
+  -d "{\"entity\":\"thermostat\",
+       \"event\":\"temperature-recorded\"}"
 ```
 
 This returns a success message:
 
 ```
-registered thermostat.temperature-recorded
+registered thermostat/temperature-recorded
 ```
 
 To see what event types have been registered, read the `registry/entities` resource. Your access token gains you access to your own entities:
@@ -147,11 +147,11 @@ Send this request in your terminal:
 curl https://preview.evently.cloud/append/fact \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "event":"temperature-recorded",
-       "key":"thermostat1",
-       "meta":{"causation":"1"},
-       "data":{"celsius":18.5}}'
+  -d "{\"entity\":\"thermostat\",
+       \"event\":\"temperature-recorded\",
+       \"key\":\"thermostat1\",
+       \"meta\":{\"causation\":\"14rew3494\"},
+       \"data\":{\"celsius\":18.5}}"
 ```
 
 This request returns a success result:
@@ -175,9 +175,9 @@ Now that we have persisted an event, we will replay that entity’s events and f
 curl -L https://preview.evently.cloud/selectors/replay \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "events":["temperature-recorded"],
-       "keys":["thermostat1"]}'
+  -d "{\"entity\":\"thermostat\",
+       \"events\":[\"temperature-recorded\"],
+       \"keys\":[\"thermostat1\"]}"
 ```
 
 This request will replay all of the `temperature-recorded` events for entity `thermostat` with entity key `thermostat1`. The response is a stream of newline-delimited JSON, followed by a footer line.
@@ -211,10 +211,10 @@ Temperature events may be appended at any time, so an application can ask Eventl
 curl -L https://preview.evently.cloud/selectors/replay \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "events":["temperature-recorded"],
-       "keys":["thermostat1"],
-       "after":"<your-mark-or-eventId-here"}'
+  -d "{\"entity\":\"thermostat\",
+       \"events\":[\"temperature-recorded\"],
+       \"keys\":[\"thermostat1\"],
+       \"after\":\"<your-mark-or-eventId-here\"}"
 ```
 
 The result is:
@@ -248,14 +248,14 @@ First, register this new event type in the Event Registry:
 curl https://preview.evently.cloud/registry/register-event \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "event":"associated-to-account"}'
+  -d "{\"entity\":\"thermostat\",
+       \"event\":\"associated-to-account\"}"
 ```
 
 This returns a success message:
 
 ```
-registered thermostat.temperature-recorded
+registered thermostat/temperature-recorded
 ```
 
 We also need to create an account entity with a creation event:
@@ -264,14 +264,14 @@ We also need to create an account entity with a creation event:
 curl https://preview.evently.cloud/registry/register-event \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"account",
-       "event":"account-created"}'
+  -d "{\"entity\":\"account\",
+       \"event\":\"account-created\"}"
 ```
 
 This returns a success message:
 
 ```
-registered account.account-created
+registered account/account-created
 ```
 
 ### Create a Unique Account
@@ -282,9 +282,9 @@ Now you want to create a new account for your user, Mike Meyers. Your business r
 curl -L https://preview.evently.cloud/selectors/filter \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"data":{
-        "account":{
-          "account-created":"$.username ? (@==\"mikemeyers\")"}}}'
+  -d "{\"data\":{
+        \"account\":{
+          \"account-created\":\"\$.username ? (@==\\\"mikemeyers\\\")\"}}}"
 ```
 
 The filter selector looks inside every event for a match in the `data` event field. The first key in the query is the entity name `account` and the keys inside `account` are event names. Each event name key has a [SQL JSONPath](concepts/sql-jsonpath) query statement that is applied to every `account.account-created` event, and matching events come back in the selector result. If you are familiar with JSONPath dialects, then Evently’s SQL JSONPath should be straightforward to pick up.
@@ -312,14 +312,14 @@ Now that you know the event to create Mike Meyer’s username will be unique, ap
 curl https://preview.evently.cloud/append/selector \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"account",
-       "event":"account-created",
-       "key":"wqeuru4594",
-       "meta":{},
-       "data":{"username":"mikemeyers"},
-       "selector": {
-         "selectorId":"<your-selectorId>",
-         "mark":"<your-mark>"}}}'
+  -d "{\"entity\":\"account\",
+       \"event\":\"account-created\",
+       \"key\":\"wqeuru4594\",
+       \"meta\":{},
+       \"data\":{\"username\":\"mikemeyers\"},
+       \"selector\":{
+         \"selectorId\":\"<your-selectorId>\",
+         \"mark\":\"<your-mark>\"}}}"
 ```
 
 You will get back a success message:
@@ -350,9 +350,9 @@ In your business model, thermostats can only be associated to a single account. 
 curl -L https://preview.evently.cloud/selectors/replay \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "events":["associated-to-account"],
-       "keys":["thermostat1"]}'
+  -d "{\"entity\":\"thermostat\",
+       \"events\":[\"associated-to-account\"],
+       \"keys\":[\"thermostat1\"]}"
 ```
 
 This should return an empty selector, with just the selector footer object:
@@ -378,14 +378,14 @@ Now that you know this thermostat has no `associated-to-account` events, use the
 curl https://preview.evently.cloud/append/selector \
   -H "Authorization: Bearer <your-token-here>" \
   -H "Content-Type: application/json" \
-  -d '{"entity":"thermostat",
-       "event":"associated-to-account",
-       "key":"thermostat1",
-       "meta":{},
-       "data":{"account-key":"wqeuru4594"},
-       "selector": {
-         "selectorId":"<your-selectorId>",
-         "mark":"<your-mark>"}}}'
+  -d "{\"entity\":\"thermostat\",
+       \"event\":\"associated-to-account\",
+       \"key\":\"thermostat1\",
+       \"meta\":{},
+       \"data\":{\"account-key\":\"wqeuru4594\"},
+       \"selector\": {
+         \"selectorId\":\"<your-selectorId>\",
+         \"mark\":\"<your-mark>\"}}}"
 ```
 
 You will get back a success message:

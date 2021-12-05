@@ -7,10 +7,10 @@ eleventyNavigation:
 permalink: concepts/sql-jsonpath/
 ---
 
-# SQL JSONPath
+# SQL JSONPath for Filter Selectors
 SQL JSONPath, defined in the SQL2016 specification, takes much of its design from [JSONPath](https://goessner.net), created by Stefan Goessner. Stefan’s goal was to create a JSON version of XPath, an XML processing tool. SQL JSONPath has a smaller set of requirements mostly focused on finding and extracting data from JSON data columns. To this end, the expression language has been simplified from JSONPath to take advantage of database indexes. Additionally, the expressions have been reorganized to provide a more query-oriented experience.
 
-Evently’s use case for JSONPath aligns with SQL databases, and the filter selector query language has adopted it accordingly. Filter selectors are quite performant due to Evently’s internal indexing. Evently does not allow the editing of existing events so no data modification features are needed from the JSONPath language. 
+Evently’s use case for JSONPath aligns with SQL databases, and the filter selector query language uses SQL JSONPath to find ledger events that match queries in their meta and data fields. Evently does not allow the editing of existing events so no data modification features are needed from earlier JSONPath syntaxes. 
 
 ### Expressions
 
