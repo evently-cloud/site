@@ -4,13 +4,14 @@ Evently.cloud web site
 
 ## Modifying Navigation
 
-To add a page to the navigation menu:
+### To add a page to the navigation menu:
 
 1. Add `eleventyNavigation:` to front matter
 2. Add ` key:` and the nav name that should appear in the menu
 3. Add ` order:` and the position which it should appear in the menu. Without this, order defaults to 0, then alphabetical
 
-To create a submenu (this explains how to create a submenu named "Things"):
+### To create a submenu 
+As an example, this would be how to create a submenu named "Things":
 
 1. Create a new folder in the src folder with the same name as the submenu but in lowercase - in this case it would be "things"
 2. Create a .md file in the concepts folder, also named "things"
