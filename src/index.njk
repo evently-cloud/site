@@ -20,17 +20,17 @@ featureTiles:
         icon: <i class="fas fa-exchange"></i>
 ---
 
-<div class="flex flex-col md:flex-row gap-10 mb-20 md:my-44 items-center">
-    <div class="md:w-1/2 my-10 md:my-0">
-        <h1 class="text-6xl md:text-7xl text-center md:text-left my-10">Event Sourcing for Everyone</h1>
+<div class="flex flex-col md:flex-row gap-10 mb-20 md:my-44 items-center text-center">
+    <div class="md:w-1/2 my-10 md:my-0 mx-auto">
+        <h1 class="text-6xl md:text-7xl text-center md:text-center my-10">Event Sourcing for Everyone</h1>
         <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API.</div>
         <a class="btn m-auto block mt-10 w-2/3 text-center" @click="signupFormOpen = true; $refs.signup.scrollIntoView()" {% shinyAJSFunc %} >
             <span>Request your access key to get started!</span>
         </a>
     </div>
-    <div class="md:w-1/2">
+    {# <div class="md:w-1/2">
         <img class="m-auto" src="assets/event-storming-anim-placeholder.png"/>
-    </div>
+    </div> #}
 </div>
 
 <div class="flex flex-wrap justify-center">

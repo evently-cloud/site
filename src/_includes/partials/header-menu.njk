@@ -14,9 +14,11 @@
 <nav class="block md:hidden">{{ collections.all | eleventyNavigation | eleventyNavigationToHtml | safe }}</nav>
 
 <div class="flex gap-6 md:gap-4 md:my-0 md:ml-auto items-center">
-    <a @click="darkMode = !darkMode" class="cursor-pointer">
-        <i class="text-3xl" :class="darkMode ? 'fa-moon fad' : 'fa-sun fas'"></i>
-    </a>
+    {% if markdownFile %}
+        <a @click="darkMode = !darkMode" class="cursor-pointer">
+            <i class="text-3xl" :class="darkMode ? 'fa-moon fad' : 'fa-sun fas'"></i>
+        </a>
+    {% endif %}
     {% include "partials/social-links.njk" %}
 </div>
 <a href="/#signup-form-container" class="btn block text-center" @click="signupFormOpen = true; $refs.signup.scrollIntoView()" {% shinyAJSFunc %}>
