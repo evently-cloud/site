@@ -1,0 +1,22 @@
+---
+layout: body
+eleventyNavigation:
+    key: API
+    order: 4
+apiDocs: true
+markdownFile: false
+---
+<div id="redoc-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
+<script>
+    Redoc.init('/assets/evently-client-api.yaml', {
+        theme: {
+            typography: {
+                fontFamily: "Assistant",
+                headings: {
+                    fontFamily: "Baloo 2"
+                }
+            }
+        }
+    }, document.getElementById('redoc-container'))
+</script>

@@ -286,3 +286,16 @@ body.md.dark-mode {
 .md.dark-mode .sidebar {
     @apply bg-darkBGHighlight1;
 }
+
+/**************************************************************** API Docs  */
+.api-docs {
+    @apply bg-white;
+}
+
+.api-docs .menu-content {
+    @apply bg-gray-100;
+}
+
+.api-docs .menu-content label {
+    @apply bg-transparent hover:bg-gray-200;
+}

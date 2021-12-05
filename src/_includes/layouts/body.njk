@@ -2,8 +2,8 @@
 layout: header
 ---
 
-<main class="w-full px-4 mt-2 lg:mt-14">
-    <div id="content-container" class="max-w-7xl mx-auto">
+<main class="w-full mt-2 lg:mt-14 {% if apiDocs == false %} px-4 {% endif %}">
+    <div id="content-container" class="mx-auto {% if apiDocs == false %} max-w-7xl {% else %} api-docs {% endif %}">
         {% block content %}
             {% if markdownFile != false %}
                 {{ content | mdChanges | safe }}
