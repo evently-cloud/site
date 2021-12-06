@@ -191,17 +191,41 @@ This request will replay all of the `temperature-recorded` events for entity `th
 
 The body’s first line has the single event appended for this entity. The JSON in this line contains the event details, eventId and the server’s append timestamp.
 
-The second body line has the selector footer information. It contains a `selectorId` which identifies the declared selector. In this example, it represents the object we sent in with the `/selectors/replay` request, which was:
-
 ```json
 {
-    "entity": "thermostat",
-    "events": ["temperature-recorded"],
-    "keys": ["thermostat1"]
+  "entity": "thermostat",
+  "key": "thermostat1",
+  "event": "temperature-recorded",
+  "eventId": "0005d0df8d1e990f13658533a0f8f294",
+  "timestamp": "2021-11-16T03:30:47.430415Z",
+  "meta": {
+    "causation": "1"
+  },
+  "data": {
+    "celsius": 18.5
+  }
 }
 ```
 
-The second footer value, `mark`, is a ledger mark and it points to a place in the ledger that this selector has read to.
+The second body line has the selector footer information. Reformatted, the footer looks like this:
+
+```json
+{
+  "selectorId": "g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ",
+  "mark": "0005d0df8d1e990fa0f8f294",
+  "_links": {
+    "start": {
+      "href": "/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"
+    },
+    "current": {
+      "href": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"
+    }
+  }
+}
+```
+The first footer value, `selectorId`, identifies the declared selector. In this example, it represents the object we sent in with the `/selectors/replay` request.
+
+The second footer value, `mark`, identifies the ledger mark for the selector. The ledger mark points to a place in the ledger that this selector has read up to.
 
 The footer has two `_link` values that give you access to the selector’s events from the `start` of the ledger, and a `current` link to fetch new events that have occurred since this selector was executed.
 
@@ -219,21 +243,10 @@ curl -L https://preview.evently.cloud/selectors/replay \
        \"after\":\"<your-mark-or-eventId-here\"}"
 ```
 
-The result is:
+The result is a single line–the selector footer:
 
 ```json
-{
-    "selectorId": "g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ",
-    "mark": "0005d0df8d1e990fa0f8f294",
-    "_links": {
-        "start": {
-            "href": "/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"
-        },
-        "current": {
-            "href": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"
-        }
-    }
-}
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
 ```
 
 No new events have been appended, so the response only has the selector footer.
