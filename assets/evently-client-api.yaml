@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Evently.cloud Preview
-  version: '0.1.0'
+  version: 0.1.0
   summary: 'API for Evently preview clients to use to register new event types, append events and select existing events.'
   description: This API expresses capabilities using Level 3 REST profiles and patterns.
   contact:
@@ -369,30 +369,31 @@ paths:
               schema:
                 type: object
                 properties:
+                  eventId:
+                    type: string
+                    description: 'Generated event ID for this event. This value can be used in any API call that uses an ''after'' field to indicate an event or ledger mark in the ledger, such as selectors and serial append actions.'
+                  idempotencyKey:
+                    type: string
+                    description: 'If an idempotencyKey was sent with the append request, it will be reflected here.'
+                required:
+                  - eventId
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                properties:
                   status:
                     type: string
                     enum:
-                      - SUCCESS
                       - ERROR
-                    description: |-
-                      * SUCCESS means the append succeeded. Examine the ok object for the new event information.
-                      * ERROR means an error occured while appending the event. Examine the error string for details.
-                  ok:
-                    type: object
-                    properties:
-                      eventId:
-                        type: string
-                        description: 'Generated event ID for this event. This value can be used in any API call that uses an ''after'' field to indicate an event or ledger mark in the ledger, such as selectors and serial append actions.'
-                      idempotencyKey:
-                        type: string
-                        description: 'If an idempotencyKey was sent with the append request, it will be reflected here.'
-                    required:
-                      - eventId
+                    description: ERROR means an error occured while appending the event. Examine the error string for details.
                   error:
                     type: string
                     description: 'Appending factual events rarely emits errors, and they usually occur when an idempotencyKey is reused for a different event.'
                 required:
                   - status
+                  - error
       description: |-
         Append a factual event to the ledger. Factual events append without conditions such as selector state or entity sequence. Facts often capture external events like delivery service receipts and IoT signals.
 
@@ -436,6 +437,260 @@ paths:
                 - event
                 - meta
                 - data
+  /append/serial:
+    get:
+      summary: Append Serial Event Form
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+      operationId: get-append-serial-form
+      description: Returns a JSON Schema form to append a serial event. Create an object matching this schema and POST it back.
+    post:
+      summary: Append a Serial Event
+      operationId: post-append-serial-form
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventId:
+                    type: string
+                    description: 'Generated event ID for this event. This value can be used in any API call that uses an ''after'' field to indicate an event or ledger mark in the ledger, such as selectors and serial append actions.'
+                  idempotencyKey:
+                    type: string
+                    description: 'If an idempotencyKey was sent with the append request, it will be reflected here.'
+                required:
+                  - eventId
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ERROR
+                    description: ERROR means an error occured while appending the event. Examine the error string for details.
+                  error:
+                    type: string
+                    description: 'Appending factual events rarely emits errors, and they usually occur when an idempotencyKey is reused for a different event.'
+                required:
+                  - status
+                  - error
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - RACE CONDITION
+                    description: 'RACE CONDITION indicates newer events have been appended to this entity instance, so replay them and decide if your event needs to be appended after all.'
+                  error:
+                    type: string
+                    description: 'This will tell you what selector you should GET to catch up with new events before trying to append again, but this time with the most recent `previousEventId`.'
+                required:
+                  - status
+                  - error
+      description: |-
+        Append a serial event to the ledger. Serial events append only if they are the next event in an entity event sequence. The form requires a `previousEventId` for the latest event for an entity instance. This can be obtained from the result of a previous append operation or from a replay selector result.
+
+        In order to append a serial event, an event must already be appended for the entity instance. This can be done by appending a selector event which conditionally appends an event if none have been appended already, or a simple factual event if the client is unconcerned with other attempts to append to the specific entity instance.  
+
+        If your client has uncertain connectivity and wants to append the event multiple times to ensure success, send a unique, client-created `idempotencyKey` to identify this specific event in subsequent append attempts. Evently recommends using [Nano IDs](https://zelark.github.io/nano-id-cc/).
+      security:
+        - opaque-token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                entity:
+                  type: string
+                  description: The name of the entity.
+                key:
+                  type: string
+                  description: The entity's business identifier.
+                event:
+                  type: string
+                  description: Name of the event being appended.
+                meta:
+                  type: object
+                  description: 'Event metadata. Use properties that are common to all events, like correlationId, actor and causationId. Evently creates an append timestamp value automatically, so clients can omit putting a timestamp in `meta`.'
+                data:
+                  description: 'Event data can be any type of data, from a string to an object with multiple values. The data is specific to the entity event.'
+                  type:
+                    - string
+                    - number
+                    - boolean
+                    - object
+                    - array
+                previousEventId:
+                  type: string
+                  description: The event ID of the most recent event appended to this entity instance.
+                idempotencyKey:
+                  type: string
+                  minLength: 2
+                  description: Unique key identifying the append event's idempotency. This key will instruct evently to ignore duplicate append submissions instead of sending an error response.
+              required:
+                - entity
+                - key
+                - event
+                - meta
+                - data
+                - previousEventId
+    parameters: []
+  /append/selector:
+    get:
+      summary: Append Selector Event Form
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+      operationId: get-append-selector-form
+      description: Returns a JSON Schema form to append a selector-conditioned event. Create an object matching this schema and POST it back.
+    post:
+      summary: Append a Selector Event
+      operationId: post-append-selector-form
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  eventId:
+                    type: string
+                    description: 'Generated event ID for this event. This value can be used in any API call that uses an ''after'' field to indicate an event or ledger mark in the ledger, such as selectors and serial append actions.'
+                  idempotencyKey:
+                    type: string
+                    description: 'If an idempotencyKey was sent with the append request, it will be reflected here.'
+                required:
+                  - eventId
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - ERROR
+                    description: ERROR means an error occured while appending the event. Examine the error string for details.
+                  error:
+                    type: string
+                    description: 'Appending factual events rarely emits errors, and they usually occur when an idempotencyKey is reused for a different event.'
+                required:
+                  - status
+                  - error
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - RACE CONDITION
+                    description: 'RACE CONDITION indicates newer events have been appended to this entity instance, so replay them and decide if your event needs to be appended after all.'
+                  error:
+                    type: string
+                    description: 'This will tell you what selector you should GET to catch up with new events before trying to append again, but this time with the most recent `previousEventId`.'
+                required:
+                  - status
+                  - error
+      description: |-
+        Append a selector-conditioned event to the ledger. These events append only if the provided selector is quiescent, meaning it has no new events. This selector's quiesence is the condition required to append the event. The form requires a `selector` object with a `selectorId` indicating the selector and `mark` pointing to the ledger mark where the selector has been read up to.
+
+        One can use either a replay or a filter Selector as a condition for appending an event. The data for the `selector` object is found in the Selector's footer object at the end of a selector event stream.
+
+        If your client has uncertain connectivity and wants to append the event multiple times to ensure success, send a unique, client-created `idempotencyKey` to identify this specific event in subsequent append attempts. Evently recommends using [Nano IDs](https://zelark.github.io/nano-id-cc/).
+      security:
+        - opaque-token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                entity:
+                  type: string
+                  description: The name of the entity.
+                key:
+                  type: string
+                  description: The entity's business identifier.
+                event:
+                  type: string
+                  description: Name of the event being appended.
+                meta:
+                  type: object
+                  description: 'Event metadata. Use properties that are common to all events, like correlationId, actor and causationId. Evently creates an append timestamp value automatically, so clients can omit putting a timestamp in `meta`.'
+                data:
+                  description: 'Event data can be any type of data, from a string to an object with multiple values. The data is specific to the entity event.'
+                  type:
+                    - string
+                    - number
+                    - boolean
+                    - object
+                    - array
+                selector:
+                  type: object
+                  required:
+                    - selectorId
+                    - mark
+                  description: The selector used to conditionally append this event. The data for this object is found in the footer of a selector event stream.
+                  properties:
+                    selectorId:
+                      type: string
+                    mark:
+                      type: string
+                idempotencyKey:
+                  type: string
+                  minLength: 2
+                  description: Unique key identifying the append event's idempotency. This key will instruct evently to ignore duplicate append submissions instead of sending an error response.
+              required:
+                - entity
+                - key
+                - event
+                - meta
+                - data
+                - selector
+    parameters: []
 components:
   schemas: {}
   securitySchemes:
