@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Evently.cloud Preview
-  version: '1.0'
+  version: '0.1.0'
   summary: 'API for Evently preview clients to use to register new event types, append events and select existing events.'
   description: This API expresses capabilities using Level 3 REST profiles and patterns.
   contact:
@@ -35,14 +35,14 @@ paths:
                 default:
                   - '</registry/entities>; rel="https://level3.rest/patterns/list/editable#adds-to-list"'
                 type: array
-      operationId: get-register-event
+      operationId: get-register-event-form
       description: 'Form to register an entity event. GET the schema, create a JSON object with it and POST it back this endpoint.'
       security:
         - opaque-token: []
     parameters: []
     post:
       summary: Register an Event
-      operationId: post-register-event
+      operationId: post-register-event-form
       responses:
         '201':
           description: Created
@@ -183,11 +183,11 @@ paths:
                 type: array
                 default:
                   - '<https://level3.rest/profiles/form>'
-      operationId: get-ledgers-reset
+      operationId: get-reset-ledger-form
       description: Create a ledger reset request with this form schema and POST it back.
     post:
       summary: Reset Ledger
-      operationId: post-ledgers-reset
+      operationId: post-reset-ledger-form
       responses:
         '204':
           description: No Content
@@ -202,13 +202,14 @@ paths:
                 after:
                   type: string
                   pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
+                  description: Remove all events that occur after this ledger mark or event ID.
             examples:
               reset-all:
                 value: {}
               reset-after:
                 value:
                   after: 0005c7f976b819003a78cb08
-        description: 'To reset the entire ledger, send an empty JSON object ''{}''. To reset after a ledger mark or an event ID, send an object with an ''after'' property containing the mark/event ID.'
+        description: 'To reset the entire ledger, send an empty JSON object ''{}''. To remove all events after a ledger mark or an event ID, send an object with an ''after'' property containing the mark/event ID.'
       description: 'Reset the ledger to remove events, either completely or after a specific point.'
   /ledgers/download:
     get:
@@ -230,8 +231,8 @@ paths:
       operationId: get-ledger-download-form
       description: Download the entire ledger or the ledger after a specified ledger mark / event ID.
     post:
-      summary: Download Ledger
-      operationId: post-ledgers-download
+      summary: Submit Download Ledger Form
+      operationId: post-download-ledger-form
       responses:
         '200':
           description: OK
@@ -274,7 +275,7 @@ paths:
               description: The URI of the download ledger resource that fulfills the POST form's specification.
       security:
         - opaque-token: []
-      description: Submit form to download ledger.
+      description: Submit form to download a ledger either entirely or after a ledger mark / event ID.
       requestBody:
         content:
           application/json:
@@ -284,6 +285,11 @@ paths:
                 after:
                   type: string
                   pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
+                  description: Download events that occur after this ledger mark or event ID.
+                limit:
+                  type: integer
+                  minimum: 1
+                  description: Limit the number of returned events to this value.
             examples:
               download-all:
                 value: {}
@@ -298,9 +304,9 @@ paths:
           in: header
           name: Prefer
           description: Tells the download resource to send the ledger in response to the POST request instead of sending a redirect to the download URL.
-  '/ledgers/download/{download-info}':
+  '/ledgers/download/{download-info}.ndjson':
     get:
-      summary: Download Ledger
+      summary: Download a Ledger file
       tags: []
       responses:
         '200':
@@ -333,6 +339,103 @@ paths:
         name: download-info
         in: path
         required: true
+  /append/fact:
+    get:
+      summary: Append Factual Event Form
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+      operationId: get-append-fact-form
+      description: Returns a JSON Schema form to append a factual event. Create an object matching this schema and POST it back.
+    post:
+      summary: Append a Factual Event
+      operationId: post-append-fact-form
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum:
+                      - SUCCESS
+                      - ERROR
+                    description: |-
+                      * SUCCESS means the append succeeded. Examine the ok object for the new event information.
+                      * ERROR means an error occured while appending the event. Examine the error string for details.
+                  ok:
+                    type: object
+                    properties:
+                      eventId:
+                        type: string
+                        description: 'Generated event ID for this event. This value can be used in any API call that uses an ''after'' field to indicate an event or ledger mark in the ledger, such as selectors and serial append actions.'
+                      idempotencyKey:
+                        type: string
+                        description: 'If an idempotencyKey was sent with the append request, it will be reflected here.'
+                    required:
+                      - eventId
+                  error:
+                    type: string
+                    description: 'Appending factual events rarely emits errors, and they usually occur when an idempotencyKey is reused for a different event.'
+                required:
+                  - status
+      description: |-
+        Append a factual event to the ledger. Factual events append without conditions such as selector state or entity sequence. Facts often capture external events like delivery service receipts and IoT signals.
+
+        If your client has uncertain connectivity and wants to append the event multiple times to ensure success, send a unique, client-created `idempotencyKey` to identify this specific event in subsequent append attempts. Evently recommends using [Nano IDs](https://zelark.github.io/nano-id-cc/).
+      security:
+        - opaque-token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                entity:
+                  type: string
+                  description: The name of the entity.
+                key:
+                  type: string
+                  description: The entity's business identifier.
+                event:
+                  type: string
+                  description: Name of the event being appended.
+                meta:
+                  type: object
+                  description: 'Event metadata. Use properties that are common to all events, like correlationId, actor and causationId. Evently creates an append timestamp value automatically, so clients can omit putting a timestamp in `meta`.'
+                data:
+                  description: 'Event data can be any type of data, from a string to an object with multiple values. The data is specific to the entity event.'
+                  type:
+                    - string
+                    - number
+                    - boolean
+                    - object
+                    - array
+                idempotencyKey:
+                  type: string
+                  minLength: 2
+                  description: Unique key identifying the append event's idempotency. This key will instruct evently to ignore duplicate append submissions instead of sending an error response.
+              required:
+                - entity
+                - key
+                - event
+                - meta
+                - data
 components:
   schemas: {}
   securitySchemes:
