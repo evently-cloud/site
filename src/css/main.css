@@ -195,7 +195,7 @@ body.md {
 }
 
 .md #content-container {
-    @apply pt-5 pb-10;
+    @apply pt-5 pb-10 px-10;
 }
 
 body.md.dark-mode {
@@ -204,6 +204,10 @@ body.md.dark-mode {
 
 .md.dark-mode main {
     @apply bg-darkBG text-darkText;
+}
+
+.md .header-anchor {
+    @apply hidden;
 }
 
 .md.dark-mode main h2,

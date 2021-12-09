@@ -5,7 +5,17 @@ module.exports = function (eleventyConfig) {
     const markdownIt = require('markdown-it');
     const markdownItContainer = require('markdown-it-container');
     const markdownItPrism = require('markdown-it-prism');
-    const markdownLib = markdownIt().use(markdownItContainer, 'sidebar').use(markdownItPrism);
+    const markdownItAnchor = require('markdown-it-anchor');
+    const markdownLib = markdownIt()
+        .use(markdownItContainer, 'sidebar')
+        .use(markdownItPrism)
+        .use(markdownItAnchor, {
+            permalink: markdownItAnchor.permalink.linkAfterHeader({
+                style: 'visually-hidden',
+                assistiveText: title => `Permalink to “${title}”`,
+                visuallyHiddenClass: 'visually-hidden',
+            }),
+        });
     eleventyConfig.setLibrary('md', markdownLib);
 
     eleventyConfig.addPlugin(eleventyNavigationPlugin);

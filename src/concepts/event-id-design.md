@@ -119,7 +119,7 @@ Timestamp + Checksum + Ledger ID (LID) means an Event list can be sorted by occu
 | --------- | --------- | --------- | ------------- |
 | `T T T T` | `T T T T` | `C C C C` | `L L L L+V`   |
 
-####Event ID Collisions are Extremely Unlikely
+#### Event ID Collisions are Extremely Unlikely
 
 A collision is when two different events share the same event ID. While theoretically possible, a collision is extrememly unlikely given these assumptions:
 
