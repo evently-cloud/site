@@ -17,13 +17,15 @@ An Entity can be anything that has distinct state in a domain, such as a shopper
 
 An event records that something has occurred to an entity. Events are immutable, meaning they cannot be altered, and irrevokable, meaning they cannot be deleted out of the ledger. An event has a name, an entity identifier, data and meta information.
 
-Here is an example:
+Here is an example of an event named `Item Ordered`:
 
 ```json
 {
     "event": "Item Ordered",
     "entity": "patron",
     "key": "Harold_Cho",
+    "eventId": "0005d0df8d1e990f13658533a0f8f294",
+    "timestamp": "2021-11-16T03:30:47.430415Z",
     "data": {
         "menuItem": "Bean Burrito",
         "toppings": ["chiles", "salsa verde"],
@@ -38,8 +40,6 @@ Here is an example:
 }
 ```
 
-The event is named `Item Ordered` and has an event-specific `data` value.
-
 The entity identifier is the entity type and key. In this example, the entity is identified as entity type `patron` with the key `Harold_Cho`.
 
 The `meta` field contains data that can be applied to any event. In this system, the value includes the `actor` and a `commandId` which has meaning to the application. Your application can store any values in the `meta` field.
@@ -48,7 +48,7 @@ All of the values in an event can be queried with [Selectors](#selectors).
 
 ## Ledger
 
-The ledger stores events that have been appended by an application. Applications append events to a ledger and retrieve events from a ledger using a Selector. Ledgers have [ACID properties](acid), similar to relational databases.
+The ledger stores events that have been appended by an application. Applications append events to a ledger and retrieve events from a ledger using a  [Selector](#selectors). Ledgers have [ACID properties](/concepts/acid), similar to relational databases.
 
 ## Selectors
 
@@ -74,7 +74,7 @@ A replay selector scopes to a single entity type, but can include more than one 
 
 #### Filter Selectors
 
-The filter selector matches events by their meta and data values. They use [SQL JSONPath](sql-jsonpath) statements to find events that match the event’s `data` and `meta` fields.
+The filter selector matches events by their meta and data values. They use [SQL JSONPath](/concepts/sql-jsonpath) statements to find events that match the event’s `data` and `meta` fields.
 
 ```json
 {
