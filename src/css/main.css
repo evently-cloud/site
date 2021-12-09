@@ -141,13 +141,17 @@ textarea {
 /**************************************************************** Nav  */
 /* Parent container */
 nav > ul {
-    @apply flex flex-col md:flex-row gap-2 list-none md:absolute text-center;
+    @apply flex flex-col md:flex-row gap-2 list-none md:absolute text-center z-10;
     top: 38px;
 }
 
 /* Parent menu */
 nav > ul > li {
-    @apply p-2 w-52 md:w-44 self-start transition duration-300 bg-darkBase md:bg-darkBGHighlight2 hover:bg-darkBase text-left md:text-center; /* debug: bg-red-600 */
+    @apply p-2 w-56 md:w-44 self-start transition duration-300 bg-darkBase md:bg-darkBGHighlight2 hover:bg-darkBase text-left md:text-center; /* debug: bg-red-600 */
+}
+
+nav > ul > li:nth-child(2) {
+    @apply md:w-60;
 }
 
 nav > ul > li > a {
