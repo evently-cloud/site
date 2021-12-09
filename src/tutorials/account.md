@@ -97,19 +97,16 @@ You will get back a success message:
 
 ```json
 {
-    "status": "SUCCESS",
-    "ok": {
-        "eventId": "0005d13ee253e847da62cab2bee3f960"
-    }
+    "eventId": "0005d13ee253e847da62cab2bee3f960"
 }
 ```
 
-Now, to show that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see an error result:
+Now, to show that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You will see a `409 Conflict` status code and the following error message:
 
 ```json
 {
-    "status": "RACE CONDITION",
-    "error": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events."
+  "message": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events.",
+  "current": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
 }
 ```
 
@@ -163,18 +160,15 @@ You will get back a success message:
 
 ```json
 {
-    "status": "SUCCESS",
-    "ok": {
-        "eventId": "0005d13ee253e847da62cab2bee3f960"
-    }
+    "eventId": "0005d13ee253e847da62cab2bee3f960"
 }
 ```
 
-To verify that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see an error result:
+To verify that Evently is only appending an event if the supplied selector is empty, meaning no new events have occured after the selector, simply rerun the exact same cURL command to append with the selector. You should see a `409 Conflict` status code and an error message:
 
 ```json
 {
-    "status": "RACE CONDITION",
-    "error": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events."
-}
+    "message": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events.",
+    "current": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
+    }
 ```

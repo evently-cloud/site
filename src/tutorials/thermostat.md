@@ -160,14 +160,11 @@ This request returns a success result:
 
 ```json
 {
-    "status": "SUCCESS",
-    "ok": {
-        "eventId": "0005d037167030998488b808a0f8f294"
-    }
+    "eventId": "0005d037167030998488b808a0f8f294"
 }
 ```
 
-The request body shows a status of `SUCCESS` as well as an `ok` value with the `eventId`of the newly-created event.
+The request body shows the `eventId`of the newly-created event.
 
 ### Select Events for Replay
 
