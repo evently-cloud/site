@@ -26,6 +26,13 @@ apiDocs: false
         <link rel="shortcut icon" href="/favicon.ico"/>
         <script src="https://kit.fontawesome.com/{{ fontAwesomeKitID }}.js" crossorigin="anonymous"></script>
         {{ googleFontsURL | safe }}
+        {% if apiDocs == false %}
+            <style>
+                html {
+                    scroll-behavior: smooth;
+                }
+            </style>
+        {% endif %}
 
         {# Functional #}
         {% if js %}

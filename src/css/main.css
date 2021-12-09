@@ -4,9 +4,11 @@
 
 /**************************************************************** General  */
 
-html {
+/* Moving this to <head> in main, as it breaks API docs but is useful everywhere else,
+and couldn't find a simple way to make this CSS file conditional upon a Nunjucks variable */
+/* html {
     scroll-behavior: smooth;
-}
+} */
 
 a {
     @apply text-lightBase transition-all hover:text-lightHighlight;

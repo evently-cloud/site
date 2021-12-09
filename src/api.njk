@@ -6,7 +6,7 @@ eleventyNavigation:
 apiDocs: true
 markdownFile: false
 ---
-<div id="redoc-container"></div>
+<div class="redoc-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"></script>
 <script>
     Redoc.init('/assets/evently-client-api.yaml', {
@@ -18,5 +18,5 @@ markdownFile: false
                 }
             }
         }
-    }, document.getElementById('redoc-container'))
+    }, document.querySelector('.redoc-container'))
 </script>
