@@ -12,18 +12,18 @@ featureTiles:
     -   title: Every Event Has Its Place
         description: Keep your event models consistent with the Event Registry, so applications only append the right events.
         icon: <i class="fas fa-cabinet-filing"></i>
-    -   title: SaaS means Fast<br>(and always available)
+    -   title: SaaS means Fast
         description: Enjoy the performance of Evently’s SaaS architecture with near-instantaneous appends and event retrieval.
         icon: <i class="fas fa-bolt"></i>
-    -   title: Direct Connections
-        description: Connect to Evently’s Hypermedia HTTP API without client libraries, and even use fetch() from the browser.
+    -   title: Direct Connect
+        description: Connect to Evently’s HTTP API without downloaded libraries; you even use the fetch() API from the browser.
         icon: <i class="fas fa-exchange"></i>
 ---
 
 <div class="flex flex-col md:flex-row gap-10 mb-20 md:my-44 items-center text-center">
     <div class="md:w-1/2 my-10 md:my-0 mx-auto">
         <h1 class="text-6xl md:text-7xl text-center md:text-center my-10">Event Sourcing for Everyone</h1>
-        <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with an intuitive REST API.</div>
+        <div class="bg-darkBG">Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with a Hypermedia REST API.</div>
         <a class="btn m-auto block mt-10 w-2/3 text-center" @click="signupFormOpen = true; $refs.signup.scrollIntoView()" {% shinyAJSFunc %} >
             <span>Request your access key to get started!</span>
         </a>
@@ -51,7 +51,9 @@ featureTiles:
     <h1 class="my-10 mx-auto w-fit">What is Event Sourcing?</h1>
     <div class="bg-darkBG">Event Sourcing is an application data model that record events that have happened to an entity in a permanent log. Then, when the application needs to determine the current state of an entity, it “replays” the relevant events and calculates the state from these events. When the application wants to add a new event for an entity, it can use this current state calculation to decide if the event should be recorded.</div>
     <h3 class="my-10 mx-auto w-fit">Event Sourcing in the 1400s</h3>
-    <div class="bg-darkBG">Event sourcing has been used for hundreds of years in accounting, where events are called “account entries” and the log is called a “ledger.” Individual entries record credits or debits to an account, and the current value, or state, of the account. One calculates the current account value by summing up these credits and debits.</div>
+    <div class="bg-darkBG">Event sourcing has been used for hundreds of years in accounting, where events are called “account entries” and the log is called a “ledger.” Individual entries record credits and debits to an account. One calculates the current account value by summing up these credits and debits. These immutable ledgers are the permanent record of financial changes in a business.</div>
+    <h3 class="my-10 mx-auto w-fit">Event Sourcing in the 1400s</h3>
+    <div class="bg-darkBG">Evently brings this trustworthy, battle-tested approach to your applications. Learn more about Evently's <a href="/overview">concepts</a> and work through the <a href="/thermostat">tutorials</a> and learn how to bring an event-sourced application to life.</div>
 </div>
 
 {% include 'partials/signup-form.njk' %}
