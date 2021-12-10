@@ -27,7 +27,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('src/preview-signup');
     eleventyConfig.addPassthroughCopy('assets/*.png');
     eleventyConfig.addPassthroughCopy('assets/*.jpg');
-    eleventyConfig.addPassthroughCopy('assets/*.html');
+    eleventyConfig.addPassthroughCopy({'assets/googleb64f0f8acc1e003a.html': 'googleb64f0f8acc1e003a.html'});
     eleventyConfig.addPassthroughCopy('assets/evently-client-api.yaml');
     eleventyConfig.addPassthroughCopy({ 'assets/favicon.ico': '/favicon.ico' });
     eleventyConfig.addWatchTarget('assets/*.json');
