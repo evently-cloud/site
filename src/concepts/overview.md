@@ -21,22 +21,22 @@ Here is an example of an event named `Item Ordered`:
 
 ```json
 {
-    "event": "Item Ordered",
-    "entity": "patron",
-    "key": "Harold_Cho",
-    "eventId": "0005d0df8d1e990f13658533a0f8f294",
-    "timestamp": "2021-11-16T03:30:47.430415Z",
-    "data": {
-        "menuItem": "Bean Burrito",
-        "toppings": ["chiles", "salsa verde"],
-        "spicy": true,
-        "peppers": 5
-    },
-    "meta": {
-        "actor": "register-2",
-        "commandId": "e33692e9-3e73-4028-8962-2753ddae2a0f",
-        "correlationId": "22341"
-    }
+  "event": "Item Ordered",
+  "entity": "patron",
+  "key": "Harold_Cho",
+  "eventId": "0005d0df8d1e990f13658533a0f8f294",
+  "timestamp": "2021-11-16T03:30:47.430415Z",
+  "data": {
+    "menuItem": "Bean Burrito",
+    "toppings": ["chiles", "salsa verde"],
+    "spicy": true,
+    "peppers": 5
+  },
+  "meta": {
+    "actor": "register-2",
+    "commandId": "e33692e9-3e73-4028-8962-2753ddae2a0f",
+    "correlationId": "22341"
+  }
 }
 ```
 
@@ -44,7 +44,7 @@ The entity identifier is the entity type and key. In this example, the entity is
 
 The `meta` field contains data that can be applied to any event. In this system, the value includes the `actor` and a `commandId` which has meaning to the application. Your application can store any values in the `meta` field.
 
-All of the values in an event can be queried with [Selectors](#selectors).
+All values in an event's data and meta fields can be queried with [Selectors](#selectors).
 
 ## Ledger
 
@@ -64,9 +64,9 @@ The replay selector states the entity type, instance keys, and events of interes
 
 ```json
 {
-    "entity": "game",
-    "keys": ["Zirommok_Dun_&_Bradstreet_Inc._1968_Championship~15_1"],
-    "events": ["game-started", "game-finished"]
+  "entity": "game",
+  "keys": ["Zirommok_Dun_&_Bradstreet_Inc._1968_Championship~15_1"],
+  "events": ["game-started", "game-finished"]
 }
 ```
 
@@ -78,11 +78,11 @@ The filter selector matches events by their meta and data values. They use [SQL 
 
 ```json
 {
-    "data": {
-        "match": {
-            "match-created": "$.players ? (@==\"Elizabeth_Wilkerson\" || @==\"Amal_Hussein\")"
-        }
+  "data": {
+    "match": {
+      "match-created": "$.players ? (@==\"Elizabeth_Wilkerson\" || @==\"Amal_Hussein\")"
     }
+  }
 }
 ```
 

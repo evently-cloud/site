@@ -63,19 +63,19 @@ Here is an example genesis event:
 
 ```json
 {
-    "entity": "📒",
-    "key": "testing⑆preview",
-    "event": "刅",
-		"eventId":"0005cd7556b050928fed8a064f832abc",
-  	"timestamp":"2021-10-03T16:32:12.816530Z",
+  "entity": "📒",
+  "key": "testing⑆preview",
+  "event": "刅",
+  "eventId":"0005cd7556b050928fed8a064f832abc",
+  "timestamp":"2021-10-03T16:32:12.816530Z",
     "meta": {
-        "actor": "matt",
-        "created": "2021-09-04T20:27:17.300Z"
-    },
-    "data": {
-        "name": "My Ledger",
-        "description": "This ledger is for my events."
-    }
+      "actor": "matt",
+      "created": "2021-09-04T20:27:17.300Z"
+  },
+  "data": {
+    "name": "My Ledger",
+    "description": "This ledger is for my events."
+  }
 }
 ```
 
