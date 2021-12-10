@@ -13,7 +13,7 @@ This tutorial will take you through the features Evently has to offer in the con
 
 ### Validate access
 
-In your terminal, enter this command:
+In your terminal, run this command:
 
 ```shell
 curl https://preview.evently.cloud
@@ -134,9 +134,9 @@ Here you will find the events registered to the thermostat entity:
 }
 ```
 
-### Append a Factual Event
+### Append an Event
 
-Now that you have registered an event type, you can append an event of this type to the ledger. Evently offers three different append actions, but the simples append action will add the event as an unconditional fact. In our thermostat example, we want to record a temperature measurement event, and we want to record it without regard to any other events in the ledger.
+Now that you have registered an event type, you can append an event of this type to the ledger. Evently offers three different append actions, but the simplest append action will add the event as an unconditional fact. In our thermostat example, we want to record a temperature measurement event, and we want to record it without regard to any other events in the ledger.
 
 When a client appends a factual event, they need to provide the following information in the body of the request:
 
