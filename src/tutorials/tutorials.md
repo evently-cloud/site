@@ -2,6 +2,6 @@
 eleventyNavigation:
     key: Tutorials
     order: 2
-    url: /tutorials/tutorial-1
+    url: /tutorials/thermostat
 permalink: false
 ---

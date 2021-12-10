@@ -55,7 +55,7 @@ At the completion of navigation, the values are represented as the `@` character
 
 Filtering expressions come after the navigation expression. The two are separated by the `?` character. Filtering expressions look like javascript value tests, and one can use the `@` symbol as a reference to the navigation value, or values if the navigation lands on an array. In the case of an array, each value of the array is tested against the filter statement.
 
-Predicates can be wrapped in parentheses `()` and internally combined with `&&` and `||` symbols. Their predicate result can be reversed with the `!` symbol. They utilize the `@` to reference the navigation value. For example:
+Predicates must be wrapped in parentheses `()` and internally combined with `&&` and `||` symbols. Their predicate result can be reversed with the `!` symbol. They utilize the `@` to reference the navigation value. For example:
 
 `(@.name == "Marc Wu")`
 

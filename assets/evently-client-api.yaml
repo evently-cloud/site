@@ -386,7 +386,7 @@ paths:
                 default:
                   - '<https://level3.rest/profiles/form>'
       operationId: get-replay-selector-lookup
-      description: Lookup control used to select entity events to replay. Construct an ojbect that matches this schema and POST it back to this location.
+      description: Lookup control used to select entity events to replay. Construct an object that matches this schema and POST it back to this location.
       security:
         - opaque-token: []
     post:
@@ -416,9 +416,9 @@ paths:
             Link:
               schema:
                 default:
-                  - '</ledgers/download/{start-info}>; rel="start"'
-                  - '</ledgers/download/{current-info}>; rel="current"'
-                  - '</ledgers/download>; rel="https://level3.rest/profiles/lookup"'
+                  - '</selectors/fetch/{start-info}>; rel="start"'
+                  - '</selectors/fetch/{current-info}>; rel="current"'
+                  - '</selectors/replay>; rel="https://level3.rest/profiles/lookup"'
                 type: array
           content:
             application/x-ndjson:
@@ -431,15 +431,17 @@ paths:
               schema:
                 type: string
                 format: uri
-              description: The URI of the download ledger resource that fulfills the POST form's specification.
+              description: The URI of the selector fetch resource that fulfills the POST form's specification.
       security:
         - opaque-token: []
       description: |-
-        Submit a replay request to stream events of specified entities from the ledger. Use `after` to catch up on a previously-fetched selector by setting it to a ledger mark or event ID. The `limit` property controls how many events are returned in the selector.
+        Submit a filter request to stream events from the ledger that match filter criteria. Use `after` to catch up on a previously-fetched selector by setting it to a ledger mark or event ID. The `limit` property controls how many events are returned in the selector.
 
-        (TODO this goes in the ndjson part)This resource returns a newline-delimited JSON stream of the events, ordered by their append sequence. The last line of the response is a footer object with data about the selector and links to selectors that will fetch all the matching events from the start of the ledger as well as a link the the current events that match the selector, but occurred after this selector was fetched.
+        This resource redirects to a URL that contains the selector results. If the redirect approach is not suitable, send a Prefer header indicating your client wishes the selector result in the POST response.
 
-        The selector footer information can be used to conditionally append events using the /append/selector endpoint.
+        The default redirect approach works well with shared entities that change infrequently as they contain caching instructions to share with other clients. If the entity instance changes often then sending `Prefer: return=representation` will improve selector performance by skipping the redirect step at the cost of not utilizing the internet's caching services.
+
+        The selector footer information (`selectorId`, `mark`) can be used to conditionally append events using the /append/selector endpoint.
       requestBody:
         content:
           application/json:
@@ -480,6 +482,158 @@ paths:
           name: Prefer
           description: Tells the selector to send the matching events in response to the POST request instead of sending a redirect to the download URL.
     parameters: []
+  /selectors/filter:
+    get:
+      summary: Filter Events Selector Lookup
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+      operationId: get-filter-selector-lookup
+      description: Lookup control used to select filtered events across all entities in the ledger. Construct an object that matches this schema and POST it back to this location.
+      security:
+        - opaque-token: []
+    post:
+      summary: Filter Events
+      operationId: post-selector-filter-lookup
+      responses:
+        '200':
+          description: OK
+          headers:
+            Preference-Applied:
+              schema:
+                type: string
+                enum:
+                  - return=representation
+              description: 'If the `Prefer` header was sent with the request, this will hold the preference that was applied.'
+            Content-Location:
+              schema:
+                type: string
+                format: uri
+              description: The URL of the configured selector result.
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/info>'
+                  - '<https://level3.rest/profiles/entity>'
+            Link:
+              schema:
+                default:
+                  - '</selectors/fetch/{start-info}>; rel="start"'
+                  - '</selectors/fetch/{current-info}>; rel="current"'
+                  - '</selectors/filter>; rel="https://level3.rest/profiles/lookup"'
+                type: array
+          content:
+            application/x-ndjson:
+              schema:
+                type: any
+        '303':
+          description: See Other
+          headers:
+            Location:
+              schema:
+                type: string
+                format: uri
+              description: The URI of the selector fetch resource that fulfills the POST form's specification.
+      security:
+        - opaque-token: []
+      description: |-
+        Submit a replay request to stream events of specified entities from the ledger. Use `after` to catch up on a previously-fetched selector by setting it to a ledger mark or event ID. The `limit` property controls how many events are returned in the selector.
+
+        This resource redirects to a URL that contains the selector results. If the redirect approach is not suitable, send a Prefer header indicating your client wishes the selector result in the POST response.
+
+        The default redirect approach works well with shared entities that change infrequently as they contain caching instructions to share with other clients. If the entity instance changes often then sending `Prefer: return=representation` will improve selector performance by skipping the redirect step at the cost of not utilizing the internet's caching services.
+
+        The selector footer information (`selectorId`, `mark`) can be used to conditionally append events using the /append/selector endpoint.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  description: data is a map of maps. The first level of the map has keys named for the entity type. Inside of each entity type are keys named for the event types. Each event type value is a SQL JSONPath statement to match against all entity events of that type.
+                meta:
+                  type: string
+                  description: SQL JSONPath statement to filter meta object values.
+                  example: $.correlationId (@=="44rugtj5nfgn445")
+                after:
+                  type: string
+                  pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
+                  description: Download events that occur after this ledger mark or event ID.
+                limit:
+                  type: integer
+                  minimum: 1
+                  description: Limit the number of returned events to this value.
+            examples:
+              cold days:
+                value:
+                  data:
+                    thermostat:
+                      temperature-recorded: $.celsius ? (@ < 10.0)
+                  meta: $.correlationId (@=="44rugtj5nfgn445")
+                  after: 0005d2bfb29a03795f574859cb0687dc
+                  limit: 1
+        description: ''
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - return=representation
+          in: header
+          name: Prefer
+          description: Tells the selector to send the matching events in response to the POST request instead of sending a redirect to the download URL.
+    parameters: []
+  '/selectors/fetch/{selector-info}.ndjson':
+    get:
+      summary: Fetch a Selector file
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/info>'
+                  - '<https://level3.rest/profiles/entity>'
+            Link:
+              schema:
+                default:
+                  - '</ledgers/download/{start-info}>; rel="start"'
+                  - '</ledgers/download/{current-info}>; rel="current"'
+                  - '</ledgers/download>; rel="https://level3.rest/profiles/lookup"'
+                type: array
+          content:
+            application/x-ndjson:
+              schema:
+                type: any
+      operationId: get-selector-download
+      description: |-
+        Fetch a selector result as configured by a selector lookup. This resource URI is provided by replay and filter selector lookups.
+
+        This resource returns a newline-delimited JSON stream of the events, ordered by their append sequence. The last line of the response is a footer object. The footer contains data about the selector and links to selectors that will fetch all the matching events from the start of the ledger as well as a link to the current events that match the selector, but occurred after this selector was fetched.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: selector-info
+        in: path
+        required: true
   /registry/entities:
     get:
       summary: Entities with Registered Events
@@ -694,48 +848,13 @@ paths:
               schema:
                 type: any
       operationId: get-ledger-download-data
-      description: Download the ledger as configured by a download ledger form.
+      description: 'Download the ledger as configured by a download ledger form. The content is formatted as [newline-delimited JSON](http://ndjson.org) and can be streamed to disk or through a streaming processor.'
       security:
         - opaque-token: []
     parameters:
       - schema:
           type: string
         name: download-info
-        in: path
-        required: true
-  '/ledgers/selectors/replay/{selector-info}.ndjson':
-    get:
-      summary: Download a Selector file
-      tags: []
-      responses:
-        '200':
-          description: OK
-          headers:
-            Profile:
-              schema:
-                type: array
-                default:
-                  - '<https://level3.rest/profiles/info>'
-                  - '<https://level3.rest/profiles/entity>'
-            Link:
-              schema:
-                default:
-                  - '</ledgers/download/{start-info}>; rel="start"'
-                  - '</ledgers/download/{current-info}>; rel="current"'
-                  - '</ledgers/download>; rel="https://level3.rest/profiles/lookup"'
-                type: array
-          content:
-            application/x-ndjson:
-              schema:
-                type: any
-      operationId: get-factual-download
-      description: Download the ledger as configured by a download ledger form.
-      security:
-        - opaque-token: []
-    parameters:
-      - schema:
-          type: string
-        name: selector-info
         in: path
         required: true
   /ledgers/reset:
@@ -781,7 +900,7 @@ paths:
               reset-after:
                 value:
                   after: 0005c7f976b819003a78cb08
-        description: 'To reset the entire ledger, send an empty JSON object ''{}''. To remove all events after a ledger mark or an event ID, send an object with an ''after'' property containing the mark/event ID.'
+        description: 'To reset the entire ledger, send an empty JSON object ''{}''. To remove all events after a ledger mark or an event ID, send an object with an `after` property containing the mark/event ID.'
       description: 'Reset the ledger to remove events, either completely or after a specific point.'
 components:
   schemas: {}
@@ -789,3 +908,4 @@ components:
     opaque-token:
       type: http
       scheme: bearer
+      description: 'Evently provides this token for those parts of the API that require access to your private events and other information. Sign up for an access token at https://evently.cloud'

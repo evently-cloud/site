@@ -64,16 +64,16 @@ This statement returns an empty selector, or a result with only a footer object:
 
 ```json
 {
-    "selectorId": "gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik",
-    "mark": "0000000000000000bee3f960",
-    "_links": {
-        "start": {
-            "href": "/selectors/filter/gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik.ndjson"
-        },
-        "current": {
-            "href": "/selectors/filter/gqFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIimhYcQMAAAAAAAAAAC-4_lg.ndjson"
-        }
+  "selectorId": "gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik",
+  "mark": "0000000000000000bee3f960",
+  "_links": {
+    "start": {
+      "href": "/selectors/fetch/gaFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIik.ndjson"
+    },
+    "current": {
+      "href": "/selectors/fetch/gqFkgadhY2NvdW50ga9hY2NvdW50LWNyZWF0ZWTZJSQubmFtZT8oQD09Im1pa2VfbWV5ZXJzQGV4YW1wbGUuY29tIimhYcQMAAAAAAAAAAC-4_lg.ndjson"
     }
+  }
 }
 ```
 
@@ -90,14 +90,14 @@ curl https://preview.evently.cloud/append/selector \
        \"data\":{\"username\":\"mikemeyers\"},
        \"selector\":{
          \"selectorId\":\"<your-selectorId>\",
-         \"mark\":\"<your-mark>\"}}}"
+         \"mark\":\"<your-mark>\"}}"
 ```
 
 You will get back a success message:
 
 ```json
 {
-    "eventId": "0005d13ee253e847da62cab2bee3f960"
+  "eventId": "0005d13ee253e847da62cab2bee3f960"
 }
 ```
 
@@ -105,8 +105,8 @@ Now, to show that Evently is only appending an event if the supplied selector is
 
 ```json
 {
-  "message": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events.",
-  "current": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
+  "message": "Race Condition! Entity has newer events. Please GET /selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events.",
+  "current": "/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
 }
 ```
 
@@ -127,16 +127,16 @@ This should return an empty selector, with just the selector footer object:
 
 ```json
 {
-    "selectorId": "g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50",
-    "mark": "0000000000000000bee3f960",
-    "_links": {
-        "start": {
-            "href": "/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50.ndjson"
-        },
-        "current": {
-            "href": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
-        }
+  "selectorId": "g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50",
+  "mark": "0000000000000000bee3f960",
+  "_links": {
+    "start": {
+      "href": "/selectors/fetch/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50.ndjson"
+    },
+    "current": {
+      "href": "/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
     }
+  }
 }
 ```
 
@@ -160,7 +160,7 @@ You will get back a success message:
 
 ```json
 {
-    "eventId": "0005d13ee253e847da62cab2bee3f960"
+  "eventId": "0005d13ee253e847da62cab2bee3f960"
 }
 ```
 
@@ -168,7 +168,7 @@ To verify that Evently is only appending an event if the supplied selector is em
 
 ```json
 {
-    "message": "Entity has newer events. Please GET /selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events.",
-    "current": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
-    }
+  "message": "Entity has newer events. Please GET /selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson for the most recent events.",
+  "current": "/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG1YXNzb2NpYXRlZC10by1hY2NvdW50oWHEDAAAAAAAAAAAvuP5YA.ndjson"
+}
 ```

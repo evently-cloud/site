@@ -23,28 +23,28 @@ You should get back this JSON response, in [HAL format](https://tools.ietf.org/i
 
 ```json
 {
-    "_links": {
-        "registry": {
-            "title": "Register Entity Events for the ledger.",
-            "href": "/registry",
-            "profile": "<https://level3.rest/profiles/home>"
-        },
-        "append": {
-            "title": "Append Events to the ledger.",
-            "href": "/append",
-            "profile": "<https://level3.rest/profiles/home>"
-        },
-        "selectors": {
-            "title": "Select Events to replay from the ledger.",
-            "href": "/selectors",
-            "profile": "<https://level3.rest/profiles/home>"
-        },
-        "ledgers": {
-            "title": "Download or reset ledger Events.",
-            "href": "/ledgers",
-            "profile": "<https://level3.rest/profiles/home>"
-        }
+  "_links": {
+    "registry": {
+      "title": "Register Entity Events for the ledger.",
+      "href": "/registry",
+      "profile": "<https://level3.rest/profiles/home>"
+    },
+    "append": {
+      "title": "Append Events to the ledger.",
+      "href": "/append",
+      "profile": "<https://level3.rest/profiles/home>"
+    },
+    "selectors": {
+      "title": "Select Events to replay from the ledger.",
+      "href": "/selectors",
+      "profile": "<https://level3.rest/profiles/home>"
+    },
+    "ledgers": {
+      "title": "Download or reset ledger Events.",
+      "href": "/ledgers",
+      "profile": "<https://level3.rest/profiles/home>"
     }
+  }
 }
 ```
 
@@ -89,20 +89,20 @@ Will return this result:
 
 ```json
 {
-    "_links": {
-        "https://level3.rest/patterns/list#list-entry": [
-            {
-                "name": "thermostat",
-                "href": "/registry/entities/thermostat",
-                "profile": "<https://level3.rest/profiles/home>"
-            }
-        ],
-        "https://level3.rest/patterns/list/editable#add-entry": {
-            "title": "Register an Entity Event",
-            "href": "/registry/register-event",
-            "profile": "<https://level3.rest/profiles/form>"
-        }
+  "_links": {
+    "https://level3.rest/patterns/list#list-entry": [
+      {
+        "name": "thermostat",
+        "href": "/registry/entities/thermostat",
+        "profile": "<https://level3.rest/profiles/home>"
+      }
+    ],
+    "https://level3.rest/patterns/list/editable#add-entry": {
+      "title": "Register an Entity Event",
+      "href": "/registry/register-event",
+      "profile": "<https://level3.rest/profiles/form>"
     }
+  }
 }
 ```
 
@@ -117,15 +117,20 @@ Here you will find the events registered to the thermostat entity:
 
 ```json
 {
-    "_links": {
-        "https://level3.rest/patterns/list#list-entry": [
-            {
-                "name": "temperature-recorded",
-                "href": "/registry/entities/thermostat/temperature-recorded",
-                "profile": "<https://level3.rest/profiles/data>"
-            }
-        ]
+  "_links": {
+    "https://level3.rest/patterns/list#list-entry": [
+      {
+        "name": "temperature-recorded",
+        "href": "/registry/entities/thermostat/temperature-recorded",
+        "profile": "<https://level3.rest/profiles/data>"
+      }
+    ],
+    "https://level3.rest/patterns/list/editable#add-entry": {
+      "title": "Register an Entity Event",
+      "href": "/registry/register-event",
+      "profile": "<https://level3.rest/profiles/form>"
     }
+  }
 }
 ```
 
@@ -135,13 +140,13 @@ Now that you have registered an event type, you can append an event of this type
 
 When a client appends a factual event, they need to provide the following information in the body of the request:
 
-| field  | description                                                                                                                                                                                                                                                                                              |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| entity | The name of the entity. In this tutorial, it is `thermostat`                                                                                                                                                                                                                                             |
-| event  | The type of event. In this step, it is `temperature-recorded`                                                                                                                                                                                                                                            |
-| key    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`.                                                                                                                                                                                                    |
-| meta   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. If your application has no meta information, then send an empty object as the value: `{}` |
-| data   | The event-specific data. In this step, we are sending the temperature in Celsius.                                                                                                                                                                                                                        |
+| field    | description                                                  |
+| -------- | ------------------------------------------------------------ |
+| `entity` | The name of the entity. In this tutorial, it is `thermostat` |
+| `event`  | The type of event. In this step, it is `temperature-recorded` |
+| `key`    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`. |
+| `meta`   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. If your application has no meta information, then send an empty object as the value: `{}` |
+| `data`   | The event-specific data. In this step, we are sending the temperature in Celsius. |
 
 Send this request in your terminal:
 
@@ -160,7 +165,7 @@ This request returns a success result:
 
 ```json
 {
-    "eventId": "0005d037167030998488b808a0f8f294"
+  "eventId": "0005d037167030998488b808a0f8f294"
 }
 ```
 
@@ -183,7 +188,7 @@ This request will replay all of the `temperature-recorded` events for entity `th
 
 ```json lines
 {"entity":"thermostat","key":"thermostat1","event":"temperature-recorded","eventId":"0005d0df8d1e990f13658533a0f8f294","timestamp":"2021-11-16T03:30:47.430415Z","meta":{"causation":"1"},"data":{"celsius":18.5}}
-{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/fetch/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
 ```
 
 The body’s first line has the single event appended for this entity. The JSON in this line contains the event details, eventId and the server’s append timestamp.
@@ -212,10 +217,10 @@ The second body line has the selector footer information. Reformatted, the foote
   "mark": "0005d0df8d1e990fa0f8f294",
   "_links": {
     "start": {
-      "href": "/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"
+      "href": "/selectors/fetch/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"
     },
     "current": {
-      "href": "/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"
+      "href": "/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"
     }
   }
 }
@@ -243,7 +248,7 @@ curl -L https://preview.evently.cloud/selectors/replay \
 The result is a single line–the selector footer:
 
 ```json
-{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/replay/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/replay/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
+{"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/fetch/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}
 ```
 
 No new events have been appended, so the response only has the selector footer.
