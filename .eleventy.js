@@ -91,7 +91,7 @@ module.exports = function (eleventyConfig) {
             return '<code x-ref="codeBlock"';
         });
         changedContent = changedContent.replace(/<\/pre>/g, function (match) {
-            return "<div class='copy-button' x-show='hover' x-transition.duration.300ms @click='navigator.clipboard.writeText(code); copyText = \"Copied!\";'><span x-text='copyText'></span</div></pre>";
+            return "<div class='copy-button' x-show='hover' x-transition.duration.300ms @click='navigator.clipboard.writeText(code.trim()); copyText = \"Copied!\";'><span x-text='copyText'></span</div></pre>";
         });
 
         // Handle sidebar content
