@@ -24,7 +24,7 @@ h3,
 h4,
 h5,
 h6 {
-    @apply font-heading text-xl text-darkBG;
+    @apply font-heading text-xl text-darkBase;
 }
 
 .text-gradient {
