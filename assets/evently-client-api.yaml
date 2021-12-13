@@ -68,7 +68,7 @@ paths:
                 value:
                   entity: account
                   event: account-created
-      description: Accepts a form object to register a new Entity Event type.
+      description: Accepts a form object to register a new Entity Event type. This action is idempotent, so one can register the same event repeatedly without a failure response.
       security:
         - opaque-token: []
   /append/fact:
