@@ -62,14 +62,20 @@ Evently’s API is self-documenting so you can `GET` any URL and learn about the
 
 ### Register an Event Type
 
-The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. Be sure to replace `<your-token-here>` with your preview access token.
+The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. For convenience, add your API access token as an environment variable so the cURL commands below will execute nicely:
+
+```shell
+export EVENTLY_TOKEN="your-token-here"
+```
+
+Now you can use that var in your cURL calls to populate the `Authorization` header. Be sure to use double quotes (`"`) so that the shell can replace `$EVENTLY_TOKEN` with your actual token value.
 
 ```shell
 curl https://preview.evently.cloud/registry/register-event \
-  -H "Authorization: Bearer <your-token-here>" \
-  -H "Content-Type: application/json" \
-  -d "{\"entity\":\"thermostat\",
-       \"event\":\"temperature-recorded\"}"
+  -H "Authorization: Bearer $EVENTLY_TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{"entity":"thermostat",
+       "event":"temperature-recorded"}'
 ```
 
 This returns a success message:
@@ -82,7 +88,7 @@ To see what event types have been registered, read the `registry/entities` resou
 
 ```shell
 curl https://preview.evently.cloud/registry/entities \
-  -H "Authorization: Bearer <your-token-here>"
+  -H "Authorization: Bearer $EVENTLY_TOKEN"
 ```
 
 Will return this result:
@@ -110,7 +116,7 @@ The thermostat entity is listed, along with a link to the form resource to add n
 
 ```shell
 curl https://preview.evently.cloud/registry/entities/thermostat \
-  -H "Authorization: Bearer <your-token-here>"
+  -H "Authorization: Bearer $EVENTLY_TOKEN"
 ```
 
 Here you will find the events registered to the thermostat entity:
@@ -152,13 +158,13 @@ Send this request in your terminal:
 
 ```shell
 curl https://preview.evently.cloud/append/fact \
-  -H "Authorization: Bearer <your-token-here>" \
-  -H "Content-Type: application/json" \
-  -d "{\"entity\":\"thermostat\",
-       \"event\":\"temperature-recorded\",
-       \"key\":\"thermostat1\",
-       \"meta\":{\"causation\":\"14rew3494\"},
-       \"data\":{\"celsius\":18.5}}"
+  -H "Authorization: Bearer $EVENTLY_TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{"entity":"thermostat",
+       "event":"temperature-recorded",
+       "key":"thermostat1",
+       "meta":{"causation":"14rew3494"},
+       "data":{"celsius":18.5}}'
 ```
 
 This request returns a success result:
@@ -177,11 +183,11 @@ Now that we have persisted an event, we will replay that entity’s events and f
 
 ```shell
 curl -L https://preview.evently.cloud/selectors/replay \
-  -H "Authorization: Bearer <your-token-here>" \
-  -H "Content-Type: application/json" \
-  -d "{\"entity\":\"thermostat\",
-       \"events\":[\"temperature-recorded\"],
-       \"keys\":[\"thermostat1\"]}"
+  -H "Authorization: Bearer $EVENTLY_TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{"entity":"thermostat",
+       "events":["temperature-recorded"],
+       "keys":["thermostat1"]}'
 ```
 
 This request will replay all of the `temperature-recorded` events for entity `thermostat` with entity key `thermostat1`. The response is a stream of newline-delimited JSON, followed by a footer line.
@@ -237,12 +243,12 @@ Temperature events may be appended at any time, so an application can ask Eventl
 
 ```shell
 curl -L https://preview.evently.cloud/selectors/replay \
-  -H "Authorization: Bearer <your-token-here>" \
-  -H "Content-Type: application/json" \
-  -d "{\"entity\":\"thermostat\",
-       \"events\":[\"temperature-recorded\"],
-       \"keys\":[\"thermostat1\"],
-       \"after\":\"<your-mark-or-eventId-here\"}"
+  -H "Authorization: Bearer $EVENTLY_TOKEN" \
+  -H 'Content-Type: application/json' \
+  -d '{"entity":"thermostat",
+       "events":["temperature-recorded"],
+       "keys":["thermostat1"],
+       "after":"<your-mark-or-eventId-here>"}'
 ```
 
 The result is a single line–the selector footer:
