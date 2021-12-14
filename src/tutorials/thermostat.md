@@ -239,7 +239,10 @@ The footer has two `_link` values that give you access to the selector’s event
 
 ### Select New Events
 
-Temperature events may be appended at any time, so an application can ask Evently to send only the events that have occurred _after_ a ledger mark. This will let the application skip events it has already seen and only retrieve new events. POST the selector request, as before, but with a new property called `after`. Use the `mark` value from the selector footer, or use an `eventId` value if easier.
+Temperature events may be appended at any time, so an application can ask Evently to send only the events that have occurred _after_ a ledger mark. This will let the application skip events it has already seen and only retrieve new events. The client has two choices:
+
+1. GET the url in the `current` link. This link will fetch any new events that have occurred after this selector was executed.
+2. If you no longer have the `current` link, then POST the selector request, as before, but with a new property called `after`. Use the `mark` value from the selector footer, or use an `eventId` value if easier.
 
 ```shell
 curl -L https://preview.evently.cloud/selectors/replay \
@@ -251,7 +254,7 @@ curl -L https://preview.evently.cloud/selectors/replay \
        "after":"<your-mark-or-eventId-here>"}'
 ```
 
-The result is a single line–the selector footer:
+The result of either of these approaches is a single line–the selector footer:
 
 ```json
 {"selectorId":"g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ","mark":"0005d0df8d1e990fa0f8f294","_links":{"start":{"href":"/selectors/fetch/g6FlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWQ.ndjson"},"current":{"href":"/selectors/fetch/hKFlqnRoZXJtb3N0YXSha5GrdGhlcm1vc3RhdDGhdpG0dGVtcGVyYXR1cmUtcmVjb3JkZWShYcQMAAXQ340emQ-g-PKU.ndjson"}}}

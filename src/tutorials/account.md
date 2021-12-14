@@ -89,10 +89,10 @@ This statement returns an empty selector, or a result with only a footer object:
 }
 ```
 
-Now that you know the event to create Mike Meyer’s username will be unique, append the event using the footer’s `selectorId` and `mark` values as the append conditional. The `key` value must be a unique value, and is usually a business-relevant key:
+Now that you know the event to create Mike Meyer’s username will be unique, append the event using the footer’s `selectorId` and `mark` values as the atomic append selector conditional. The `key` value must be a unique value, and is usually a business-relevant key:
 
 ```shell
-curl -i https://preview.evently.cloud/append/selector \
+curl -i https://preview.evently.cloud/append/atomic \
   -H "Authorization: Bearer $EVENTLY_TOKEN" \
   -H 'Content-Type: application/json' \
   -d '{"entity":"account",
@@ -101,7 +101,7 @@ curl -i https://preview.evently.cloud/append/selector \
        "meta":{},
        "data":{"username":"mikemeyers"},
        "selector":{
-         "selectorId":"<your-selectorId>", "mark":"<your-mark>"}}'
+         "selectorId":"<your-selectorId>","mark":"<your-mark>"}}'
 ```
 
 You will get back a success message:
@@ -151,10 +151,10 @@ This should return an empty selector, with just the selector footer object:
 }
 ```
 
-Now that you know this thermostat has no `associated-to-account` events, use the `selectorId` and `mark` to conditionally append the new event. You find these values in the selector footer you just fetched above. The thermostat’s owner `mikemeyers` has an account with the key `wqeuru4594`. Your event stores this association in an `account-key` field in the `data` field.
+Now that you know this thermostat has no `associated-to-account` events, use the `selectorId` and `mark` to atomically append the new event. You find these values in the selector footer you just fetched above. The thermostat’s owner `mikemeyers` has an account with the key `wqeuru4594`. Your event stores this association in an `account-key` field in the `data` field.
 
 ```shell
-curl -i https://preview.evently.cloud/append/selector \
+curl -i https://preview.evently.cloud/append/atomic \
   -H "Authorization: Bearer $EVENTLY_TOKEN" \
   -H 'Content-Type: application/json' \
   -d '{"entity":"thermostat",
@@ -163,7 +163,7 @@ curl -i https://preview.evently.cloud/append/selector \
        "meta":{},
        "data":{"account-key":"wqeuru4594"},
        "selector":{
-         "selectorId":"<your-selectorId>", "mark":"<your-mark>"}}'
+         "selectorId":"<your-selectorId>","mark":"<your-mark>"}}'
 ```
 
 You will get back a success message:

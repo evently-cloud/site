@@ -56,7 +56,7 @@ Applications find relevant events with selectors. A selector object tells the Le
 
 Selector statements can contain a `limit` property to control the number of events to be retrieved. Additionally they can contain an `after` property to indicate where to start selecting events from. Together these two properties can be used to page through large selector results.
 
-Ledgers accept two types of selectors–Replay and Filter selectors.
+Ledgers accept two types of selectors–replay and filter selectors.
 
 #### Replay Selectors
 
@@ -86,7 +86,7 @@ The filter selector matches events by their meta and data values. They use [SQL 
 }
 ```
 
-These same selectors can also be use to atomically append events to the ledger.
+The selectors can be used to atomically append events to the ledger.
 
 ## Event Registry
 

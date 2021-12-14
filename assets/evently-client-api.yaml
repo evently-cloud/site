@@ -68,7 +68,7 @@ paths:
                 value:
                   entity: account
                   event: account-created
-      description: Accepts a form object to register a new Entity Event type. This action is idempotent, so one can register the same event repeatedly without a failure response.
+      description: 'Accepts a form object to register a new Entity Event type. This action is idempotent, so one can register the same event repeatedly without a failure response.'
       security:
         - opaque-token: []
   /append/fact:
@@ -209,7 +209,7 @@ paths:
       description: |-
         Append a serial event to the ledger. Serial events append only if they are the next event in an entity event sequence. The form requires a `previousEventId` for the latest event for an entity instance. This can be obtained from the result of a previous append operation or from a replay selector result.
 
-        In order to append a serial event, an event must already be appended for the entity instance. This can be done by appending a selector event which conditionally appends an event if none have been appended already, or a simple factual event if the client is unconcerned with other attempts to append to the specific entity instance.  
+        In order to append a serial event, an event must already be appended for the entity instance. This can be done by atomically appending a event which appends an event if none have been appended already, or a simple factual event if the client is unconcerned with other attempts to append to the specific entity instance.  
 
         If your client has uncertain connectivity and wants to append the event multiple times to ensure success, send a unique, client-created `idempotencyKey` to identify this specific event in subsequent append attempts. Evently recommends using [Nano IDs](https://zelark.github.io/nano-id-cc/).
       security:
@@ -256,9 +256,9 @@ paths:
                 - data
                 - previousEventId
     parameters: []
-  /append/selector:
+  /append/atomic:
     get:
-      summary: Append Selector Event Form
+      summary: Append Atomic Event Form
       tags: []
       responses:
         '200':
@@ -273,11 +273,11 @@ paths:
                 type: array
                 default:
                   - '<https://level3.rest/profiles/form>'
-      operationId: get-append-selector-form
-      description: Returns a JSON Schema form to append a selector-conditioned event. Create an object matching this schema and POST it back.
+      operationId: get-atomic-append-form
+      description: Returns a JSON Schema form to atomically append and event using a selector conditional. Create an object matching this schema and POST it back.
     post:
-      summary: Append a Selector Event
-      operationId: post-append-selector-form
+      summary: Atomic Append Event
+      operationId: post-atomic-append-form
       responses:
         '201':
           description: Created
@@ -311,9 +311,9 @@ paths:
                   - current
                   - message
       description: |-
-        Append a selector-conditioned event to the ledger. These events append only if the provided selector is quiescent, meaning it has no new events. This selector's quiesence is the condition required to append the event. The form requires a `selector` object with a `selectorId` indicating the selector and `mark` pointing to the ledger mark where the selector has been read up to.
+        Append an event atomically to the ledger using a selector conditional. These events append only if the provided selector is quiescent, meaning it has no new events. This selector's quiesence is the condition required to append the event. The form requires a `selector` object with a `selectorId` indicating the selector and `mark` pointing to the ledger mark where the selector has been read up to.
 
-        One can use either a replay or a filter Selector as a condition for appending an event. The data for the `selector` object is found in the Selector's footer object at the end of a selector event stream.
+        One can use either a replay or a filter selector as a condition for appending an event. The data for the `selector` object is found in the selector's footer object at the end of a selector event stream.
 
         If your client has uncertain connectivity and wants to append the event multiple times to ensure success, send a unique, client-created `idempotencyKey` to identify this specific event in subsequent append attempts. Evently recommends using [Nano IDs](https://zelark.github.io/nano-id-cc/).
       security:
@@ -350,7 +350,7 @@ paths:
                   required:
                     - selectorId
                     - mark
-                  description: The selector used to conditionally append this event. The data for this object is found in the footer of a selector event stream.
+                  description: The selector used to atomically append this event. The data for this object is found in the footer of a selector event stream.
                   properties:
                     selectorId:
                       type: string
@@ -441,7 +441,7 @@ paths:
 
         The default redirect approach works well with shared entities that change infrequently as they contain caching instructions to share with other clients. If the entity instance changes often then sending `Prefer: return=representation` will improve selector performance by skipping the redirect step at the cost of not utilizing the internet's caching services.
 
-        The selector footer information (`selectorId`, `mark`) can be used to conditionally append events using the /append/selector endpoint.
+        The selector footer information (`selectorId`, `mark`) can be used to atomically append events using the /append/atomic endpoint.
       requestBody:
         content:
           application/json:
@@ -555,7 +555,7 @@ paths:
 
         The default redirect approach works well with shared entities that change infrequently as they contain caching instructions to share with other clients. If the entity instance changes often then sending `Prefer: return=representation` will improve selector performance by skipping the redirect step at the cost of not utilizing the internet's caching services.
 
-        The selector footer information (`selectorId`, `mark`) can be used to conditionally append events using the /append/selector endpoint.
+        The selector footer information (`selectorId`, `mark`) can be used to atomically append events using the /append/atomic endpoint.
       requestBody:
         content:
           application/json:
