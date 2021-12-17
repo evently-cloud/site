@@ -41,7 +41,17 @@ apiDocs: false
         <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-
+        <script type="text/javascript">
+        function htmlToText(htmlIn) {
+            return htmlIn
+              .replace(/(<([^>]+)>)/gi, "")
+              .replace(/&quot;/g, '"')
+              .replace(/&gt;/g, '>')
+              .replace(/&lt;/g, '<')
+              .replace(/&amp;/g, '&')
+              .trim()
+        }
+        </script>
     </head>
     <body x-data="{ signupFormOpen: false, darkMode: false }" class="transition-all {% if markdownFile != false %} md {% endif %}" :class="darkMode && 'dark-mode'">
 

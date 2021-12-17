@@ -309,3 +309,35 @@ body.md.dark-mode {
 .api-docs .menu-content label {
     @apply bg-transparent hover:bg-gray-200;
 }
+
+/**************************************************************** Code Tabs  */
+.code-tabs pre, .code-tabs input {
+    display: none;
+}
+.code-tabs input:checked + pre {
+    display: block;
+}
+.code-tabs ul {
+    font-size: 0;
+    padding: 0;
+    white-space: nowrap;
+    overflow: auto;
+    user-select: none;
+}
+.code-tabs li {
+    list-style: none;
+    display: inline-block;
+    position: relative;
+}
+.code-tabs label {
+    @apply font-body bg-darkBase text-lightBase px-4 py-3;
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+    padding: 2px 5px;
+    margin: 2px;
+    font-size: 14px;
+}
+.code-tabs input:checked + label {
+    @apply bg-button;
+}
