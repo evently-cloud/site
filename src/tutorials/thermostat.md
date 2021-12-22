@@ -69,7 +69,7 @@ Evently’s API is self-documenting so you can `GET` any URL and learn about the
 
 ### Register an Event Type
 
-The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. For convenience, add your [API access token](https://evently.cloud/#signup-form-container) as an environment variable for cURL commands or a window constant in the browser. The statements below will pick up this constant and use them:
+The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. For convenience, add your [API access token](/#signup-form-container) as an environment variable for cURL commands or a window constant in the browser. The statements below will pick up this constant and use them:
 
 ```shell [g1:cURL]
 export EVENTLY_TOKEN="your-token-here"

@@ -8,7 +8,7 @@ permalink: concepts/sql-jsonpath/
 ---
 
 # SQL JSONPath for Filter Selectors
-SQL JSONPath, defined in the SQL2016 specification, takes much of its design from [JSONPath](https://goessner.net), created by Stefan Goessner. Stefan’s goal was to create a JSON version of XPath, an XML processing tool. SQL JSONPath has a smaller set of requirements mostly focused on finding and extracting data from JSON data columns. To this end, the expression language has been simplified from JSONPath to take advantage of database indexes. Additionally, the expressions have been reorganized to provide a more query-oriented experience.
+SQL JSONPath, defined in the SQL2016 specification, takes much of its design from [JSONPath](https://goessner.net/articles/JsonPath/index.html), created by Stefan Goessner. Stefan’s goal was to create a JSON version of XPath, an XML processing tool. SQL JSONPath has a smaller set of requirements mostly focused on finding and extracting data from JSON data columns. To this end, the expression language has been simplified from JSONPath to take advantage of database indexes. Additionally, the expressions have been reorganized to provide a more query-oriented experience.
 
 Evently’s use case for JSONPath aligns with SQL databases, and the filter selector query language uses SQL JSONPath to find ledger events that match queries in their meta and data fields. Evently does not allow the editing of existing events so no data modification features are needed from earlier JSONPath syntaxes. 
 
@@ -22,7 +22,7 @@ Expressions have two sections; the navigation section and an optional filter sec
 
 Here is an example expression:
 
-`strict $.store.book[*].author ? (@ == "Evelyn Waugh" || @ == "Herman Mellville")`
+`strict $.book.authors[*] ? (@ == "Evelyn Waugh" || @ == "Herman Mellville")`
 
 #### Mode
 
@@ -33,9 +33,9 @@ Expressions can be evaluated in two modes: `strict` and `lax`, the default mode 
 
 #### Navigation
 
-Navigation can utilize dot notation, such as `$.store.book[0]`
+Navigation can utilize dot notation, such as `$.book.authors[0]`
 
-Navigation can also use bracket notation, such as `$["store"]["book"][0]`
+Navigation can also use bracket notation, such as `$["book"]["authors"][0]`
 
 Bracket notation must use double quotes instead of single quotes.
 
@@ -107,10 +107,10 @@ A value can be tested for existence, and string values can be tested for prefixe
 
 | Expression                                      | Description                                                  |
 | ----------------------------------------------- | ------------------------------------------------------------ |
-| `exists ()`                                     | A value exists                                               |
-| `is unknown`                                    | No value exists                                              |
+| `exists ()`                                     | A value exists for the given predicate                       |
+| `() is unknown`                                 | Predicate result cannot be determined; neither true nor false |
 | `starts with "<text>"`                          | Value starts with specified text                             |
-| `like regex "regex-expression" flag? "<flags>"` | [XQuery](https://www.regular-expressions.info/xpath.html) regular expression. Have a look at [XRegexp](https://xregexp.com) |
+| `like_regex "regex-expression" flag? "<flags>"` | [XQuery](https://www.regular-expressions.info/xpath.html) regular expression. Have a look at [XRegexp](https://xregexp.com) |
 
 Regex flags are optional, and change the pattern matching behavior.
 
@@ -121,54 +121,76 @@ Regex flags are optional, and change the pattern matching behavior.
 
 ### Examples
 
-This example is taken from Stefan Goessner’s original JSONPath documentation.
+This example is taken from Stefan Goessner’s original [JSONPath example](https://goessner.net/articles/JsonPath/index.html#e3). It has been modified to be a set of appended events in a `store` entity. The event could be called `sku-added` and records item type and type-specific details added to the store’s SKU list.
+
+```json
+// Event 1
+{ "book": {
+    "category": "reference",
+    "authors": ["Nigel Rees"],
+    "title": "Sayings of the Century",
+    "price": 8.95
+  }
+}
+
+// Event 2
+{ "book": {
+    "category": "fiction",
+    "authors": ["Evelyn Waugh"],
+    "title": "Sword of Honour",
+    "price": 12.99
+  }
+}
+
+// Event 3
+{ "book": {
+    "category": "fiction",
+    "authors": ["Herman Melville"],
+    "title": "Moby Dick",
+    "isbn": "0-553-21311-3",
+    "price": 8.99
+  }
+}
+
+// Event 4
+{ "book": {
+    "category": "fiction",
+    "authors": ["Stephen King", "Peter Straub"],
+    "title": "The Talisman",
+    "isbn": "0-375-50777-9",
+    "price": 22.99
+  }
+}
+
+// Event 5
+{ "bicycle": {
+    "color": "red",
+    "price": 1995.95
+  }
+}
+```
+
+These event `data` objects can be filtered with the expresions in the table below. The expressions would be submitted as part of a [Filter Selector](/api/#operation/post-selector-filter-lookup) query:
 
 ```json
 {
-  "store": {
-    "book": [
-      {
-        "category": "reference",
-        "author": "Nigel Rees",
-        "title": "Sayings of the Century",
-        "price": 8.95
-      },
-      {
-        "category": "fiction",
-        "author": "Evelyn Waugh",
-        "title": "Sword of Honour",
-        "price": 12.99
-      },
-      {
-        "category": "fiction",
-        "author": "Herman Melville",
-        "title": "Moby Dick",
-        "isbn": "0-553-21311-3",
-        "price": 8.99
-      },
-      {
-            "category": "fiction",
-            "author": "J. R. R. Tolkien",
-            "title": "The Lord of the Rings",
-            "isbn": "0-395-19395-8",
-            "price": 22.99
-      }
-    ],
-    "bicycle": {
-      "color": "red",
-      "price": 19.95
+  "data": {
+    "store": {
+      "sku-added": "<JSONPath expression goes here>"
     }
   }
 }
 ```
 
-| JSONPath Expression      | Result                                |
-| ------------------------ | ------------------------------------- |
-| `$.store.book[*].author` | The authors of all books in the store |
-|                          |                                       |
-|                          |                                       |
-|                          |                                       |
-|                          |                                       |
-|                          |                                       |
-|                          |                                       |
+| JSONPath Expression                                  | Goal                                                                                                                                                                                                   | Event Count |
+| ---------------------------------------------------- |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| `$.book.authors ? (@ == "Herman Melville")`          | Events where book’s author is “Herman Melville”                                                                                                                                                        | 4    |
+| `$.book.authors ? (@.size() > 1)`                    | Book events with more than one author                                                                                                                                                                  | 1     |
+| `$.book`                                             | All book events                                                                                                                                                                                        | 4    |
+| `$.book.authors[last] ? (@ == "Peter Straub")`       | Events where book’s last author is “Peter Straub”                                                                                                                                                      | 1     |
+| `$.book ? (exists(@.isbn))`                          | Events where books have an isbn                                                                                                                                                                        | 2    |
+| `$.book ? !(exists(@.isbn))`                         | Events where books do not have an isbn                                                                                                                                                                 | 2    |
+| `$.book.title ? (@ starts with "S")`                 | Events where book titles start with the letter “S”                                                                                                                                                     | 2    |
+| `$.book ? ((@.category > 100) is unknown)`           | Events where book’s category is > 100. Nonsensical in the example data, but in cases where the value has mixed type across multiple events, `is unknown` identifies predicates with `unknown` results. | 4    |
+| `$.bicycle ? (@.colour like_regex "^RED$" flag "i")` | Event’s where the bicycle’s colour is “red”, regardless of case                                                                                                                                        | 1     |
 
