@@ -437,7 +437,7 @@ paths:
       description: |-
         Submit a filter request to stream events from the ledger that match filter criteria. Use `after` to catch up on a previously-fetched selector by setting it to a ledger mark or event ID. The `limit` property controls how many events are returned in the selector.
 
-        This resource redirects to a URL that contains the selector results. If the redirect approach is not suitable, send a Prefer header indicating your client wishes the selector result in the POST response.
+        This resource redirects to a URL that contains the selector results. If the redirect approach is not suitable, send a `Prefer` header indicating your client wishes the selector result in the POST response.
 
         The default redirect approach works well with shared entities that change infrequently as they contain caching instructions to share with other clients. If the entity instance changes often then sending `Prefer: return=representation` will improve selector performance by skipping the redirect step at the cost of not utilizing the internet's caching services.
 
@@ -549,9 +549,9 @@ paths:
       security:
         - opaque-token: []
       description: |-
-        Submit a replay request to stream events of specified entities from the ledger. Use `after` to catch up on a previously-fetched selector by setting it to a ledger mark or event ID. The `limit` property controls how many events are returned in the selector.
+        Submit a filter selector request to stream events of specified entities from the ledger. Use `after` to catch up on a previously-fetched selector by setting it to a ledger mark or event ID. The `limit` property controls how many events are returned in the selector.
 
-        This resource redirects to a URL that contains the selector results. If the redirect approach is not suitable, send a Prefer header indicating your client wishes the selector result in the POST response.
+        This resource redirects to a URL that contains the selector results. If the redirect approach is not suitable, send a `Prefer` header indicating your client wishes the selector result in the POST response.
 
         The default redirect approach works well with shared entities that change infrequently as they contain caching instructions to share with other clients. If the entity instance changes often then sending `Prefer: return=representation` will improve selector performance by skipping the redirect step at the cost of not utilizing the internet's caching services.
 
