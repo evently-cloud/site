@@ -8,7 +8,7 @@ permalink: concepts/sql-jsonpath/
 ---
 
 # SQL JSONPath for Filter Selectors
-SQL JSONPath, defined in the SQL2016 specification, takes much of its design from [JSONPath](https://goessner.net/articles/JsonPath/index.html), created by Stefan Goessner. Stefan’s goal was to create a JSON version of XPath, an XML processing tool. SQL JSONPath has a smaller set of requirements mostly focused on finding and extracting data from JSON data columns. To this end, the expression language has been simplified from JSONPath to take advantage of database indexes. Additionally, the expressions have been reorganized to provide a more query-oriented experience.
+SQL JSONPath, defined in the SQL2016 specification, takes much of its design from Stefan Goessner’s [JSONPath](https://goessner.net/articles/JsonPath/index.html). Stefan’s goal was to create a JSON version of [XPath](https://developer.mozilla.org/en-US/docs/Web/XPath), an XML processing tool. SQL JSONPath has a smaller set of requirements mostly focused on finding and extracting data from JSON data columns.
 
 Evently’s use case for JSONPath aligns with SQL databases, and the filter selector query language uses SQL JSONPath to find ledger events that match queries in their meta and data fields. Evently does not allow the editing of existing events so no data modification features are needed from earlier JSONPath syntaxes. 
 
@@ -16,7 +16,7 @@ Evently’s use case for JSONPath aligns with SQL databases, and the filter sele
 
 SQL JSONPath expressions can match any form of JSON, including scalars, arrays and objects. The top level of a JSON structure starts with `$` and expressions progress their way down object properties and across arrays to reference fields and apply filtering query expressions.
 
-Expressions have two sections; the navigation section and an optional filter section. The mode and filter sections are optional, which is indicated with a trailing `?` character.
+Expressions have three sections; the mode, the navigation statement and a filter expression. The mode and filter sections are optional.
 
 #### `<mode?> <navigation> ? <filter?>`
 
@@ -28,8 +28,8 @@ Here is an example expression:
 
 Expressions can be evaluated in two modes: `strict` and `lax`, the default mode if omitted. The two modes have different behaviors for navigating to data properties.
 
-1. Missing properties. Strict mode expects the navigation statement to reference existing properties and will throw an error if they are not present in the data. Lax mode will ignore missing properties and treat the situation as an unmatched path.
-2. Arrays. If an operation expects an array, but the data value is not an array, lax mode will thread the value as a single-element array. Conversely if the operation does not expect an array, but encounters an array data value, it will be unnested and each value will be tested. In strict mode, either of these conditions results in an error.
+1. **Missing properties:** Strict mode expects the navigation statement to reference existing properties and will throw an error if they are not present in the data. Lax mode will ignore missing properties and treat the situation as an unmatched path.
+2. **Arrays:** If an operation expects an array, but the data value is not an array, lax mode treats the value as a single-element array. Conversely if the operation does not expect an array, but encounters an array, each array value will be tested. In strict mode, either of these conditions results in an error.
 
 #### Navigation
 
