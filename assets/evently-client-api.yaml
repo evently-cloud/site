@@ -464,7 +464,7 @@ paths:
                 after:
                   type: string
                   pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
-                  description: Download events that occur after this ledger mark or event ID.
+                  description: Fetch events that occur after this ledger mark or event ID.
                 limit:
                   type: integer
                   minimum: 1
@@ -480,7 +480,7 @@ paths:
               - return=representation
           in: header
           name: Prefer
-          description: Tells the selector to send the matching events in response to the POST request instead of sending a redirect to the download URL.
+          description: Tells the selector to send the matching events in response to the POST request instead of sending a redirect to the fetch URL.
     parameters: []
   /selectors/filter:
     get:
@@ -564,7 +564,7 @@ paths:
               properties:
                 data:
                   type: object
-                  description: data is a map of maps. The first level of the map has keys named for the entity type. Inside of each entity type are keys named for the event types. Each event type value is a SQL JSONPath statement to match against all entity events of that type.
+                  description: Data is a map of maps. The first level of the map has keys named for the entity type. Inside of each entity type are keys named for the event types. Each event type value is a SQL JSONPath statement to match against all entity events of that type.
                 meta:
                   type: string
                   description: SQL JSONPath statement to filter meta object values.
@@ -572,7 +572,7 @@ paths:
                 after:
                   type: string
                   pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
-                  description: Download events that occur after this ledger mark or event ID.
+                  description: Fetch events that occur after this ledger mark or event ID.
                 limit:
                   type: integer
                   minimum: 1
@@ -594,7 +594,7 @@ paths:
               - return=representation
           in: header
           name: Prefer
-          description: Tells the selector to send the matching events in response to the POST request instead of sending a redirect to the download URL.
+          description: Tells the selector to send the matching events in response to the POST request instead of sending a redirect to the fetch URL.
     parameters: []
   '/selectors/fetch/{selector-info}.ndjson':
     get:
@@ -613,15 +613,15 @@ paths:
             Link:
               schema:
                 default:
-                  - '</ledgers/download/{start-info}>; rel="start"'
-                  - '</ledgers/download/{current-info}>; rel="current"'
-                  - '</ledgers/download>; rel="https://level3.rest/profiles/lookup"'
+                  - '</selectors/fetch/{start-info}>; rel="start"'
+                  - '</selectors/fetch/{current-info}>; rel="current"'
+                  - '</selectors/{selector-type}>; rel="https://level3.rest/profiles/lookup"'
                 type: array
           content:
             application/x-ndjson:
               schema:
                 type: any
-      operationId: get-selector-download
+      operationId: get-selector-fetch
       description: |-
         Fetch a selector result as configured by a selector lookup. This resource URI is provided by replay and filter selector lookups.
 
@@ -729,6 +729,25 @@ paths:
       description: Deletes this entity event registration. Only succeeds if no events of this type have been appended to the ledger.
       security:
         - opaque-token: []
+  /ledgers:
+    get:
+      summary: Ledger Info
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/hal+json:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/home>'
+      operationId: get-ledgers
+      description: 'Information about the ledgers, including links to download and reset actions.'
   /ledgers/download:
     get:
       summary: Download Ledger Form
