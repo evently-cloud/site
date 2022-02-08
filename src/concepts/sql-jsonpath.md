@@ -16,20 +16,13 @@ Evently’s use case for JSONPath aligns with SQL databases, and the filter sele
 
 SQL JSONPath expressions can match any form of JSON, including scalars, arrays and objects. The top level of a JSON structure starts with `$` and expressions progress their way down object properties and across arrays to reference fields and apply filtering query expressions.
 
-Expressions have three sections; the mode, the navigation statement and a filter expression. The mode and filter sections are optional.
+Expressions have two sections; the navigation statement and a filter expression. The filter section is optional.
 
-#### `<mode?> <navigation> ? <filter?>`
+#### `<navigation> ? <filter?>`
 
 Here is an example expression:
 
-`strict $.book.authors[*] ? (@ == "Evelyn Waugh" || @ == "Herman Mellville")`
-
-#### Mode
-
-Expressions can be evaluated in two modes: `strict` and `lax`, the default mode if omitted. The two modes have different behaviors for navigating to data properties.
-
-1. **Missing properties:** Strict mode expects the navigation statement to reference existing properties and will throw an error if they are not present in the data. Lax mode will ignore missing properties and treat the situation as an unmatched path.
-2. **Arrays:** If an operation expects an array, but the data value is not an array, lax mode treats the value as a single-element array. Conversely if the operation does not expect an array, but encounters an array, each array value will be tested. In strict mode, either of these conditions results in an error.
+`$.book.authors[*] ? (@ == "Evelyn Waugh" || @ == "Herman Mellville")`
 
 #### Navigation
 
