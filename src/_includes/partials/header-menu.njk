@@ -16,7 +16,7 @@
 <div class="flex gap-6 md:gap-4 md:my-0 md:ml-auto items-center">
     {% if markdownFile %}
         <a @click="darkMode = !darkMode" class="cursor-pointer">
-            <i class="text-3xl" :class="darkMode ? 'fa-moon fad' : 'fa-sun fas'"></i>
+            <i class="text-3xl" :class="darkMode ? 'fa-solid fa-moon' : 'fa-solid fa-sun'"></i>
         </a>
     {% endif %}
     {% include "partials/social-links.njk" %}
