@@ -112,7 +112,7 @@
             var zf_FieldArray = ["SingleLine", "Email", "MultiLine", "TermsConditions"];
             var isSalesIQIntegrationEnabled = false;
             var salesIQFieldsArray = [];
-            document.ready(function() {
+            document.addEventListener('DOMContentLoaded', function() {
               try {
                 var sendUrl = 'https://forms.zohopublic.com/evently/form/PreviewSignup2021/formperma/9zLZsrjf5VspKUJ4nh4ykb6v2xxgzOtWHo5SP08O7TQ/htmlRecords/submit'
                 document.getElementById('form').setAttribute('action', sendUrl);
