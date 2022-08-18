@@ -4,7 +4,8 @@
     </a>
     <div x-show="signupFormOpen" x-collapse.duration.1000ms class="px-4 w-full bg-darkBG text-left">
         <div class="zf-templateWidth">
-            <form action='https://forms.zohopublic.com/evently/form/PreviewSignup2021/formperma/9zLZsrjf5VspKUJ4nh4ykb6v2xxgzOtWHo5SP08O7TQ/htmlRecords/submit' name='form' method='POST' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();' accept-charset='UTF-8' enctype='multipart/form-data' id='form'><input type="hidden" name="zf_referrer_name" value="">
+            <form action='' name='form' onSubmit='javascript:document.charset="UTF-8"; return zf_ValidateAndSubmit();' accept-charset='UTF-8' enctype='multipart/form-data' id='form'>
+                <input type="hidden" name="zf_referrer_name" value="">
                 <!-- To Track referrals , place the referrer name within the " " in the above hidden input field -->
                 <input type="hidden" name="zf_redirect_url" value="">
                 <!-- To redirect to a specific page after record submission , place the respective url within the " " in the above hidden input field -->
@@ -111,6 +112,15 @@
             var zf_FieldArray = ["SingleLine", "Email", "MultiLine", "TermsConditions"];
             var isSalesIQIntegrationEnabled = false;
             var salesIQFieldsArray = [];
+            document.ready(function() {
+              try {
+                var sendUrl = 'https://forms.zohopublic.com/evently/form/PreviewSignup2021/formperma/9zLZsrjf5VspKUJ4nh4ykb6v2xxgzOtWHo5SP08O7TQ/htmlRecords/submit'
+                document.getElementById('form').setAttribute('action', sendUrl);
+                document.getElementById('form').setAttribute('method', 'POST');
+              } catch (e) {
+                //In case of exception, like 'form not found on page', do nothing
+              }
+            });
         </script>
     </div>
 </div>
