@@ -19,6 +19,7 @@
         "markdown-it-anchor": "8.4.1",
         "markdown-it-codetabs": "1.2.0",
         "markdown-it-container": "3.0.0",
+        "markdown-it-image-figures": "^2.1.0",
         "markdown-it-prism": "2.2.1",
         "postcss-cli": "9.0.2",
         "tailwindcss": "2.2.19"

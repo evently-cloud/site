@@ -1,7 +1,7 @@
 ---
 title: Test Blog Post
 layout: post
-featuredImage: ./test.jpg
+featuredImage: ./feature-img.png
 featuredImageAltText: Purple abstract design
 postExcerpt: Mauris eu ultrices dolor. Pellentesque sagittis risus quis vulputate semper. Donec sodales commodo pharetra. Etiam vitae nulla placerat, consequat nibh.
 pageTitle: This is my other Title
@@ -9,12 +9,7 @@ date: '2022-11-03'
 tags: ['blogPosts']
 ---
 
-Consectetur adipiscing elit. Nulla quis lorem egestas, ullamcorper justo eget, sollicitudin nisi. Quisque mattis in risus vitae mattis. Praesent imperdiet ornare finibus. In egestas massa nec pulvinar vestibulum.
-
-<!-- excerpt -->
-
-![Test image](/test.png)
-![inline-face-palm](https://user-images.githubusercontent.com/52248161/195945566-a92df569-d109-4abb-aa7b-f71124b9a0d6.png)
+![A test image should be here](asset-img.jpg)
 
 ## Lorem ipsum dolor sit amet
 

@@ -7,10 +7,14 @@ module.exports = function (eleventyConfig) {
     const markdownItPrism = require('markdown-it-prism');
     const markdownItAnchor = require('markdown-it-anchor');
     const markdownItCodetabs = require('markdown-it-codetabs')
+    const mdfigcaption = require('markdown-it-image-figures');
     const markdownLib = markdownIt()
         .use(markdownItContainer, 'sidebar')
         .use(markdownItPrism)
         .use(markdownItCodetabs)
+        .use(mdfigcaption, {
+            figcaption: true
+        })
         .use(markdownItAnchor, {
             permalink: markdownItAnchor.permalink.linkAfterHeader({
                 style: 'visually-hidden',

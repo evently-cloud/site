@@ -2,16 +2,12 @@
 layout: post
 title: Testing Formatting
 pageTitle: This is my other Title
-featuredImage: ./test.png
+featuredImage: ./feature-img.jpg
 featuredImageAltText: A wizard!
 postExcerpt: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam dictum felis eu pede mollis pretium. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
 tags: ['blogPosts']
 date: '2022-11-04'
 ---
-
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam dictum felis eu pede mollis pretium. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-
-<!-- excerpt -->
 
 ```js
 var s = 'JavaScript syntax highlighting';
