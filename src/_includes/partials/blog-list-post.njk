@@ -1,0 +1,19 @@
+{% for post in blogPosts %}
+  <div class="py-6 lg:w-1/3 md:w-full">
+    <div class="rounded-md bg-blueGray-200">
+      <img class="object-cover object-center w-full h-40 mb-6 rounded" src={{post.url}}{{post.data.featuredImage}} alt={{post.data.featuredImageAltText}} />
+      <h2 class="text-lg font-semibold text-gray-700 lg:text-2xl title-font">
+        {{ post.data.title }}
+      </h2>
+      <p class="mb-4 text-base font-semibold">
+        {{ post.data.date }}
+      </p>
+      <p class="mb-4 text-base leading-relaxed">
+        {{ post.data.postExcerpt }}
+      </p>
+      <a href="{{ post.url | url }}" class="inline-flex items-center font-semibold text-blue-700 md:mb-2 lg:mb-0 hover:text-blue-400 ">
+        Read More
+      </a>
+    </div>
+  </div>
+{% endfor %}
