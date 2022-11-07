@@ -2,7 +2,12 @@
 layout: body
 ---
 
-<article class='w-full mt-2 lg:mt-14'>
+<article class='blog-post w-full mt-2 lg:mt-14'>
   <h1>{{title}}</h1>
+  {% if featuredImageInArticle %}
+    <figure class='mb-10'>
+      <img src={{featuredImage}} alt={{featuredImageAltText}}>
+    </figure>
+  {% endif %}
   {{content | safe}}
 </article>

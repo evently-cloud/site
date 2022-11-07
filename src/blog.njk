@@ -7,11 +7,12 @@ markdownFile: true
 title: Home
 pagination:
   data: collections.blogPosts
-  size: 6
+  size: 9
   reverse: true
   alias: blogPosts
 ---
-<h1 class="text-5xl text-center">Blog</h1>
-<div class="flex flex-wrap text-left">
-    {% include "partials/blog-list-post.njk" %}
-</div>
+<h1 class="blog-title text-5xl text-center">Evently Blog</h1>
+{# <div class="blog-list grid md:grid-cols-3 gap-5 sm:grid-cols-2 xsm::grid-cols-1"> #}
+<ol class="blog-list grid md:grid-cols-3 gap-5 sm:grid-cols-2 xsm::grid-cols-1">
+  {% include "partials/blog-list-post.njk" %}
+</ol>

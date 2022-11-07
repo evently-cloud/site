@@ -341,3 +341,39 @@ body.md.dark-mode {
 .code-tabs input:checked + label {
     @apply bg-button;
 }
+
+/**************************************************************** Blog  */
+main h1.blog-title {
+  @apply mb-12;
+}
+.blog-list {
+  @apply grid gap-5;
+  list-style: none !important;
+  margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(min(20.625rem, 100%), 1fr));
+  align-content: start;
+}
+.blog-list .blog-list-post {
+  @apply bg-gray-100;
+}
+.dark-mode .blog-list .blog-list-post {
+  background: rgb(9, 32, 52);
+}
+.blog-list .blog-list-post h2 {
+  @apply m-0;
+}
+.blog-list .blog-list-post a {
+  @apply text-darkBase block;
+}
+.blog-list .blog-list-post .post-clamp {
+  @apply overflow-hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+.dark-mode .blog-list .blog-list-post a {
+  @apply text-darkText;
+}
+.dark-mode .blog-list .blog-list-post p.post-date {
+  @apply text-darkBase;
+}
