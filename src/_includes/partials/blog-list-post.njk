@@ -1,5 +1,5 @@
 {% for post in blogPosts %}
-  <li class="blog-list-post rounded-md bg-blueGray-200">
+  <li class="blog-list-post rounded-md bg-gray-100">
     <article>
       {% if post.data.postPreviewImage !== false %}
         <a href={{ post.url | url }}>
@@ -11,7 +11,7 @@
           {{ post.data.date }}
         </p>
         <a href={{ post.url | url }}>
-          <h2 class="font-semibold lg:text-2xl mt-0">
+          <h2 class="font-semibold lg:text-2xl m-0">
             {{ post.data.title }}
           </h2>
         </a>

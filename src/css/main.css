@@ -343,18 +343,9 @@ body.md.dark-mode {
 }
 
 /**************************************************************** Blog  */
-main h1.blog-title {
-  @apply mb-12;
-}
 .blog-list {
   list-style: none !important;
-  margin: 0;
-}
-.blog-list .blog-list-post {
-  @apply bg-gray-100;
-}
-.dark-mode .blog-list .blog-list-post {
-  background: rgb(9, 32, 52);
+  margin: 0 !important;
 }
 .blog-list .blog-list-post h2 {
   @apply m-0;
@@ -367,6 +358,9 @@ main h1.blog-title {
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
+}
+.dark-mode .blog-list .blog-list-post {
+  background: rgb(9, 32, 52);
 }
 .dark-mode .blog-list .blog-list-post a {
   @apply text-darkText;
