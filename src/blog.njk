@@ -11,7 +11,44 @@ pagination:
   reverse: true
   alias: blogPosts
 ---
-<h1 class="blog-title text-5xl text-center mb-12">Evently Blog</h1>
-<ol class="blog-list grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-  {% include "partials/blog-list-post.njk" %}
+<h1 class='blog-title text-5xl text-center mb-12'>Evently Blog</h1>
+<ol class='blog-list grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
+  {% include 'partials/blog-list-post.njk' %}
 </ol>
+
+<nav aria-label='More blog posts' class='blog-pagination mt-10'>
+  <ol class='flex content-between'>
+    <div class='text-left w-1/2'>
+      <li>
+        {% if page.url != pagination.href.first %}
+          <a href='{{ pagination.href.first }}' class='mr-2'>
+            First
+          </a>
+        {% endif %}
+      </li>
+      <li>
+        {% if pagination.href.previous %}
+          <a href='{{ pagination.href.previous }}'>
+            Previous
+          </a>
+        {% endif %}
+      </li>
+    </div>
+    <div class='text-right w-1/2'>
+      <li>
+        {% if pagination.href.next %}
+          <a href='{{ pagination.href.next }}'>
+            Next
+          </a>
+        {% endif %}
+      </li>
+      <li>
+        {% if page.url != pagination.href.last %}
+          <a href='{{ pagination.href.last }}' class='ml-2'>
+            Last
+          </a>
+        {% endif %}
+      </li>
+    </div>
+  </ol>
+</nav>

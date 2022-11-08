@@ -343,7 +343,7 @@ body.md.dark-mode {
 }
 
 /**************************************************************** Blog  */
-.blog-list {
+ol.blog-list, .blog-pagination ol {
   list-style: none !important;
   margin: 0 !important;
 }
@@ -359,6 +359,16 @@ body.md.dark-mode {
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
+.blog-pagination ol li {
+  @apply inline;
+}
+.blog-pagination ol li a {
+  @apply rounded-md bg-gray-100 mb-4 inline-flex justify-center p-1;
+  max-width: 6rem;
+}
+.blog-pagination ol li a:hover {
+  @apply rounded-md bg-darkBase text-white;
+}
 .dark-mode .blog-list .blog-list-post {
   background: rgb(9, 32, 52);
 }
@@ -367,4 +377,11 @@ body.md.dark-mode {
 }
 .dark-mode .blog-list .blog-list-post p.post-date {
   @apply text-darkBase;
+}
+.dark-mode .blog-pagination ol li a {
+  @apply text-darkText;
+  background: rgb(9, 32, 52);
+}
+.dark-mode .blog-pagination ol li a:hover {
+  @apply rounded-md bg-darkBase text-white;
 }
