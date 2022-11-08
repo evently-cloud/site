@@ -2,18 +2,23 @@
 title: Test Blog Post
 layout: post
 featuredImage: ./feature-img.png
-featuredImageAltText: Purple abstract design
-postExcerpt: Mauris eu ultrices dolor. Pellentesque sagittis risus quis vulputate semper. Donec sodales commodo pharetra. Etiam vitae nulla placerat, consequat nibh.
-pageTitle: This is my other Title
+featuredImageAltText: Testing image for a blog post
+featuredImageInArticle: true
+postPreviewExcerpt: Mauris eu ultrices dolor. Pellentesque sagittis risus quis vulputate semper. Donec sodales commodo pharetra. Etiam vitae nulla placerat, consequat nibh.
+pageTitle: Test post
 date: '2022-11-03'
 tags: ['blogPosts']
 ---
 
+Consectetur adipidscing elit. Nulla quis lorem egestas, ullamcorper justo eget, sollicitudin nisi. Quisque mattis in risus vitae mattis. Praesent imperdiet ornare finibus. In egestas massa nec pulvinar vestibulum. Vivamus gravida mi tellus, vitae tempus justo ultricies sed.
+
+Morbi id ullamcorper augue. Vestibulum pellentesque dolor ligula, sit amet vulputate nisi accumsan a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis, massa sed dictum rhoncus, dolor tortor rhoncus purus, non tincidunt odio sem in nisi. Pellentesque id bibendum leo, et lacinia est.
+
+## Vivamus gravida mi tellus
+
+Duis auctor tellus sed erat lobortis, eu sollicitudin dolor congue. In elementum ac nulla eu hendrerit. Nam consectetur, libero ut rhoncus tincidunt, augue neque volutpat mi, eu aliquam purus diam id erat. Aenean varius lectus aliquet felis interdum elementum at vel mi. Ut maximus ex libero, et molestie risus consectetur quis. Aliquam congue dictum elit, vel suscipit est suscipit tempus.
+
 ![A test image should be here](asset-img.jpg)
-
-## Lorem ipsum dolor sit amet
-
-Consectetur adipiscing elit. Nulla quis lorem egestas, ullamcorper justo eget, sollicitudin nisi. Quisque mattis in risus vitae mattis. Praesent imperdiet ornare finibus. In egestas massa nec pulvinar vestibulum. Vivamus gravida mi tellus, vitae tempus justo ultricies sed. Morbi id ullamcorper augue. Vestibulum pellentesque dolor ligula, sit amet vulputate nisi accumsan a. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris facilisis, massa sed dictum rhoncus, dolor tortor rhoncus purus, non tincidunt odio sem in nisi. Pellentesque id bibendum leo, et lacinia est. Duis auctor tellus sed erat lobortis, eu sollicitudin dolor congue. In elementum ac nulla eu hendrerit. Nam consectetur, libero ut rhoncus tincidunt, augue neque volutpat mi, eu aliquam purus diam id erat. Aenean varius lectus aliquet felis interdum elementum at vel mi. Ut maximus ex libero, et molestie risus consectetur quis. Aliquam congue dictum elit, vel suscipit est suscipit tempus.
 
 Mauris eu ultrices dolor. Pellentesque sagittis risus quis vulputate semper. Donec sodales commodo pharetra. Etiam vitae nulla placerat, consequat nibh in, viverra turpis. Vivamus ornare gravida suscipit. Nam fermentum enim ut ex rutrum, eu volutpat tortor placerat. Donec pretium leo at lectus viverra, blandit convallis lacus tristique. Quisque feugiat id elit eget dignissim. In lectus erat, ultrices sed tempus imperdiet, consequat sed purus. Integer nunc orci, egestas non velit a, venenatis efficitur sem. Aenean non tincidunt eros. Duis porta dictum velit, eu tempor nisi placerat sit amet. Suspendisse et quam a dui ultrices cursus. Aliquam non accumsan mi. Phasellus in tellus porttitor, egestas ligula nec, convallis justo. Aenean sed consequat sem.
 

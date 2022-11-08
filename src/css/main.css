@@ -347,11 +347,8 @@ main h1.blog-title {
   @apply mb-12;
 }
 .blog-list {
-  @apply grid gap-5;
   list-style: none !important;
   margin: 0;
-  grid-template-columns: repeat(auto-fill, minmax(min(20.625rem, 100%), 1fr));
-  align-content: start;
 }
 .blog-list .blog-list-post {
   @apply bg-gray-100;

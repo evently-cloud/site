@@ -1,16 +1,17 @@
 ---
-title: Testing Blog Post Formatting
+title: Test, I intentionally did not set a preview image
 layout: post
 featuredImage: ./feature-img.jpg
 featuredImageAltText: Testing image for a blog post
 postPreviewExcerpt: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam dictum felis eu pede mollis pretium. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
-pageTitle: Test Blog Post - Formatting
-date: '2022-11-04'
+postPreviewImage: false
+pageTitle: Test Blog Post - No Image
+date: '2022-11-07'
 tags: ['blogPosts']
 ---
 
-```js
-var s = 'JavaScript syntax highlighting';
+```ts
+var s = 'TypeScript syntax highlighting';
 alert(s);
 ```
 
