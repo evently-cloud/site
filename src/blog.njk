@@ -1,7 +1,7 @@
 ---
 layout: body
 eleventyNavigation:
-  key: Blogs
+  key: Blog
   order: 4
 markdownFile: true
 title: Home
@@ -12,7 +12,6 @@ pagination:
   alias: blogPosts
 ---
 <h1 class="blog-title text-5xl text-center">Evently Blog</h1>
-{# <div class="blog-list grid md:grid-cols-3 gap-5 sm:grid-cols-2 xsm::grid-cols-1"> #}
-<ol class="blog-list grid md:grid-cols-3 gap-5 sm:grid-cols-2 xsm::grid-cols-1">
+<ol class="blog-list grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
   {% include "partials/blog-list-post.njk" %}
 </ol>
