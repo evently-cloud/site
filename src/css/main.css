@@ -408,3 +408,8 @@ ul.post-tag-list li a:hover {
 .blog-post .eleventy-plugin-youtube-embed, .blog-post figure {
   @apply my-10
 }
+/**************************************************************** Blog Tags  */
+.blog-tags-list {
+  list-style: none !important;
+  margin: 0 !important;
+}

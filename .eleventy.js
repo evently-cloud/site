@@ -117,6 +117,17 @@ module.exports = function (eleventyConfig) {
         return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_FULL);
     });
 
+    eleventyConfig.addCollection('tagsList', (collectionApi) => {
+        const tagsSet = new Set();
+        collectionApi.getAll().forEach((item) => {
+            if(!item.data.tags) return;
+            item.data.tags
+                .filter((tag) => !'blogPosts'.includes(tag))
+                .forEach((tag) => tagsSet.add(tag));
+        });
+        return [...tagsSet].sort((a, b) => b.localeCompare(a));
+    })
+
     return {
         dir: {
             input: 'src',

@@ -8,7 +8,7 @@ layout: body
   {% for tag in tags %}
     {% if tag !== 'blogPosts' %}
       <li class='mr-2'>
-        <a href='' class='hover:text-red-400'>#{{tag}}</a>
+        <a href='/tags/{{tag}}'>#{{tag}}</a>
       </li>
     {% endif %}
   {% endfor %}

@@ -3,8 +3,7 @@ layout: body
 eleventyNavigation:
   key: Blog
   order: 4
-markdownFile: true
-title: Home
+title: Blog
 pagination:
   data: collections.blogPosts
   size: 9
@@ -12,9 +11,12 @@ pagination:
   alias: blogPosts
 ---
 
-<h1 class='blog-title text-5xl text-center mb-12'>Evently Blog</h1>
+<h1 class='inline-block mr-4'>Evently Blog</h1>
+<a href='/tags' class='inline-block'>view all tags</a>
 <ol class='blog-list grid gap-5 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1'>
-  {% include 'partials/blog-list-post.njk' %}
+  {% for post in blogPosts %}
+    {% include 'partials/blog-list-post.njk' %}
+  {% endfor %}
 </ol>
 
 <nav aria-label='More blog posts' class='blog-pagination mt-10'>
