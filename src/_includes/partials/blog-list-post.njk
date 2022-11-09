@@ -2,7 +2,7 @@
   <li class='blog-list-post rounded-md bg-gray-100'>
     <article>
       {% if post.data.postPreviewImage !== false %}
-        <a href={{ post.url | url }} class=>
+        <a href={{ post.url | url }}>
           <img class='object-cover object-center w-full h-40 rounded' src={{post.url}}{{post.data.featuredImage}} alt={{post.data.featuredImageAltText}} />
         </a>
       {% endif %}
@@ -11,10 +11,19 @@
           {{ post.data.date | postDate }}
         </p>
         <a href={{ post.url | url }}>
-          <h2 class='font-semibold lg:text-2xl m-0'>
+          <h2 class='font-semibold text-2xl m-0'>
             {{ post.data.title }}
           </h2>
         </a>
+        <ul class='post-tag-list ml-0 text-sm'>
+          {% for tag in post.data.tags %}
+            {% if tag !== 'blogPosts' %}
+              <li class='mr-2'>
+                <a href='' class='hover:text-red-400'>#{{tag}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
         <p class='post-clamp text-base'>
           {{ post.data.postPreviewExcerpt }}
         </p>

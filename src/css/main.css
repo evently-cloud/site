@@ -353,11 +353,27 @@ ol.blog-list, .blog-pagination ol {
 .blog-list .blog-list-post a {
   @apply text-darkBase block;
 }
+.blog-list .blog-list-post a:hover {
+  @apply text-lightBase
+}
 .blog-list .blog-list-post .post-clamp {
   @apply overflow-hidden;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
+}
+ul.post-tag-list {
+  list-style: none;
+  margin-left: 0 !important;
+}
+ul.post-tag-list li {
+  @apply inline-block
+}
+ul.post-tag-list a {
+  @apply inline-block text-darkBase
+}
+ul.post-tag-list li a:hover {
+  @apply text-lightBase
 }
 .blog-pagination ol li {
   @apply inline;
@@ -387,7 +403,7 @@ ol.blog-list, .blog-pagination ol {
 }
 /**************************************************************** Blog  */
 .blog-post > h1:first-of-type {
-  @apply mt-0
+  @apply mt-4
 }
 .blog-post .eleventy-plugin-youtube-embed, .blog-post figure {
   @apply my-10
