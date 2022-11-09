@@ -8,7 +8,7 @@
       {% endif %}
       <div class='p-4'>
         <p class='post-date text-base text-gray-400'>
-          {{ post.data.date }}
+          {{ post.data.date | postDate }}
         </p>
         <a href={{ post.url | url }}>
           <h2 class='font-semibold lg:text-2xl m-0'>

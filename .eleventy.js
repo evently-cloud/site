@@ -1,6 +1,7 @@
 const htmlmin = require('html-minifier');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
 const embeds = require("eleventy-plugin-embed-everything");
+const {DateTime} = require("luxon");
 
 module.exports = function (eleventyConfig) {
     const markdownIt = require('markdown-it');
@@ -110,6 +111,10 @@ module.exports = function (eleventyConfig) {
         changedContent = changedContent.replace(/:::/g, '</div>');
 
         return changedContent;
+    });
+
+    eleventyConfig.addFilter("postDate", (dateObj) => {
+        return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_FULL);
     });
 
     return {

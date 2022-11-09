@@ -6,7 +6,7 @@ featuredImageAltText: Testing image for a blog post
 postPreviewExcerpt: This post has a YouTube video embedded! There's no preview pic! Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nullam dictum felis eu pede mollis pretium. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.
 postPreviewImage: false
 pageTitle: Test Blog Post - No Image
-date: '2022-11-07'
+date: 2022-11-07 20:22:08
 tags: ['blogPosts']
 ---
 
