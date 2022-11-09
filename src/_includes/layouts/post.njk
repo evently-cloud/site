@@ -3,7 +3,8 @@ layout: body
 ---
 
 <article class='blog-post w-full mt-2 lg:mt-14'>
-  <h1>{{title}}</h1>
+  <p class='font-semibold text-darkBase text-2xl'>{{date}}</p>
+  <h1 class='mt-0'>{{title}}</h1>
   {% if featuredImageInArticle %}
     <figure class='mb-10'>
       <img src={{featuredImage}} alt={{featuredImageAltText}}>
