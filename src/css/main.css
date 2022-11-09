@@ -342,7 +342,7 @@ body.md.dark-mode {
     @apply bg-button;
 }
 
-/**************************************************************** Blog  */
+/**************************************************************** Blog Listings  */
 ol.blog-list, .blog-pagination ol {
   list-style: none !important;
   margin: 0 !important;
@@ -384,4 +384,8 @@ ol.blog-list, .blog-pagination ol {
 }
 .dark-mode .blog-pagination ol li a:hover {
   @apply rounded-md bg-darkBase text-white;
+}
+/**************************************************************** Blog  */
+.blog-post .eleventy-plugin-youtube-embed {
+  @apply my-10
 }

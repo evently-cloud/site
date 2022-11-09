@@ -1,5 +1,6 @@
 const htmlmin = require('html-minifier');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
+const embeds = require("eleventy-plugin-embed-everything");
 
 module.exports = function (eleventyConfig) {
     const markdownIt = require('markdown-it');
@@ -25,6 +26,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.setLibrary('md', markdownLib);
 
     eleventyConfig.addPlugin(eleventyNavigationPlugin);
+    eleventyConfig.addPlugin(embeds);
 
     eleventyConfig.setUseGitIgnore(false);
     eleventyConfig.addWatchTarget('./_tmp/main.css');

@@ -7,6 +7,17 @@
   "resolved" "https://registry.npmjs.org/@11ty/dependency-tree/-/dependency-tree-1.0.0.tgz"
   "version" "1.0.0"
 
+"@11ty/eleventy-cache-assets@^2.3.0":
+  "integrity" "sha512-W8tvO00GlWaKt3ccpEStaUBoj9BE3EgzuD8uYChCfYbN2Q4HkEItkiapvIJT0zJwAwoMfnSq6VHPLScYlX2XCg=="
+  "resolved" "https://registry.npmjs.org/@11ty/eleventy-cache-assets/-/eleventy-cache-assets-2.3.0.tgz"
+  "version" "2.3.0"
+  dependencies:
+    "debug" "^4.3.1"
+    "flat-cache" "^3.0.4"
+    "node-fetch" "^2.6.1"
+    "p-queue" "^6.6.2"
+    "short-hash" "^1.0.0"
+
 "@11ty/eleventy-navigation@0.3.2":
   "integrity" "sha512-7RJdnViAdHtDTVgJBN07+a0G5T4x6IhyjFVHkBhtlasKibsfT7+9j8nnFoJr76ngrUCm1SQ/1P/dS75j6ojVjQ=="
   "resolved" "https://registry.npmjs.org/@11ty/eleventy-navigation/-/eleventy-navigation-0.3.2.tgz"
@@ -786,6 +797,11 @@
   "resolved" "https://registry.npmjs.org/decamelize/-/decamelize-1.2.0.tgz"
   "version" "1.2.0"
 
+"deepmerge@^4.2.2":
+  "integrity" "sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg=="
+  "resolved" "https://registry.npmjs.org/deepmerge/-/deepmerge-4.2.2.tgz"
+  "version" "4.2.2"
+
 "defined@^1.0.0":
   "integrity" "sha1-yY2bzvdWdBiOEQlpFRGZ45sfppM= sha512-Y2caI5+ZwS5c3RiNDJ6u53VhQHv+hHKwhkI1iHvceKUHw9Df6EK2zRLfjejRgMuCuxK7PfSWIMwWecceVvThjQ=="
   "resolved" "https://registry.npmjs.org/defined/-/defined-1.0.0.tgz"
@@ -894,6 +910,72 @@
   "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.904.tgz"
   "version" "1.3.904"
 
+"eleventy-plugin-embed-everything@^1.14.1":
+  "integrity" "sha512-zlBeQbvXt79Yflj7h7YA4rVnvvS3BNMKm8ghH5ryFOx3nHY7L3qxuBbq7yBD/xwqORxuUzf9nKvY2QqT7/7M5Q=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-everything/-/eleventy-plugin-embed-everything-1.14.1.tgz"
+  "version" "1.14.1"
+  dependencies:
+    "deepmerge" "^4.2.2"
+    "eleventy-plugin-embed-instagram" "^1.2.4"
+    "eleventy-plugin-embed-soundcloud" "^1.2.4"
+    "eleventy-plugin-embed-spotify" "^1.2.4"
+    "eleventy-plugin-embed-tiktok" "^1.1.4"
+    "eleventy-plugin-embed-twitch" "^1.2.4"
+    "eleventy-plugin-embed-twitter" "^1.3.4"
+    "eleventy-plugin-vimeo-embed" "^1.3.4"
+    "eleventy-plugin-youtube-embed" "^1.7.1"
+
+"eleventy-plugin-embed-instagram@^1.2.4":
+  "integrity" "sha512-BWT4RVtQAxJ3n22kEg5+Z2dCwyYJpUy3Fp//sIhAoow6w2SNh2AmMfKeTjrecQBYrgYoxF2g9GnV1IUL6jsqGA=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-instagram/-/eleventy-plugin-embed-instagram-1.2.4.tgz"
+  "version" "1.2.4"
+
+"eleventy-plugin-embed-soundcloud@^1.2.4":
+  "integrity" "sha512-aRu+L5EbNdGwEMDNbXx2aEBz+M5kyfBHkMlKVC6ivpwJvA/T/H0efI6QmiwWx2Lcxzt62q9zSsNKr9MJVnmvIQ=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-soundcloud/-/eleventy-plugin-embed-soundcloud-1.2.4.tgz"
+  "version" "1.2.4"
+  dependencies:
+    "@11ty/eleventy-cache-assets" "^2.3.0"
+    "parse-path" "^5.0.0"
+
+"eleventy-plugin-embed-spotify@^1.2.4":
+  "integrity" "sha512-FKUe+JDDRQaxXlIlBV0w/QUiUbNpJzsTH/+V89ZbsXOZ8Ldv6OmYRTHrusEjabZPkG71mGxI83h5uncn41SrJw=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-spotify/-/eleventy-plugin-embed-spotify-1.2.4.tgz"
+  "version" "1.2.4"
+
+"eleventy-plugin-embed-tiktok@^1.1.4":
+  "integrity" "sha512-qU75ID8Icyz/dqcacYZgOoByB3QZygW5SuTGRZ3Bab+Uoe2R/S3yXD81rbMNd6qq3o0SG/3JhTsFm60yIRHEZQ=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-tiktok/-/eleventy-plugin-embed-tiktok-1.1.4.tgz"
+  "version" "1.1.4"
+
+"eleventy-plugin-embed-twitch@^1.2.4":
+  "integrity" "sha512-jY+MrUipGno8tC/Do1ufm2eFOw8rHwE+UcTwxtH8zU9lZzzxfETEJz8/0iDKhSfUIqPYuLk6igT/NRGLctmqNQ=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-twitch/-/eleventy-plugin-embed-twitch-1.2.4.tgz"
+  "version" "1.2.4"
+  dependencies:
+    "chalk" "^4.1.2"
+
+"eleventy-plugin-embed-twitter@^1.3.4":
+  "integrity" "sha512-D6s3RBGtHrVdsq7/40CH4mcQuTRlsCPUTlBu5jCz4jvkzkIBJID7UWZbVJ950ugdPHige7srPEIqlWepy6Sc3Q=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-embed-twitter/-/eleventy-plugin-embed-twitter-1.3.4.tgz"
+  "version" "1.3.4"
+  dependencies:
+    "@11ty/eleventy-cache-assets" "^2.3.0"
+    "deepmerge" "^4.2.2"
+
+"eleventy-plugin-vimeo-embed@^1.3.4":
+  "integrity" "sha512-xINV/BtdmuPlNtnNqj/T7roDkB38YdGC/FSIZdEPcmXupLr6YydI/SP3wxE7WyZsH+ImXkrYrvyTxJrooOJapw=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-vimeo-embed/-/eleventy-plugin-vimeo-embed-1.3.4.tgz"
+  "version" "1.3.4"
+
+"eleventy-plugin-youtube-embed@^1.7.1":
+  "integrity" "sha512-KzK83RTkIfykxN3yAv7PaRVl/b4TocuHNz6mKKVM0z9cybwJReneRSisjZtMg703SOGKteTSM3M7S+nMTLRj/g=="
+  "resolved" "https://registry.npmjs.org/eleventy-plugin-youtube-embed/-/eleventy-plugin-youtube-embed-1.7.1.tgz"
+  "version" "1.7.1"
+  dependencies:
+    "deepmerge" "^4.2.2"
+    "lite-youtube-embed" "^0.2.0"
+
 "emoji-regex@^8.0.0":
   "integrity" "sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A=="
   "resolved" "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz"
@@ -993,7 +1075,7 @@
   "resolved" "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   "version" "1.8.1"
 
-"eventemitter3@^4.0.0":
+"eventemitter3@^4.0.0", "eventemitter3@^4.0.4":
   "integrity" "sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw=="
   "resolved" "https://registry.npmjs.org/eventemitter3/-/eventemitter3-4.0.7.tgz"
   "version" "4.0.7"
@@ -1050,6 +1132,19 @@
   dependencies:
     "locate-path" "^5.0.0"
     "path-exists" "^4.0.0"
+
+"flat-cache@^3.0.4":
+  "integrity" "sha512-dm9s5Pw7Jc0GvMYbshN6zchCA9RgQlzzEZX3vylR9IqFfS8XciblUXOKfW6SiuJ0e13eDYZoZV5wdrev7P3Nwg=="
+  "resolved" "https://registry.npmjs.org/flat-cache/-/flat-cache-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "flatted" "^3.1.0"
+    "rimraf" "^3.0.2"
+
+"flatted@^3.1.0":
+  "integrity" "sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ=="
+  "resolved" "https://registry.npmjs.org/flatted/-/flatted-3.2.7.tgz"
+  "version" "3.2.7"
 
 "follow-redirects@^1.0.0", "follow-redirects@^1.14.0":
   "integrity" "sha512-zwGkiSXC1MUJG/qmeIFH2HBJx9u0V46QGUe3YR1fXG8bXQxq7fLj0RjLZQ5nubr9qNJUZrH+xUcwXEoXNpfS+g=="
@@ -1261,6 +1356,11 @@
   "version" "1.0.3"
   dependencies:
     "function-bind" "^1.1.1"
+
+"hash-string@^1.0.0":
+  "integrity" "sha512-dtNNyxXobzHavayZwOwRWhBTqS9GX4jDjIMsGc0fDyaN2A+4zMn5Ua9ODDCggN6w3Spma6mAHL3ImmW3BkWDmQ=="
+  "resolved" "https://registry.npmjs.org/hash-string/-/hash-string-1.0.0.tgz"
+  "version" "1.0.0"
 
 "he@^1.2.0":
   "integrity" "sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw=="
@@ -1674,6 +1774,11 @@
   "resolved" "https://registry.npmjs.org/liquidjs/-/liquidjs-6.4.3.tgz"
   "version" "6.4.3"
 
+"lite-youtube-embed@^0.2.0":
+  "integrity" "sha512-XXXAk5sbvtjjwbie3XG+6HppgTm1HTGL/Uk9z9NkJH53o7puZLur434heHzAjkS60hZB3vT4ls25zl5rMiX4EA=="
+  "resolved" "https://registry.npmjs.org/lite-youtube-embed/-/lite-youtube-embed-0.2.0.tgz"
+  "version" "0.2.0"
+
 "localtunnel@^2.0.1":
   "integrity" "sha512-n418Cn5ynvJd7m/N1d9WVJISLJF/ellZnfsLnx8WBWGzxv/ntNcFkJ1o6se5quUhCplfLGBNL5tYHiq5WF3Nug=="
   "resolved" "https://registry.npmjs.org/localtunnel/-/localtunnel-2.0.2.tgz"
@@ -1949,6 +2054,13 @@
   dependencies:
     "lodash" "^4.17.21"
 
+"node-fetch@^2.6.1":
+  "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
+  "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
+  "version" "2.6.7"
+  dependencies:
+    "whatwg-url" "^5.0.0"
+
 "node-releases@^2.0.1":
   "integrity" "sha512-CqyzN6z7Q6aMeF/ktcMVTzhAHCEpf8SOarwpzpf8pNBY2k5/oM34UHldUwp8VKI7uxct2HxSRdJjBaZeESzcxA=="
   "resolved" "https://registry.npmjs.org/node-releases/-/node-releases-2.0.1.tgz"
@@ -2016,6 +2128,11 @@
   dependencies:
     "is-wsl" "^1.1.0"
 
+"p-finally@^1.0.0":
+  "integrity" "sha512-LICb2p9CB7FS+0eR1oqWnHhp0FljGLZCWBE9aix0Uye9W8LTQPwMTYVGWQWIw9RdQiDg4+epXQODwIYJtSJaow=="
+  "resolved" "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz"
+  "version" "1.0.0"
+
 "p-limit@^2.2.0":
   "integrity" "sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w=="
   "resolved" "https://registry.npmjs.org/p-limit/-/p-limit-2.3.0.tgz"
@@ -2029,6 +2146,21 @@
   "version" "4.1.0"
   dependencies:
     "p-limit" "^2.2.0"
+
+"p-queue@^6.6.2":
+  "integrity" "sha512-RwFpb72c/BhQLEXIZ5K2e+AhgNVmIejGlTgiB9MzZ0e93GRvqZ7uSi0dvRF7/XIXDeNkra2fNHBxTyPDGySpjQ=="
+  "resolved" "https://registry.npmjs.org/p-queue/-/p-queue-6.6.2.tgz"
+  "version" "6.6.2"
+  dependencies:
+    "eventemitter3" "^4.0.4"
+    "p-timeout" "^3.2.0"
+
+"p-timeout@^3.2.0":
+  "integrity" "sha512-rhIwUycgwwKcP9yTOOFK/AKsAopjjCakVqLHePO3CC6Mir1Z99xT+R63jZxAT5lFZLa2inS5h+ZS2GvR99/FBg=="
+  "resolved" "https://registry.npmjs.org/p-timeout/-/p-timeout-3.2.0.tgz"
+  "version" "3.2.0"
+  dependencies:
+    "p-finally" "^1.0.0"
 
 "p-try@^2.0.0":
   "integrity" "sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ=="
@@ -2072,6 +2204,13 @@
   "integrity" "sha1-3T+iXtbC78e93hKtm0bBY6opIk4= sha512-VwMglE9412ifMHcRFEVJePEpreQh90wjIiOdP0UQQGKV4l+QprdKI+p5noXTkmGjznBMb40s+VymcclATAVvYA=="
   "resolved" "https://registry.npmjs.org/parse-ms/-/parse-ms-0.1.2.tgz"
   "version" "0.1.2"
+
+"parse-path@^5.0.0":
+  "integrity" "sha512-qOpH55/+ZJ4jUu/oLO+ifUKjFPNZGfnPJtzvGzKN/4oLMil5m9OH4VpOj6++9/ytJcfks4kzH2hhi87GL/OU9A=="
+  "resolved" "https://registry.npmjs.org/parse-path/-/parse-path-5.0.0.tgz"
+  "version" "5.0.0"
+  dependencies:
+    "protocols" "^2.0.0"
 
 "parseqs@0.0.6":
   "integrity" "sha512-jeAGzMDbfSHHA091hr0r31eYfTig+29g3GKKE/PPbEQ65X0lmMwlEoqmhzu0iztID5uJpZsFlUPDP8ThPL7M8w=="
@@ -2285,6 +2424,11 @@
   "integrity" "sha1-IS1b/hMYMGpCD2QCuOJv85ZHqEk= sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA=="
   "resolved" "https://registry.npmjs.org/proto-list/-/proto-list-1.2.4.tgz"
   "version" "1.2.4"
+
+"protocols@^2.0.0":
+  "integrity" "sha512-/XJ368cyBJ7fzLMwLKv1e4vLxOju2MNAIokcr7meSaNcVbWz/CPcW22cP04mwxOErdA5mwjA8Q6w/cdAQxVn7Q=="
+  "resolved" "https://registry.npmjs.org/protocols/-/protocols-2.0.1.tgz"
+  "version" "2.0.1"
 
 "prr@~1.0.1":
   "integrity" "sha1-0/wRS6BplaRexok/SEzrHXj19HY= sha512-yPw4Sng1gWghHQWj0B3ZggWUm4qVbPwPFcRG8KyxiU7J2OHFSoEHKS+EZ3fv5l1t9CyCiop6l/ZYeWbrgoQejw=="
@@ -2551,6 +2695,13 @@
   dependencies:
     "glob" "^7.1.3"
 
+"rimraf@^3.0.2":
+  "integrity" "sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA=="
+  "resolved" "https://registry.npmjs.org/rimraf/-/rimraf-3.0.2.tgz"
+  "version" "3.0.2"
+  dependencies:
+    "glob" "^7.1.3"
+
 "run-parallel@^1.1.9":
   "integrity" "sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA=="
   "resolved" "https://registry.npmjs.org/run-parallel/-/run-parallel-1.2.0.tgz"
@@ -2661,6 +2812,13 @@
   "integrity" "sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw=="
   "resolved" "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.1.1.tgz"
   "version" "1.1.1"
+
+"short-hash@^1.0.0":
+  "integrity" "sha512-qbUCD2Pkl4IXRyVqneEjGnUr0NGDGLzZnBUVGJngIQZf/FrhOL0yJhH+JQzak0t8xMmScIKpoX1SxOsPHdwa4w=="
+  "resolved" "https://registry.npmjs.org/short-hash/-/short-hash-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "hash-string" "^1.0.0"
 
 "sigmund@^1.0.1":
   "integrity" "sha1-P/IfGYytIXX587eBhT/ZTQ0ZtZA= sha512-fCvEXfh6NWpm+YSuY2bpXb/VIihqWA6hLsgboC+0nl71Q7N7o2eaCW8mJa/NLvQhs6jpd3VZV4UiUQlV6+lc8g=="
@@ -2931,6 +3089,11 @@
   "resolved" "https://registry.npmjs.org/token-stream/-/token-stream-1.0.0.tgz"
   "version" "1.0.0"
 
+"tr46@~0.0.3":
+  "integrity" "sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw=="
+  "resolved" "https://registry.npmjs.org/tr46/-/tr46-0.0.3.tgz"
+  "version" "0.0.3"
+
 "ua-parser-js@^0.7.28":
   "integrity" "sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g=="
   "resolved" "https://registry.npmjs.org/ua-parser-js/-/ua-parser-js-0.7.28.tgz"
@@ -2990,6 +3153,19 @@
   "integrity" "sha1-YU9/v42AHwu18GYfWy9XhXUOTwk= sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w=="
   "resolved" "https://registry.npmjs.org/void-elements/-/void-elements-3.1.0.tgz"
   "version" "3.1.0"
+
+"webidl-conversions@^3.0.0":
+  "integrity" "sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ=="
+  "resolved" "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-3.0.1.tgz"
+  "version" "3.0.1"
+
+"whatwg-url@^5.0.0":
+  "integrity" "sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw=="
+  "resolved" "https://registry.npmjs.org/whatwg-url/-/whatwg-url-5.0.0.tgz"
+  "version" "5.0.0"
+  dependencies:
+    "tr46" "~0.0.3"
+    "webidl-conversions" "^3.0.0"
 
 "which-module@^2.0.0":
   "integrity" "sha1-2e8H3Od7mQK4o6j6SzHD4/fm6Ho= sha512-B+enWhmw6cjfVC7kS8Pj9pCrKSc5txArRyaYGe088shv/FGWH+0Rjx/xPgtsWfsUtS27FkP697E4DDhgrgoc0Q=="
