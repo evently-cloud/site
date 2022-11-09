@@ -73,7 +73,7 @@ featuredImageAltText: Alt text for the featured image.
 featuredImageInArticle: true
 postPreviewImage: false
 postPreviewExcerpt: Text excerpt that appears on blog listing page.
-date: '2022-11-01'
+date: 2022-11-01
 tags: ['blogPosts']
 ---
 ```
