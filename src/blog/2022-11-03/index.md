@@ -3,7 +3,6 @@ title: Test post
 layout: post
 featuredImage: ./feature-img.png
 featuredImageAltText: Testing image for a blog post
-featuredImageInArticle: true
 postPreviewExcerpt: Mauris eu ultrices dolor. Pellentesque sagittis risus quis vulputate semper. Donec sodales commodo pharetra. Etiam vitae nulla.
 pageTitle: Test post
 date: '2022-11-03'
