@@ -386,6 +386,6 @@ ol.blog-list, .blog-pagination ol {
   @apply rounded-md bg-darkBase text-white;
 }
 /**************************************************************** Blog  */
-.blog-post .eleventy-plugin-youtube-embed {
+.blog-post .eleventy-plugin-youtube-embed, .blog-post figure {
   @apply my-10
 }
