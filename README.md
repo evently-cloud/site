@@ -70,7 +70,8 @@ title: Blog post title
 layout: post
 featuredImage: ./image.jpg
 featuredImageAltText: Alt text for the featured image.
-featuredImageInArticle: false
+featuredImageInArticle: true
+postPreviewImage: false
 postPreviewExcerpt: Text excerpt that appears on blog listing page.
 date: '2022-11-01'
 tags: ['blogPosts']
@@ -81,7 +82,8 @@ tags: ['blogPosts']
 - `layout` sets the template to the blog post template.
 - `featuredImage` is the image that represents the blog post, and will be used in social sharing and optionally will appear in the blog post listing pages.
 - `featuredImageAltText` is the descriptive text that accompanies the featured image.
-- `featuredImageInArticle` this is an optional property that will control if the featured image renders in the blog listing page. By default the image will render, pass `false` to have the blog post render on the blog listing pages without an image.
+- `featuredImageInArticle` this is an optional property that will control if the featured image renders as the hero image of the article, right under the title header. If excluded or set to false, will the featured image will not render in the article.
+- `postPreviewImage` this is an optional property that will control if the featured image renders in the blog listing page in the post preview. By default the image will render, pass `false` to have the blog post render on the blog listing pages without an image.
 - `postPreviewExcerpt` is the excerpt rendered on the blog post listing pages. The post previews will render five lines of text before being clamped with trailing eclipses, best strategy is to write an excerpt around 180-200 characters max. 
 - `date` is when the article was posted.
 - `tags` are the keywords associated with the blog post. **All blog posts must have the `blogPosts` tag to be considered content for the blogPosts collection array.**
