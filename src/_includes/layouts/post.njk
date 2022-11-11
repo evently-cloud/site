@@ -2,6 +2,10 @@
 layout: body
 ---
 
+{% if tags.includes('blogPosts') %}
+  <h1>⭐️</h1>
+{% endif %}
+
 <div class='flex flex-row'>
   <aside class='self-start mt-2 pb-8 pr-4 br-8 lg:mt-14 mr-8 w-80 hidden lg:block border-r'>
     <h3 class='mt-0 text-xl' style='margin-top: 0'>Recent posts</h3>
