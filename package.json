@@ -12,6 +12,7 @@
     "dependencies": {
         "@11ty/eleventy": "0.12.1",
         "@11ty/eleventy-navigation": "0.3.2",
+        "@11ty/eleventy-plugin-rss": "^1.2.0",
         "@tailwindcss/forms": "0.3.4",
         "autoprefixer": "10.4.0",
         "eleventy-plugin-embed-everything": "^1.14.1",
