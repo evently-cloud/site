@@ -11,7 +11,13 @@ apiDocs: false
 <html lang="en">
     <head>
         {# Meta #}
-        <title>{{ siteTitle }}</title>
+        <title>
+          {% if layout === 'post' %}
+            Eleventy Blog - {{ title }}
+          {% else %}
+            Eleventy {{ title }}
+          {% endif %}
+        </title>
         <meta charset="UTF-8"/>
         {% if siteDescription %}
             <meta name="description" content="{{ siteDescription }}"/>
@@ -71,13 +77,7 @@ apiDocs: false
             "Start up your event-sourced applications with Evently's easy-to-use and reliable event ledger service. Evently stores your events in the cloud and replays them with a Hypermedia REST API."
           {% endif %}
         >
-        <meta name="twitter:image" content=
-          {% if layout === 'post' %}
-            "{{featuredImage | url}}"
-          {% else %}
-            "https://user-images.githubusercontent.com/52248161/201438353-17e305a1-c13b-48f6-9bb4-1dde013575a8.jpg"
-          {% endif %}
-        >
+        <meta name="twitter:image" content="https://user-images.githubusercontent.com/52248161/201438353-17e305a1-c13b-48f6-9bb4-1dde013575a8.jpg" >
     </head>
     <body x-data="{ signupFormOpen: false, darkMode: false }" class="transition-all {% if markdownFile != false %} md {% endif %}" :class="darkMode && 'dark-mode'">
 
