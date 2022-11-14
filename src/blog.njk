@@ -7,7 +7,6 @@ pagination:
   size: 9
   reverse: true
   alias: blogPosts
-permalink: /blog/
 ---
 
 <h1 class='inline-block mr-4'>Evently Blog</h1>
@@ -18,7 +17,7 @@ permalink: /blog/
   {% endfor %}
 </ol>
 
-<nav aria-label='More blog posts' class='blog-pagination mt-10'>
+<nav aria-label='More blog posts' class='blog-pagination my-10'>
   <ol class='flex content-between'>
     <div class='text-left w-1/2'>
       <li>
@@ -54,3 +53,8 @@ permalink: /blog/
     </div>
   </ol>
 </nav>
+
+<div class='blog-newsletter text-center bg-gray-100 rounded-md py-10'>
+  <p>Keep up to date with Evently by signing up for our newsletter with updates straight to your inbox.</p>
+  {% include 'partials/newsletter-form.njk' %}
+</div>

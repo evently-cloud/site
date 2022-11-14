@@ -379,11 +379,14 @@ ul.post-tag-list li a:hover {
   @apply inline;
 }
 .blog-pagination ol li a {
-  @apply rounded-md bg-gray-100 mb-4 inline-flex justify-center p-1;
+  @apply rounded-md bg-gray-100 mb-0 inline-flex justify-center p-1;
   max-width: 6rem;
 }
 .blog-pagination ol li a:hover {
   @apply rounded-md bg-darkBase text-white;
+}
+.blog-newsletter label {
+  background: none;
 }
 .dark-mode .blog-list .blog-list-post {
   background: rgb(9, 32, 52);
@@ -401,7 +404,7 @@ ul.post-tag-list li a:hover {
 .dark-mode .blog-pagination ol li a:hover {
   @apply rounded-md bg-darkBase text-white;
 }
-/**************************************************************** Blog  */
+/**************************************************************** Blog Post  */
 .blog-post > h1:first-of-type {
   @apply mt-4
 }
