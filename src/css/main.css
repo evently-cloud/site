@@ -341,3 +341,54 @@ body.md.dark-mode {
 .code-tabs input:checked + label {
     @apply bg-button;
 }
+
+/**************************************************************** Blog Listings  */
+ol.blog-list, .blog-pagination ol {
+  list-style: none !important;
+  margin: 0 !important;
+}
+.blog-list .blog-list-post h2 {
+  @apply m-0;
+}
+.blog-list .blog-list-post a {
+  @apply text-darkBase block;
+}
+.blog-list .blog-list-post .post-clamp {
+  @apply overflow-hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+}
+.blog-pagination ol li {
+  @apply inline;
+}
+.blog-pagination ol li a {
+  @apply rounded-md bg-gray-100 mb-4 inline-flex justify-center p-1;
+  max-width: 6rem;
+}
+.blog-pagination ol li a:hover {
+  @apply rounded-md bg-darkBase text-white;
+}
+.dark-mode .blog-list .blog-list-post {
+  background: rgb(9, 32, 52);
+}
+.dark-mode .blog-list .blog-list-post a {
+  @apply text-darkText;
+}
+.dark-mode .blog-list .blog-list-post p.post-date {
+  @apply text-darkBase;
+}
+.dark-mode .blog-pagination ol li a {
+  @apply text-darkText;
+  background: rgb(9, 32, 52);
+}
+.dark-mode .blog-pagination ol li a:hover {
+  @apply rounded-md bg-darkBase text-white;
+}
+/**************************************************************** Blog  */
+.blog-post > h1:first-of-type {
+  @apply mt-0
+}
+.blog-post .eleventy-plugin-youtube-embed, .blog-post figure {
+  @apply my-10
+}

@@ -1,6 +1,4 @@
-# site
-
-Evently.cloud web site
+# Evently.cloud website
 
 ## Modifying Navigation
 
@@ -38,3 +36,54 @@ eleventyNavigation:
     order: 3
 permalink: things/a-thing/
 ```
+
+## Evently Blog
+
+This site is home to the Evently blog, a home for markdown-based articles.
+
+### Creating a new blog post
+Blog articles are filed in the `/src/blog` folder by post title kebab-case.
+
+All elements related to the article are grouped together in their folder, like linked assets and the markdown index file containing the content. An example of this file structure is as such:
+
+```
+src
+└── blog
+    ├── article-name
+    │   ├── image.jpg
+    │   └── index.md
+    └── article-name
+        ├── image.gif
+        └── index.md
+```
+
+### Blog post template front matter
+
+The following is an example of the front matter of a blog post:
+
+```
+---
+title: Blog post title
+layout: post
+featuredImage: ./image.jpg
+featuredImageAltText: Alt text for the featured image.
+featuredImageInArticle: true
+postPreviewImage: false
+postPreviewExcerpt: Text excerpt that appears on blog listing page.
+date: 2022-11-01
+tags: ['blogPosts, concepts']
+---
+```
+
+- `title` sets the title of the blog post, the main header of the article.
+- `layout` sets the template to the blog post template.
+- `featuredImage` is the image that represents the blog post, and will be used in social sharing and optionally will appear in the blog post listing pages.
+- `featuredImageAltText` is the descriptive text that accompanies the featured image.
+- `featuredImageInArticle` this is an optional property that will control if the featured image renders as the hero image of the article, right under the title header. If excluded or set to false, will the featured image will not render in the article.
+- `postPreviewImage` this is an optional property that will control if the featured image renders in the blog listing page in the post preview. By default the image will render, pass `false` to have the blog post render on the blog listing pages without an image.
+- `postPreviewExcerpt` is the excerpt rendered on the blog post listing pages. The post previews will render five lines of text before being clamped with trailing eclipses, best strategy is to write an excerpt around 180-200 characters max. 
+- `date` is when the article was posted. This will also impact the order the posts appear in the blogPosts collection, as it is ordered latest to oldest. The date takes the time into consideration when ordering posts, if there's two posts on the same day add the time to the date value `2022-11-03 21:22:08`.
+- `tags` are the keywords associated with the blog post. **All blog posts must have the `blogPosts` tag to be considered content for the blogPosts collection array.** Any further tags will be handled as the tags associated with the post.
+
+### Blog post content
+A blog posts is written in markdown. Posts can support rendering images from their parent folder, and will render embedded content via url link using the [embed everything](https://gfscott.com/embed-everything) eleventy plugin. Just paste the full url to whatever supported media that needs to be included in the article and an iframe embed will render.

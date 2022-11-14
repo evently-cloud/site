@@ -1,5 +1,7 @@
 const htmlmin = require('html-minifier');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
+const embeds = require("eleventy-plugin-embed-everything");
+const {DateTime} = require("luxon");
 
 module.exports = function (eleventyConfig) {
     const markdownIt = require('markdown-it');
@@ -7,10 +9,14 @@ module.exports = function (eleventyConfig) {
     const markdownItPrism = require('markdown-it-prism');
     const markdownItAnchor = require('markdown-it-anchor');
     const markdownItCodetabs = require('markdown-it-codetabs')
+    const mdfigcaption = require('markdown-it-image-figures');
     const markdownLib = markdownIt()
         .use(markdownItContainer, 'sidebar')
         .use(markdownItPrism)
         .use(markdownItCodetabs)
+        .use(mdfigcaption, {
+            figcaption: true
+        })
         .use(markdownItAnchor, {
             permalink: markdownItAnchor.permalink.linkAfterHeader({
                 style: 'visually-hidden',
@@ -21,6 +27,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.setLibrary('md', markdownLib);
 
     eleventyConfig.addPlugin(eleventyNavigationPlugin);
+    eleventyConfig.addPlugin(embeds);
 
     eleventyConfig.setUseGitIgnore(false);
     eleventyConfig.addWatchTarget('./_tmp/main.css');
@@ -34,6 +41,9 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ 'assets/favicon.ico': '/favicon.ico' });
     eleventyConfig.addWatchTarget('assets/*.json');
     eleventyConfig.addPassthroughCopy('assets/*.json');
+    eleventyConfig.addPassthroughCopy('src/blog/*/*.jpg');
+    eleventyConfig.addPassthroughCopy('src/blog/*/*.png');
+    eleventyConfig.addPassthroughCopy('src/blog/*/*.gif');
 
     eleventyConfig.addShortcode('shinyAJSFunc', function () {
         return "@mousemove=\"$el.style.setProperty('--x', $event.clientX - $el.getBoundingClientRect().x);$el.style.setProperty('--y', $event.clientY - $el.getBoundingClientRect().y)\"";
@@ -101,6 +111,10 @@ module.exports = function (eleventyConfig) {
         changedContent = changedContent.replace(/:::/g, '</div>');
 
         return changedContent;
+    });
+
+    eleventyConfig.addFilter("postDate", (dateObj) => {
+        return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_FULL);
     });
 
     return {
