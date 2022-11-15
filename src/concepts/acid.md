@@ -5,6 +5,7 @@ eleventyNavigation:
     parent: Concepts
     order: 2
 permalink: concepts/acid/
+title: Concepts - ACID
 ---
 
 # ACID for Event Ledgers

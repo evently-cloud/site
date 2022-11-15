@@ -5,6 +5,7 @@ eleventyNavigation:
     parent: Concepts
     order: 3
 permalink: concepts/event-id-design/
+title: Concepts - Event ID Design
 ---
 
 # Event ID

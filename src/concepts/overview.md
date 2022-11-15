@@ -5,6 +5,7 @@ eleventyNavigation:
     parent: Concepts
     order: 1
 permalink: concepts/overview/
+title: Concepts
 ---
 
 # Evently Concepts

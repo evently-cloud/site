@@ -5,6 +5,7 @@ eleventyNavigation:
     parent: Concepts
     order: 4
 permalink: concepts/sql-jsonpath/
+title: Concepts - SQL JSONPath
 ---
 
 # SQL JSONPath for Filter Selectors
