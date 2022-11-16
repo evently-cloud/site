@@ -411,6 +411,18 @@ ul.post-tag-list li a:hover {
 .blog-post .eleventy-plugin-youtube-embed, .blog-post figure {
   @apply my-10
 }
+.blog-post blockquote {
+  border-left: solid 4px #ddd;
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: #666;
+}
+.blog-post hr {
+  margin: 2rem 0;
+}
+.blog-post table {
+  width: 100%;
+  margin: 1.5rem 0 !important;
+}
 /**************************************************************** Blog Tags  */
 .blog-tags-list {
   list-style: none !important;
