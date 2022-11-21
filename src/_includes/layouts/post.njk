@@ -1,14 +1,38 @@
 ---
 layout: body
 ---
-
-<article class='blog-post w-full mt-2 lg:mt-14'>
-  <p class='font-semibold text-darkBase text-2xl'>{{date | postDate }}</p>
-  <h1 class='mt-0'>{{title}}</h1>
-  {% if featuredImageInArticle %}
-    <figure class='mb-10'>
-      <img src={{featuredImage}} alt={{featuredImageAltText}}>
-    </figure>
-  {% endif %}
-  {{content | safe}}
-</article>
+<div class='flex flex-row'>
+  <aside class='self-start mt-2 pb-8 pr-4 br-8 lg:mt-14 mr-8 w-80 hidden lg:block border-r'>
+    <h3 class='mt-0 text-xl' style='margin-top: 0'>Recent posts</h3>
+      <ul>
+        {% for post in collections.blogPosts %}
+          {% if (loop.index <= 5) %}
+            <li>
+              <a href={{ post.url | url }}>
+                {{ post.data.title }}
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+  </aside>
+  <article class='blog-post w-full mt-2 lg:mt-14'>
+    <p class='text-darkBase text-xl mr-4 inline'>{{date | postDate }}</p>
+    <ul class='post-tag-list text-sm inline'>
+    {% for tag in tags %}
+      {% if tag !== 'blogPosts' %}
+        <li class='mr-2'>
+          <a href='/tags/{{tag}}'>#{{tag}}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ul>
+    <h1>{{title}}</h1>
+    {% if featuredImageInArticle %}
+      <figure class='mb-10'>
+        <img src={{featuredImage}} alt={{featuredImageAltText}}>
+      </figure>
+    {% endif %}
+    {{content | safe}}
+  </article>
+</div>

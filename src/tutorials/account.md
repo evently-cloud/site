@@ -5,6 +5,7 @@ eleventyNavigation:
     parent: Tutorials
     order: 2
 permalink: tutorials/account/
+title: Tutorials
 ---
 
 ## Tutorial 2: Associate a thermostat to an account

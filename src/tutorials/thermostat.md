@@ -5,6 +5,7 @@ eleventyNavigation:
     parent: Tutorials
     order: 1
 permalink: tutorials/thermostat/
+title: Tutorials
 ---
 
 # Smart Thermostat Tutorials

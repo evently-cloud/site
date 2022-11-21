@@ -5,10 +5,10 @@
         <label>Don’t fill this out if you’re human: <input name="phone"/></label>
     </div>
     <div class="flex flex-col items-start lg:m-auto lg:w-3/5">
-        <label>Name</label><input type="text" name="name"/>
+        <label class='bg-none'>Name</label><input type="text" name="name" required/>
     </div>
     <div class="flex flex-col items-start lg:m-auto lg:w-3/5">
-        <label>Email</label><input type="email" name="email"/>
+        <label class='bg-none'>Email</label><input type="email" name="email" required/>
     </div>
     <button type="submit" class="btn m-auto block lg:w-1/5 text-center mt-5" x-data {% shinyAJSFunc %}>Submit</button>
 </form>

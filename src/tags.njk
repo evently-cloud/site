@@ -1,0 +1,19 @@
+---
+layout: body
+title: All Blog Tags
+permalink: "/tags/"
+---
+
+<h1 class='inline-block mr-4'>Evently Blog: all tags</h1>
+<ul class='blog-tags-list flex flex-wrap gap-2'>
+  {% if collections.tagsList.length === 0 %}
+    <p>No tags to display.</p>
+  {% else %}
+    {% for tag in collections.tagsList %}
+      <li class='rounded-md bg-gray-100 inline-block px-4 py-2 '>
+        <a href="/tags/{{tag}}" class='text-darkBase'>{{tag}}</a>
+      </li>
+    {% endfor %}
+  {% endif %}
+
+</ul>

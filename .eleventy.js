@@ -2,6 +2,7 @@ const htmlmin = require('html-minifier');
 const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
 const embeds = require("eleventy-plugin-embed-everything");
 const {DateTime} = require("luxon");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 
 module.exports = function (eleventyConfig) {
     const markdownIt = require('markdown-it');
@@ -28,6 +29,7 @@ module.exports = function (eleventyConfig) {
 
     eleventyConfig.addPlugin(eleventyNavigationPlugin);
     eleventyConfig.addPlugin(embeds);
+    eleventyConfig.addPlugin(pluginRss);
 
     eleventyConfig.setUseGitIgnore(false);
     eleventyConfig.addWatchTarget('./_tmp/main.css');
@@ -116,6 +118,17 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addFilter("postDate", (dateObj) => {
         return DateTime.fromJSDate(dateObj).toLocaleString(DateTime.DATE_FULL);
     });
+
+    eleventyConfig.addCollection('tagsList', (collectionApi) => {
+        const tagsSet = new Set();
+        collectionApi.getAll().forEach((item) => {
+            if(!item.data.tags) return;
+            item.data.tags
+                .filter((tag) => !'blogPosts'.includes(tag))
+                .forEach((tag) => tagsSet.add(tag));
+        });
+        return [...tagsSet].sort((a, b) => b.localeCompare(a)).reverse();
+    })
 
     return {
         dir: {

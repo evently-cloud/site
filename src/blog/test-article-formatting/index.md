@@ -5,9 +5,8 @@ featuredImage: ./feature-img.png
 featuredImageAltText: Testing image for a blog post
 postPreviewExcerpt: Mauris eu ultrices dolor. Pellentesque sagittis risus quis vulputate semper. Donec sodales commodo pharetra. Etiam vitae nulla.
 featuredImageInArticle: true
-pageTitle: Test post
 date: 2022-11-03
-tags: ['blogPosts']
+tags: ['blogPosts', 'a-tag', 'b-tag', 'test1', 'test2']
 ---
 
 Consectetur adipidscing elit. Nulla quis lorem egestas, ullamcorper justo eget, sollicitudin nisi. Quisque mattis in risus vitae mattis. Praesent imperdiet ornare finibus. In egestas massa nec pulvinar vestibulum. Vivamus gravida mi tellus, vitae tempus justo ultricies sed.

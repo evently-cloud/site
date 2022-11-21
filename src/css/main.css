@@ -353,21 +353,40 @@ ol.blog-list, .blog-pagination ol {
 .blog-list .blog-list-post a {
   @apply text-darkBase block;
 }
+.blog-list .blog-list-post a:hover {
+  @apply text-lightBase
+}
 .blog-list .blog-list-post .post-clamp {
   @apply overflow-hidden;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
 }
+ul.post-tag-list {
+  list-style: none;
+  margin-left: 0 !important;
+}
+ul.post-tag-list li {
+  @apply inline-block
+}
+ul.post-tag-list a {
+  @apply inline-block text-darkBase
+}
+ul.post-tag-list li a:hover {
+  @apply text-lightBase
+}
 .blog-pagination ol li {
   @apply inline;
 }
 .blog-pagination ol li a {
-  @apply rounded-md bg-gray-100 mb-4 inline-flex justify-center p-1;
+  @apply rounded-md bg-gray-100 mb-0 inline-flex justify-center p-1;
   max-width: 6rem;
 }
 .blog-pagination ol li a:hover {
   @apply rounded-md bg-darkBase text-white;
+}
+.blog-newsletter label {
+  background: none;
 }
 .dark-mode .blog-list .blog-list-post {
   background: rgb(9, 32, 52);
@@ -385,10 +404,27 @@ ol.blog-list, .blog-pagination ol {
 .dark-mode .blog-pagination ol li a:hover {
   @apply rounded-md bg-darkBase text-white;
 }
-/**************************************************************** Blog  */
+/**************************************************************** Blog Post  */
 .blog-post > h1:first-of-type {
-  @apply mt-0
+  @apply mt-4
 }
 .blog-post .eleventy-plugin-youtube-embed, .blog-post figure {
   @apply my-10
+}
+.blog-post blockquote {
+  border-left: solid 4px #ddd;
+  padding: 0.25rem 0 0.25rem 1rem;
+  color: #666;
+}
+.blog-post hr {
+  margin: 2rem 0;
+}
+.blog-post table {
+  width: 100%;
+  margin: 1.5rem 0 !important;
+}
+/**************************************************************** Blog Tags  */
+.blog-tags-list {
+  list-style: none !important;
+  margin: 0 !important;
 }
