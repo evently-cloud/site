@@ -46,6 +46,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy('src/blog/*/*.jpg');
     eleventyConfig.addPassthroughCopy('src/blog/*/*.png');
     eleventyConfig.addPassthroughCopy('src/blog/*/*.gif');
+    eleventyConfig.addPassthroughCopy('src/webmentions.js');
 
     eleventyConfig.addShortcode('shinyAJSFunc', function () {
         return "@mousemove=\"$el.style.setProperty('--x', $event.clientX - $el.getBoundingClientRect().x);$el.style.setProperty('--y', $event.clientY - $el.getBoundingClientRect().y)\"";

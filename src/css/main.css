@@ -61,6 +61,9 @@ h5 {
     display: none !important;
 }
 
+hr {
+  margin: 2rem 0;
+}
 /**************************************************************** Button  */
 
 .btn {
@@ -416,12 +419,52 @@ ul.post-tag-list li a:hover {
   padding: 0.25rem 0 0.25rem 1rem;
   color: #666;
 }
-.blog-post hr {
-  margin: 2rem 0;
-}
 .blog-post table {
   width: 100%;
   margin: 1.5rem 0 !important;
+}
+section.webmentions ul {
+  @apply m-0 list-none;
+}
+section.webmentions .avatars ul {
+  @apply flex flex-wrap;
+}
+section.webmentions .avatars li {
+  @apply overflow-hidden;
+  width: 40px;
+  aspect-ratio: 1 / 1;
+}
+section.webmentions .avatars img {
+  @apply object-cover h-full w-full;
+}
+section.webmentions .mentions li {
+  line-height: 20px;
+  display: flex;
+  padding: 1rem;
+  min-height: 100px;
+}
+section.webmentions .mentions li:nth-of-type(2n - 1) {
+  @apply bg-darkBase bg-opacity-5;
+}
+section.webmentions .mentions li > a {
+  width: 50px;
+  height: 50px;
+  aspect-ratio: 1 / 1;
+  margin-right: 10px;
+  display: block !important;
+}
+section.webmentions .mentions img {
+  @apply object-cover h-full w-full;
+}
+section.webmentions .mentions .comment p {
+  margin: 0 0 15px;
+}
+section.webmentions .mentions .comment p:first-of-type {
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+section.webmentions .mentions .comment time {
+  color: #999;
 }
 /**************************************************************** Blog Tags  */
 .blog-tags-list {

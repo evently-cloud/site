@@ -78,6 +78,10 @@ apiDocs: false
           {% endif %}
         >
         <meta name="twitter:image" content="https://user-images.githubusercontent.com/52248161/201438353-17e305a1-c13b-48f6-9bb4-1dde013575a8.jpg" >
+
+        {# Webmentions #}
+        <link rel="pingback" href="https://webmention.io/evently.cloud/xmlrpc" />
+        <link rel="webmention" href="https://webmention.io/evently.cloud/webmention" />
     </head>
     <body x-data="{ signupFormOpen: false, darkMode: false }" class="transition-all {% if markdownFile != false %} md {% endif %}" :class="darkMode && 'dark-mode'">
 
