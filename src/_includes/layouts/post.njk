@@ -16,23 +16,35 @@ layout: body
         {% endfor %}
       </ul>
   </aside>
-  <article class='blog-post w-full mt-2 lg:mt-14'>
-    <p class='text-darkBase text-xl mr-4 inline'>{{date | postDate }}</p>
-    <ul class='post-tag-list text-sm inline'>
-    {% for tag in tags %}
-      {% if tag !== 'blogPosts' %}
-        <li class='mr-2'>
-          <a href='/tags/{{tag}}'>#{{tag}}</a>
-        </li>
+  <div>
+    <article class='blog-post w-full mt-2 lg:mt-14'>
+      <p class='text-darkBase text-xl mr-4 inline'>{{date | postDate }}</p>
+      <ul class='post-tag-list text-sm inline'>
+      {% for tag in tags %}
+        {% if tag !== 'blogPosts' %}
+          <li class='mr-2'>
+            <a href='/tags/{{tag}}'>#{{tag}}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+      <h1>{{title}}</h1>
+      {% if featuredImageInArticle %}
+        <figure class='mb-10'>
+          <img src={{featuredImage}} alt={{featuredImageAltText}}>
+        </figure>
       {% endif %}
-    {% endfor %}
-    </ul>
-    <h1>{{title}}</h1>
-    {% if featuredImageInArticle %}
-      <figure class='mb-10'>
-        <img src={{featuredImage}} alt={{featuredImageAltText}}>
-      </figure>
-    {% endif %}
-    {{content | safe}}
-  </article>
+      {{content | safe}}
+    </article>
+    <hr />
+    <section class="webmentions">
+      <h3>Web mentions</h3>
+      <div id='webmentions'>
+        <p>No mentions, interactions, or discussions around the web for this article yet.</p>
+      </div>
+    </section>
+  </div>
 </div>
+<script>
+  {% include "src/webmentions.js" %}
+</script>
