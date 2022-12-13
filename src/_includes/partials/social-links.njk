@@ -1,5 +1,5 @@
 {% for socialLink in socialLinks %}
-    <a x-data="{ hover: false }" href="{{ socialLink.url }}" class="text-3xl" target="_blank"
+    <a rel="me" x-data="{ hover: false }" href="{{ socialLink.url }}" class="text-3xl" target="_blank"
                 :class="hover ? 'text-button' : 'text-darkBase'"
                 @pointerenter="hover = true" @pointerleave="hover = false"
             >
