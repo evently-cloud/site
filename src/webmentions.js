@@ -19,11 +19,7 @@ const loadWebMentions = () => {
   }
 
   let url = document.URL;
-  if(location.hostname === 'localhost') {
-    // fix url for development, provide example mentions
-    url = url.replace(/^http:\/\/localhost:8080\/blog\/comments/, 'https://evertpot.com/neko');
-    console.log('ℹ️ WEBMENTIONS LOCALHOST: serving webmentions for article:', url);
-  }
+  url = url.replace(/^http:\/\/localhost:8080/, 'https://evently.cloud'); // fix dev url for lcoalhost
 
   return fetch('https://webmention.io/api/mentions?per-page=200&target=' + url)
     .then(response => response.json())
