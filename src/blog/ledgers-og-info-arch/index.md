@@ -9,11 +9,9 @@ date: 2022-12-15
 tags: ['history', 'concepts']
 ---
 
-# Ledgers–The O.G. of Information Architecture
-
 Ledgers have been used for millennia to record significant events such as marriages and land transfers as well as more-mundane events like shop sales, museum visitors and captain’s logs. One finds ledgers throughout recorded history, across all parts of the world and in every walk of life.
 
-![](Japanese-Accounting-Ledger.jpg.webp)
+![](Japanese-Accounting-Ledger.png)
 
 Ledgers show up everywhere because humans understand their purpose and use. Our trust in ledgers comes from these universal properties:
 
