@@ -6,7 +6,7 @@ featuredImageAltText: Paper and ink ledger page
 postPreviewExcerpt: Humans have always used ledgers to track events and determine current state.
 featuredImageInArticle: true
 date: 2022-12-15
-tags: ['history', 'concepts']
+tags: ['history', 'concepts', 'blogPost']
 ---
 
 Ledgers have been used for millennia to record significant events such as marriages and land transfers as well as more-mundane events like shop sales, museum visitors and captain’s logs. One finds ledgers throughout recorded history, across all parts of the world and in every walk of life.
