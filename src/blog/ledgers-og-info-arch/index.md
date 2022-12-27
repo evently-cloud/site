@@ -9,16 +9,22 @@ date: 2022-12-15
 tags: ['history', 'concepts', 'blogPosts']
 ---
 
-Ledgers have been used for millennia to record significant events such as marriages and land transfers as well as more-mundane events like shop sales, museum visitors and captain’s logs. One finds ledgers throughout recorded history, across all parts of the world and in every walk of life.
 
-![](Japanese-Accounting-Ledger.png)
+
+When people start considering ledger-based event sourcing as an information architecture, they often find it unfamiliar and counter-intuitive. However, humans have always used ledgers as their default data design. Ledgers have been used to record significant events such as laws, marriages and land transfers as well as more-mundane events like shop sales, museum visitors and captain’s logs. One finds ledgers throughout recorded history, across all parts of the world and in every walk of life.
+
+![Cuneiform Tablet](cuneiform-ledger.jpg)
+
+ We have used all manner of technologies, including clay, sheepskin, papyrus, and paper to record these important events and share them with our community.
+
+![Japanese Shop Sales Ledger](Japanese-Accounting-Ledger.png)
 
 Ledgers show up everywhere because humans understand their purpose and use. Our trust in ledgers comes from these universal properties:
 
 1. Immutability. People write events down using ink on the page, or form entries into clay, or any other permanent recording technology. We understand that events cannot be altered later. Once an event has been recorded, it cannot be changed.
 2. Sequenced. Events occur over time, in order. The ledger design ensures that events cannot be inserted before already-recorded events. This shows any reader how state change flows over time and as well as current state.
 
-![](ledger-of-tax-record.jpg)
+![Irish County Tax Ledger](ledger-of-tax-record.jpg)
 
 We use ledgers to record meaningful events when they occur, and then use these ledgers to answer many questions, such as:
 

@@ -19,7 +19,7 @@ const loadWebMentions = () => {
   }
 
   let url = document.URL;
-  url = url.replace(/^http:\/\/localhost:8080/, 'https://evently.cloud'); // fix dev url for lcoalhost
+  url = url.replace(/^http:\/\/localhost:8080/, 'https://evently.cloud'); // fix dev url for localhost
 
   return fetch('https://webmention.io/api/mentions?per-page=200&target=' + url)
     .then(response => response.json())
