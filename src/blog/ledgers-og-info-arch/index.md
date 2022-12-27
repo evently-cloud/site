@@ -5,8 +5,8 @@ featuredImage: ./1931-ledger.jpg
 featuredImageAltText: Paper and ink ledger page
 postPreviewExcerpt: Humans have always used ledgers to track events and determine current state.
 featuredImageInArticle: true
-date: 2022-12-15
-tags: ['history', 'concepts', 'blogPosts']
+date: 2022-12-27
+tags: ['blogPosts', 'history', 'concepts']
 ---
 
 
