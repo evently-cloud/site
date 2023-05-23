@@ -198,7 +198,7 @@ paths:
     delete:
       summary: Delete Entity Event
       tags:
-        - selectors
+        - registry
       operationId: delete-registered-entity-event
       responses:
         '204':
@@ -1196,6 +1196,53 @@ paths:
         in: path
         required: true
         description: The channel identifier.
+  '/notify/{channelId}/subscriptions/{subscriptionId}':
+    get:
+      summary: A Channel Selector Subscription
+      tags:
+        - notify
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/nexus>'
+                  - '<https://level3.rest/patterns/list#entry-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-selector-subscription
+      description: Get a channel selector subscription.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: channelId
+        in: path
+        required: true
+        description: The channel identifier.
+      - schema:
+          type: string
+        name: subscriptionId
+        in: path
+        required: true
+        description: The subscription identifier.
+    delete:
+      summary: Unsubscribe from a Selector Notification Subscription
+      tags:
+        - notify
+      operationId: delete-selector-subscription
+      responses:
+        '204':
+          description: No Content
+      description: Unsubscribes from notifications of new events that match this selector.
+      security:
+        - opaque-token: []
 components:
   schemas: {}
   securitySchemes:
