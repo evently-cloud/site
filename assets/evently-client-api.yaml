@@ -106,6 +106,106 @@ paths:
       description: 'Accepts a form object to register a new entity event type. This action is idempotent, so one can register the same event repeatedly without a failure response.'
       security:
         - opaque-token: []
+  /registry/entities:
+    get:
+      summary: Entities with Registered Events
+      tags:
+        - registry
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/home>'
+                  - '<https://level3.rest/patterns/list#list-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-registry-entities
+      description: Get links to entities that have registered events.
+      security:
+        - opaque-token: []
+  '/registry/entities/{entity}':
+    get:
+      summary: An Entity's Events
+      tags:
+        - registry
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/home>'
+                  - '<https://level3.rest/patterns/list#list-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-registry-entity
+      description: Get links to events registered to an entity.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: entity
+        in: path
+        required: true
+        description: entity name
+  '/registry/entities/{entity}/{event}':
+    get:
+      summary: An Entity Event
+      tags:
+        - registry
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/data>'
+                  - '<https://level3.rest/patterns/list#entry-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-registered-entity-event
+      description: Get a registered entity event.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: entity
+        in: path
+        required: true
+        description: entity name
+      - schema:
+          type: string
+        name: event
+        in: path
+        required: true
+        description: event name
+    delete:
+      summary: Delete Entity Event
+      tags:
+        - selectors
+      operationId: delete-registered-entity-event
+      responses:
+        '204':
+          description: No Content
+      description: Deletes this entity event registration. Only succeeds if no events of this type have been appended to the ledger.
+      security:
+        - opaque-token: []
   /append/fact:
     get:
       summary: Append Factual Event Form
@@ -719,106 +819,6 @@ paths:
         description: Selector info identifier
         in: path
         required: true
-  /registry/entities:
-    get:
-      summary: Entities with Registered Events
-      tags:
-        - registry
-      responses:
-        '200':
-          description: OK
-          headers:
-            Profile:
-              schema:
-                type: array
-                default:
-                  - '<https://level3.rest/profiles/home>'
-                  - '<https://level3.rest/patterns/list#list-resource>'
-          content:
-            application/json+hal:
-              schema:
-                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
-      operationId: get-registry-entities
-      description: Get links to entities that have registered events.
-      security:
-        - opaque-token: []
-  '/registry/entities/{entity}':
-    get:
-      summary: An Entity's Events
-      tags:
-        - registry
-      responses:
-        '200':
-          description: OK
-          headers:
-            Profile:
-              schema:
-                type: array
-                default:
-                  - '<https://level3.rest/profiles/home>'
-                  - '<https://level3.rest/patterns/list#list-resource>'
-          content:
-            application/json+hal:
-              schema:
-                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
-      operationId: get-registry-entity
-      description: Get links to events registered to an entity.
-      security:
-        - opaque-token: []
-    parameters:
-      - schema:
-          type: string
-        name: entity
-        in: path
-        required: true
-        description: entity name
-  '/registry/entities/{entity}/{event}':
-    get:
-      summary: An Entity Event
-      tags:
-        - registry
-      responses:
-        '200':
-          description: OK
-          headers:
-            Profile:
-              schema:
-                type: array
-                default:
-                  - '<https://level3.rest/profiles/data>'
-                  - '<https://level3.rest/patterns/list#entry-resource>'
-          content:
-            application/json+hal:
-              schema:
-                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
-      operationId: get-registered-entity-event
-      description: Get a registered entity event.
-      security:
-        - opaque-token: []
-    parameters:
-      - schema:
-          type: string
-        name: entity
-        in: path
-        required: true
-        description: entity name
-      - schema:
-          type: string
-        name: event
-        in: path
-        required: true
-        description: event name
-    delete:
-      summary: Delete Entity Event
-      tags:
-        - selectors
-      operationId: delete-registered-entity-event
-      responses:
-        '204':
-          description: No Content
-      description: Deletes this entity event registration. Only succeeds if no events of this type have been appended to the ledger.
-      security:
-        - opaque-token: []
   /ledgers:
     get:
       summary: Ledger Info
