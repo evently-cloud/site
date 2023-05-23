@@ -1101,6 +1101,71 @@ paths:
         name: channelId
         in: path
         required: true
+        description: The channel identifier.
+  '/notify/{channelId}/subscribe':
+    get:
+      summary: Notify Subscription Form
+      tags:
+        - notify
+      responses:
+        '200':
+          description: OK
+          content:
+            application/schema+json:
+              schema:
+                $ref: 'https://json-schema.org/draft-07/schema'
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/form>'
+                  - '<https://level3.rest/patterns/list#add-entry-resource>'
+            Link:
+              schema:
+                default:
+                  - '</notify/{channelId}/subscriptions>; rel="https://level3.rest/patterns/list/editable#adds-to-list"'
+                type: array
+      operationId: get-notify-subscribe-form
+      description: 'Form to subscribe to selector notifications. GET the schema, create a JSON object with it and POST it back this endpoint.'
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: channelId
+        in: path
+        required: true
+        description: The channel's identifier.
+    post:
+      summary: Subscribe to a selector notification.
+      tags:
+        - notify
+      operationId: post-notify-subscribe-form
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+              description: The URI of the registered event type.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                selectorId:
+                  type: string
+                  maxLength: 80
+                  pattern: '^[0-9A-Za-z_-]+$'
+              required:
+                - selectorId
+        description: This form accepts a selectorId from an existing selector.
+      description: 'Accepts a form object to subscribe to notifications of new events that match the given selector. This action is idempotent, so one can subscribe to the same selector repeatedly without a failure response.'
+      security:
+        - opaque-token: []
 components:
   schemas: {}
   securitySchemes:
