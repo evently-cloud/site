@@ -1138,7 +1138,7 @@ paths:
         required: true
         description: The channel's identifier.
     post:
-      summary: Subscribe to a selector notification.
+      summary: Subscribe to a Selector's Notifications
       tags:
         - notify
       operationId: post-notify-subscribe-form
@@ -1166,6 +1166,36 @@ paths:
       description: 'Accepts a form object to subscribe to notifications of new events that match the given selector. This action is idempotent, so one can subscribe to the same selector repeatedly without a failure response.'
       security:
         - opaque-token: []
+  '/notify/{channelId}/subscriptions':
+    get:
+      summary: A Channel's Selector Subscriptions
+      tags:
+        - notify
+      responses:
+        '200':
+          description: OK
+          headers:
+            Profile:
+              schema:
+                type: array
+                default:
+                  - '<https://level3.rest/profiles/home>'
+                  - '<https://level3.rest/patterns/list#list-resource>'
+          content:
+            application/json+hal:
+              schema:
+                $ref: 'https://raw.githubusercontent.com/evently-cloud/hal-json-schema/draft-08_1/hal.json'
+      operationId: get-channel-subscriptions
+      description: Get links to a channel's subscriptions.
+      security:
+        - opaque-token: []
+    parameters:
+      - schema:
+          type: string
+        name: channelId
+        in: path
+        required: true
+        description: The channel identifier.
 components:
   schemas: {}
   securitySchemes:
