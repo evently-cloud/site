@@ -3,7 +3,7 @@ layout: body
 eleventyNavigation:
     key: Event ID Design
     parent: Concepts
-    order: 3
+    order: 4
 permalink: concepts/event-id-design/
 title: Concepts - Event ID Design
 ---

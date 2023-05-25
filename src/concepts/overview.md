@@ -89,6 +89,26 @@ The filter selector matches events by their meta and data values. They use [SQL 
 
 The selectors can be used to atomically append events to the ledger.
 
+## Appending Events
+
+Evently offers three different ways to append events to a ledger. These ledger events can be retrieved by using [Selectors](#selectors). These same Selectors can be used to control the append conditions to atomically append events. Here are the three ways to append events:
+
+#### Factual Append
+
+Events appended as facts have no conditions to their acceptance. Evently will accept them as-is and will append them to the ledger. This method works well with irrefutable facts, such as events that reflect real-world events. They are irrefutable facts. They also work well to capture measurements, such as scales or temperature gauges.
+
+#### Atomic Append
+
+This approach uses Selectors to control the append action such that the event only appends if the Selector matches no new events. The Selector condition acts as a state guard inside Evently and ensures the new event appends [atomically](/concepts/acid/#atomic). One can use either [Replay](#replay-selectors) or [Filter](#filter-selectors) selectors.
+
+#### Serial Append
+
+When an application wants to ensure an entity has no other events after a certain event, it can use serial append to manage this requirement. Common in other event ledger systems, this approach aligns conceptually with “event sequence IDs” and provides a direct way to migrate from other event stores.
+
+## Selector Notifications
+
+Applications can use a subscribe to [notifications](/concepts/notify/) when new events match a particular Selector. Conceptually, the application reuses a selector used to fetch events by subscribing to it in a notification channel. Evently stores that selector and when new events append to the ledger, the selector tests them for a match. When a match occurs, Evently will notify the subscriber of the match, and the application will fetch the selector again to capture the new events in their local state. 
+
 ## Event Registry
 
 Event names are registered before they can be appended. The ledger will reject events that have not been registered for the entity. Applications benefit by keeping the correct events in the right entity and blocking many programming mistakes before they pollute the permanent ledger.

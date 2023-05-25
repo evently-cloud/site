@@ -3,7 +3,7 @@ layout: body
 eleventyNavigation:
     key: SQL JSONPath
     parent: Concepts
-    order: 4
+    order: 5
 permalink: concepts/sql-jsonpath/
 title: Concepts - SQL JSONPath
 ---

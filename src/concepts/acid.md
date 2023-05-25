@@ -3,7 +3,7 @@ layout: body
 eleventyNavigation:
     key: ACID
     parent: Concepts
-    order: 2
+    order: 3
 permalink: concepts/acid/
 title: Concepts - ACID
 ---
