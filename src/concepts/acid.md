@@ -27,7 +27,7 @@ Consistency means the data changes in a way one expects.
 
 ## Immutable
 
-1. Events are immutable and irrevokable. Once appended, they cannot be modified or individually removed from the ledger.
+1. Events are immutable and irrevocable. Once appended, they cannot be modified or individually removed from the ledger.
 2. Ledger event sequence is unmodifiable. Events cannot be inserted into the ledger ahead of other events. Events can only be appended to the end of a ledger.
 
 ## Durable
