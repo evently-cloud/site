@@ -69,41 +69,41 @@ A predicate can transform the navigation data with arithmetic operators. These d
 
 Value functions offer ways to extract type information and apply mathematical functions before testing the value with predicate operators.
 
-| Function                 | Description                                                  |
-| ------------------------ | ------------------------------------------------------------ |
-| `.type()`                | Returns `null`, `boolean`, `number`, `string`, `array`, `object` or `date` |
-| `.size()`                | If `@` references an array, then it returns the number of elements in the array |
-| `.double()`              | Converts a string to a numeric value                         |
-| `.ceiling()`             | Round a numeric value up to the next largest integer         |
-| `.floor()`               | Round a numeric value down to the next smallest integer      |
-| `.abs()`                 | The absolute value of a numeric value                        |
+| Function                 | Description                                                                                                                                                                                                                                           |
+|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `.type()`                | Returns `null`, `boolean`, `number`, `string`, `array`, `object` or `date`                                                                                                                                                                            |
+| `.size()`                | If `@` references an array, then it returns the number of elements in the array                                                                                                                                                                       |
+| `.double()`              | Converts a string to a numeric value                                                                                                                                                                                                                  |
+| `.ceiling()`             | Round a numeric value up to the next largest integer                                                                                                                                                                                                  |
+| `.floor()`               | Round a numeric value down to the next smallest integer                                                                                                                                                                                               |
+| `.abs()`                 | The absolute value of a numeric value                                                                                                                                                                                                                 |
 | `.datetime("template"?)` | Converts a string into a Date object. The optional `template` is a quoted template string. If omitted, the ISO-8601 pattern (built into Javascript) will be used to evaluate the string. The SQL JSONPath spec does not specify this template format. |
-| `.keyvalue()`            | Converts an object into an array of name/value objects: `[{name, value}, ...]` which allows a predicate to extract the key name and value. |
+| `.keyvalue()`            | Converts an object into an array of name/value objects: `[{name, value}, ...]` which allows a predicate to extract the key name and value.                                                                                                            |
 
 Datetime template formatting symbols only match numeric date-time values, as SQL JSONPath does not have a language or culture setting to parse words for month and day.
 
-| Symbol | Meaning                                                      |
-| ------ | ------------------------------------------------------------ |
-| `y`    | year                                                         |
-| `M`    | month                                                        |
-| `d`    | day of month                                                 |
-| `h`    | clock hour from 1 to 12; use `a` in template to capture AM/PM |
-| `a`    | AM or PM                                                     |
-| `H`    | hour from 0 to 23                                            |
-| `m`    | minute from 00 to 59                                         |
-| `s`    | second from 00 to 59                                         |
-| `S`    | millisecond                                                  |
+| Symbol | Meaning                                                                                |
+|--------|----------------------------------------------------------------------------------------|
+| `y`    | year                                                                                   |
+| `M`    | month                                                                                  |
+| `d`    | day of month                                                                           |
+| `h`    | clock hour from 1 to 12; use `a` in template to capture AM/PM                          |
+| `a`    | AM or PM                                                                               |
+| `H`    | hour from 0 to 23                                                                      |
+| `m`    | minute from 00 to 59                                                                   |
+| `s`    | second from 00 to 59                                                                   |
+| `S`    | millisecond                                                                            |
 | `z`    | [Timezone abbreviation](https://en.wikipedia.org/wiki/List_of_time_zone_abbreviations) |
 
 #### Predicate functions
 
 A value can be tested for existence, and string values can be tested for prefixes and regular expression matches.
 
-| Expression                                      | Description                                                  |
-| ----------------------------------------------- | ------------------------------------------------------------ |
-| `exists ()`                                     | A value exists for the given predicate                       |
-| `() is unknown`                                 | Predicate result cannot be determined; neither true nor false |
-| `starts with "<text>"`                          | Value starts with specified text                             |
+| Expression                                      | Description                                                                                                                 |
+|-------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| `exists ()`                                     | A value exists for the given predicate                                                                                      |
+| `() is unknown`                                 | Predicate result cannot be determined; neither true nor false                                                               |
+| `starts with "<text>"`                          | Value starts with specified text                                                                                            |
 | `like_regex "regex-expression" flag? "<flags>"` | [XQuery](https://www.regular-expressions.info/xpath.html) regular expression. Have a look at [XRegexp](https://xregexp.com) |
 
 Regex flags are optional, and change the pattern matching behavior.
@@ -112,6 +112,26 @@ Regex flags are optional, and change the pattern matching behavior.
 * `s` single-line mode, or dot-all mode. Content, including newlines, is treated as a single line.
 * `m` multi-line mode. `$` and `^` match newlines in the content in addition to the string as a whole.
 * `x` free spacing mode. Whitespace in the regex pattern is ignored, so if your regex is declared across multiple lines, the whitespace is removed before evaluation. One would use whitespace to improve the readability of larger regex patterns in source code. Without this mode, whitespace in the regex would be matched in the content.
+
+#### Named Variables
+
+Statements can include named variables in place of data values. Conceptually similar to SQL value placeholders, they allow a statement text to be reused while the variables change with other calls. Named variables simplify the statements and improve their reusability in applications.
+
+Named variables can be used in place of any data value. They begin with the `$`  character, followed by JavaScript-compatible variable naming conventions. Here is an example:
+
+`(@.name == $fullName)`
+
+In this example, `$fullName` is a variable that contains different values at runtime. This statement string, however, does not need to change with each call. The application will send along the `fullName` value and Evently will interpret the condition based on the `fullName` value at that time.
+
+`$[$key]` where `$` refers to an object.
+
+The named variable can be used as an object key name, or as an array index as well:
+
+`$[$pos to last]` will return the elements in an array referenced by `$` from `$pos` to the last element in the array.
+
+Methods can be applied to named variables as well.
+
+`$thing.type()` will provide `$thing`'s data type at runtime.
 
 ### Examples
 
@@ -176,16 +196,15 @@ These event `data` objects can be filtered with the expresions in the table belo
 }
 ```
 
-| JSONPath Expression                                  | Goal                                                                                                                                                                                                  | Event Count |
-|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| `$.book.authors ? (@ == "Herman Melville")`          | Events where book’s author is “Herman Melville”                                                                                                                                                       | 4    |
-| `$.book.authors ? (@.size() > 1)`                    | Book events with more than one author                                                                                                                                                                 | 1     |
-| `$.book`                                             | All book events                                                                                                                                                                                       | 4    |
-| `$ ? ((@.book.price > 10) || (@.bicycle.price > 10))` | All book and bicycle events where price is > 10                                                                                                                                                      | 3   |
-| `$.book.authors[last] ? (@ == "Peter Straub")`       | Events where book’s last author is “Peter Straub”                                                                                                                                                     | 1     |
-| `$.book ? (exists(@.isbn))`                          | Events where books have an isbn                                                                                                                                                                       | 2    |
-| `$.book ? (!exists(@.isbn))`                         | Events where books do not have an isbn                                                                                                                                                                | 2    |
-| `$.book.title ? (@ starts with "S")`                 | Events where book titles start with the letter “S”                                                                                                                                                    | 2    |
-| `$.book ? ((@.category > 100) is unknown)`           | Events where book’s category is > 100. Nonsensical in the example data, but in cases where the value has mixed types across multiple events, `is unknown` identifies predicates with `unknown` results. | 4    |
-| `$.bicycle ? (@.colour like_regex "^RED$" flag "i")` | Event’s where the bicycle’s colour is “red”, regardless of case                                                                                                                                       | 1     |
-
+| JSONPath Expression                                  | Goal                                                                                                                                                                                                    | Event Count              |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|
+| `$.book.authors ? (@ == "Herman Melville")`          | Events where book’s author is “Herman Melville”                                                                                                                                                         | 4                        |
+| `$.book.authors ? (@.size() > 1)`                    | Book events with more than one author                                                                                                                                                                   | 1                        |
+| `$.book`                                             | All book events                                                                                                                                                                                         | 4                        |
+| `$ ? ((@.book.price > 10)                            |                                                                                                                                                                                                         | (@.bicycle.price > 10))` | All book and bicycle events where price is > 10                                                                                                                                                      | 3   |
+| `$.book.authors[last] ? (@ == "Peter Straub")`       | Events where book’s last author is “Peter Straub”                                                                                                                                                       | 1                        |
+| `$.book ? (exists(@.isbn))`                          | Events where books have an isbn                                                                                                                                                                         | 2                        |
+| `$.book ? (!exists(@.isbn))`                         | Events where books do not have an isbn                                                                                                                                                                  | 2                        |
+| `$.book.title ? (@ starts with "S")`                 | Events where book titles start with the letter “S”                                                                                                                                                      | 2                        |
+| `$.book ? ((@.category > 100) is unknown)`           | Events where book’s category is > 100. Nonsensical in the example data, but in cases where the value has mixed types across multiple events, `is unknown` identifies predicates with `unknown` results. | 4                        |
+| `$.bicycle ? (@.colour like_regex "^RED$" flag "i")` | Event’s where the bicycle’s colour is “red”, regardless of case                                                                                                                                         | 1                        |

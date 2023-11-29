@@ -3,7 +3,7 @@ x-stoplight:
   id: wvqf4vs7shjnu
 info:
   title: Evently.cloud Preview
-  version: 1.1.0
+  version: 1.2.0
   summary: 'API for Evently clients to use to register new event types, append events and select existing events. Clients can subscribe to notifications of new events that match selectors.'
   description: |-
     Evently stores business events for later use in event sourcing applications. Events are stored in ledgers and retrieved with selectors. Clients can subscribe to real-time notifications of new events that match selectors. One can also download the ledger for other uses.
@@ -746,11 +746,13 @@ paths:
               properties:
                 data:
                   type: object
-                  description: Data is a map of maps. The first level of the map has keys named for the entity type. Inside of each entity type are keys named for the event types. Each event type value is a SQL JSONPath statement to match against all entity events of that type.
+                  description: Filter by event data values. Keys are entity names; values are objects whose keys are event names and values are SQL JSONPath queries.
+                  additionalProperties:
+                    type: object
+                    additionalProperties:
+                      $ref: #/components/schemas/sql-JSONPath-Query
                 meta:
-                  type: string
-                  description: SQL JSONPath statement to filter meta object values.
-                  example: $.correlationId (@=="44rugtj5nfgn445")
+                  $ref: #/components/schemas/sql-JSONPath-Query
                 after:
                   type: string
                   pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
@@ -764,8 +766,12 @@ paths:
                 value:
                   data:
                     thermostat:
-                      temperature-recorded: $.celsius ? (@ < 10.0)
-                  meta: $.correlationId (@=="44rugtj5nfgn445")
+                      temperature-recorded:
+                        query: $.celsius ? (@ < 10.0)
+                  meta:
+                    query: $.correlationId (@==$cId)
+                    vars:
+                      cId: 44rugtj5nfgn445
                   after: 0005d2bfb29a03795f574859cb0687dc
                   limit: 1
         description: ''
@@ -1271,7 +1277,20 @@ paths:
       security:
         - opaque-token: []
 components:
-  schemas: {}
+  schemas:
+    sql-JSONPath-Query:
+      type: object
+      description: SQL JSONPath statement to filter meta object values.
+      example: $.correlationId (@=="44rugtj5nfgn445")
+      properties:
+        query:
+          type: string
+          description: A JSONPath query statement. Can include named variables, like '$age' or '$orderNumber'.
+        vars:
+          type: object
+          description: If the query contains named variables, they are stored in this object. The object keys are the variable names, without the preceding '$', like 'age' and 'orderNumber'.
+      required:
+        - query
   securitySchemes:
     opaque-token:
       type: http

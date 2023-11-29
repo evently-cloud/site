@@ -101,7 +101,9 @@ curl -L https://preview.evently.cloud/selectors/filter \
   -H 'Content-Type: application/json' \
   -d '{"data":{
         "account":{
-          "account-created":"$.username ? (@==\"mikemeyers\")"}}}'
+          "account-created":{
+            "query":"$.username ? (@==$user)",
+            "vars":{"user":"mikemeyers"}}}}}'
 ```
 ```js [g1:browser]
 fetch('https://preview.evently.cloud/selectors/filter', {
@@ -113,7 +115,9 @@ fetch('https://preview.evently.cloud/selectors/filter', {
     body: JSON.stringify({
       data: {
         account: {
-          'account-created': '$.username ? (@=="mikemeyers")' 
+          'account-created': {
+            query:'$.username ? (@==$user)',
+            vars: {user: 'mikemeyers'} 
         }
       }
     })

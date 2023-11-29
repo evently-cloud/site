@@ -81,7 +81,26 @@ The filter selector matches events by their meta and data values. They use [SQL 
 {
   "data": {
     "match": {
-      "match-created": "$.players ? (@==\"Elizabeth_Wilkerson\" || @==\"Amal_Hussein\")"
+      "match-created": {
+        "query": "$.players ? (@==\"Elizabeth_Wilkerson\" || @==\"Amal_Hussein\")"
+      }
+    }
+  }
+}
+```
+
+A filter query can included named vars as well. These simplify filter statements to make them more understandable and easier to produce in applications.
+
+```json
+{
+  "data": {
+    "match": {
+      "match-created": {
+        "query": "$.players ? (@ == $names)",
+        "vars": {
+          "names": ["Elizabeth_Wilkerson", "Amal_Hussein"]
+        }
+      }
     }
   }
 }
