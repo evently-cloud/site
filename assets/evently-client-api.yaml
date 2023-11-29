@@ -744,15 +744,15 @@ paths:
             schema:
               type: object
               properties:
+                meta:
+                  $ref: '#/components/schemas/sql-jsonpath-query'
                 data:
                   type: object
                   description: Filter by event data values. Keys are entity names; values are objects whose keys are event names and values are SQL JSONPath queries.
                   additionalProperties:
                     type: object
                     additionalProperties:
-                      $ref: #/components/schemas/sql-JSONPath-Query
-                meta:
-                  $ref: #/components/schemas/sql-JSONPath-Query
+                      $ref: '#/components/schemas/sql-jsonpath-query'
                 after:
                   type: string
                   pattern: '^[0-9a-f]{24}(?:[0-9a-f]{8})?$'
@@ -1278,7 +1278,7 @@ paths:
         - opaque-token: []
 components:
   schemas:
-    sql-JSONPath-Query:
+    sql-jsonpath-query:
       type: object
       description: SQL JSONPath statement to filter meta object values.
       example: $.correlationId (@=="44rugtj5nfgn445")
