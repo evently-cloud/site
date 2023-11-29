@@ -3,7 +3,7 @@ x-stoplight:
   id: wvqf4vs7shjnu
 info:
   title: Evently.cloud Preview
-  version: 1.0.0
+  version: 1.1.0
   summary: 'API for Evently clients to use to register new event types, append events and select existing events. Clients can subscribe to notifications of new events that match selectors.'
   description: |-
     Evently stores business events for later use in event sourcing applications. Events are stored in ledgers and retrieved with selectors. Clients can subscribe to real-time notifications of new events that match selectors. One can also download the ledger for other uses.
