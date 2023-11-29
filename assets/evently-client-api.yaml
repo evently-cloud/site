@@ -751,6 +751,7 @@ paths:
                   description: Filter by event data values. Keys are entity names; values are objects whose keys are event names and values are SQL JSONPath queries.
                   additionalProperties:
                     type: object
+                    description: Keys are event names. Values are SQL JSONPath Query objects.
                     additionalProperties:
                       $ref: '#/components/schemas/sql-jsonpath-query'
                 after:
