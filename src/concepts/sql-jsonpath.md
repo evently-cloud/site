@@ -33,14 +33,14 @@ Navigation can also use bracket notation, such as `$["book"]["authors"][0]`
 
 Bracket notation must use double quotes instead of single quotes.
 
-| Navigation Operator       | Description                                                  |
-| ------------------------- | ------------------------------------------------------------ |
-| `$`                       | The root element reference. May be an object, an array, or a scalar value |
-| `.<name>` or `["<name>"]` | Child reference                                              |
-| `*`                       | Wildcard references any child or array element               |
-| `[<pos>]`                 | Array element reference                                      |
-| `[<pos>, <pos>]`          | Comma-separated list of array element references             |
-| `[<pos> to <pos>]`        | Array element range reference. Can be used as `<pos>` in list of element references. |
+| Navigation Operator       | Description                                                                                                                                                                |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `$`                       | The root element reference. May be an object, an array, or a scalar value                                                                                                  |
+| `.<name>` or `["<name>"]` | Child reference                                                                                                                                                            |
+| `*`                       | Wildcard references any child or array element                                                                                                                             |
+| `[<pos>]`                 | Array element reference                                                                                                                                                    |
+| `[<pos>, <pos>]`          | Comma-separated list of array element references                                                                                                                           |
+| `[<pos> to <pos>]`        | Array element range reference. Can be used as `<pos>` in list of element references.                                                                                       |
 | `[last]`, `[last-1]`      | Last variable refers to the last element in the array and can be used as `<pos>` in list of element references. Value can be modified with the subtraction (`-`) operator. |
 
 At the completion of navigation, the values are represented as the `@` character in the filter section.
@@ -54,7 +54,7 @@ Predicates must be wrapped in parentheses `()` and internally combined with `&&`
 `(@.name == "Marc Wu")`
 
 | Predicate Operator | Description           |
-| ------------------ | --------------------- |
+|--------------------|-----------------------|
 | `==`               | Equal                 |
 | `!=`, `<>`         | Not Equal             |
 | `>`                | Greater than          |
@@ -114,24 +114,28 @@ Regex flags are optional, and change the pattern matching behavior.
 * `x` free spacing mode. Whitespace in the regex pattern is ignored, so if your regex is declared across multiple lines, the whitespace is removed before evaluation. One would use whitespace to improve the readability of larger regex patterns in source code. Without this mode, whitespace in the regex would be matched in the content.
 
 #### Named Variables
-
+ 
 Statements can include named variables in place of data values. Conceptually similar to SQL value placeholders, they allow a statement text to be reused while the variables change with other calls. Named variables simplify the statements and improve their reusability in applications.
 
 Named variables can be used in place of any data value. They begin with the `$`  character, followed by JavaScript-compatible variable naming conventions. Here is an example:
 
-`(@.name == $fullName)`
+###### `(@.name == $fullName)`
 
-In this example, `$fullName` is a variable that contains different values at runtime. This statement string, however, does not need to change with each call. The application will send along the `fullName` value and Evently will interpret the condition based on the `fullName` value at that time.
+In this example, `$fullName` contains different values at runtime. This statement string, however, does not need to change with each call. The application will send along the `fullName` value and Evently will interpret the condition based on the `fullName` value at that time.
 
-`$[$key]` where `$` refers to an object.
+###### `$[$key]`
 
-The named variable can be used as an object key name, or as an array index as well:
+`$` refers to an object. The named variable can be used as an object key name, or as an array index as well:
 
-`$[$pos to last]` will return the elements in an array referenced by `$` from `$pos` to the last element in the array.
+###### `$[$pos to last]` 
+
+Returns the elements in an array referenced by `$` from `$pos` to the last element in the array.
 
 Methods can be applied to named variables as well.
 
-`$thing.type()` will provide `$thing`'s data type at runtime.
+###### `$thing.type()` 
+
+Provides `$thing`'s data type at runtime. Any function can be used on a named variable.
 
 ### Examples
 
@@ -184,7 +188,7 @@ This example is taken from Stefan Goessner’s original [JSONPath example](https
 }
 ```
 
-These event `data` objects can be filtered with the expresions in the table below. The expressions would be submitted as part of a [Filter Selector](/api/#operation/post-selector-filter-lookup) query:
+These event `data` objects can be filtered with the expressions in the table below. The expressions would be submitted as part of a [Filter Selector](/api/#operation/post-selector-filter-lookup) query:
 
 ```json
 {
