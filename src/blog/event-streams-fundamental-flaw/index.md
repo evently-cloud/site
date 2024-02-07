@@ -3,7 +3,8 @@ title: Event Streams' Fundamental Flaw
 layout: post
 postPreviewExcerpt: Event sourcing databases use entity-scoped event streams as a core principle, but they get in the way of a simpler, more accurate understanding of state changes over time and how they should be captured as events.
 postPreviewImage: false
-date: 2024-02-07 12:30:00
+date: 2024-02-07
+tags: ['blogPosts', 'concepts']
 ---
 
 Event sourcing captures state changes as events and stores them for later retrieval. Different event sourcing components like commands, projections, read models and policies (process managers) use these events in their operations. They scope their event selections and listeners to filter out irrelevant events by organizing events into entity-scoped streams. Entity event streams have been the go-to model for event relevance, yet they have issues that can be addressed with a different approach.
