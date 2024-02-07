@@ -20,7 +20,6 @@ Entity event streams exist on most event sourcing databases:
 - EventStore has [Event Streams](https://developers.eventstore.com/server/v23.6/streams.html#event-streams), and each stream has a unique identifier. EventStore also has the `$all` stream which represents all the appended event streams combined. 
 - Axon has [Aggregates](https://docs.axoniq.io/reference-guide/axon-framework/axon-framework-commands/modeling/aggregate), which represent an entity. They also support [Multi-Aggregates](https://docs.axoniq.io/reference-guide/axon-framework/axon-framework-commands/modeling/multi-entity-aggregates), which act like a join table to organize related entities under a single entity. One of the entities is the main one, and the others are members.
 - Evently organizes individual streams as [Entities](https://evently.cloud/concepts/overview/), which have unique keys to distinguish them. All events must belong to an entity.
-- PumpkinDB?
 
 Databases support streams with nice features like serialized event appending, entity stream replays, subscriptions and stream deletion. They scale event stream usage by managing many stream operations concurrently under high load.
 
