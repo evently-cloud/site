@@ -51,7 +51,7 @@ So, if both Cart and Item have relevant state changes to track, the `Item Added 
 | Cart   | Empty        | 1 Item      |
 | Item   | Available    | Carted      |
 
- Now, we have to append this event to a ledger and dispatch it to listeners. Under the event stream model, we have to pick one of these entities to be the aggregate root. Which one is it? Cart or Item?
+ Now, we have to append this event to a ledger and dispatch it to listeners. Under the entity event stream model, we have to pick one of these entities to be the aggregate root. Which one is it? Cart or Item?
 
 To answer this, we can look at the actor. The Customer owns the cart, and the business considers the Customer to be paramount, so Cart should be the aggregate root, and it goes in a `cart-138383` stream.
 
@@ -61,7 +61,7 @@ Or, we really think the Store is the aggregate root, which is an entity over all
 
 #### Aggregate Roots Misshape Event Data
 
-Note that finding the aggregate root changes the event itself, as one of the identifiers moves into the stream ID. The application has to change this simple record of facts by looking ahead to aggregate root consumers to find the most-relevant aggregate root to house the event. In our Item / Cart example, both entities find state from the one event, yet neither entity owns it. Depending on the outcome of the design sessions, it could be one of these shapes:
+Note that finding the aggregate root changes the event itself, as one of the identifiers moves into the stream ID. The application has to change the simple record of fact by looking ahead at the consumers to find the most-relevant aggregate root to house the event. In our Item / Cart example, both entities find state from the one event, yet neither entity owns it. Depending on the outcome of the design sessions, it could be one of these shapes:
 
 ###### Cart Root Aggregate Stream `cart-jriu594jf`:
 
@@ -81,7 +81,7 @@ Item Carted:
   quantity: 1
 ```
 
-The event no longer records all the facts, as the storage stream name contains crucial information about the event. Given this data object, one cannot determine the full state of the entity without also knowing the stream ID as well. One can store the entity ID, of course, but that does not feel DRY and often gets cut in the final design.
+The event no longer records all the facts, and the storage stream name contains crucial information about the event. Given this data object, one cannot determine the full state of the entity without also knowing the stream ID. One can store the entity ID, of course, but that does not feel DRY and often gets cut in the final design.
 
 #### Entity-Free Events Provide More Value
 
@@ -93,7 +93,7 @@ Vehicle Loaded Onto Carrier:
   carrier_id: string
   load_time: Timestamp
   location: string
-  destination: dealer_id
+  destination_id: string
 ```
 
 Today, the application focuses on the car being delivered, but tomorrow, another application models the dealership, or perhaps the carrier delivering the vehicles. Adding a new aggregate root to represent the dealership will not change the event data, and the new application can consume the existing events.
@@ -102,17 +102,17 @@ Business value for entity-free events grows over time when events record just th
 
 ### Event Selectors Replace Entity Event Streams
 
-Without entity event streams, how will applications replay events to determine current state, and subscribe to events to trigger other actions? Event databases need to offer up entity-free event streams, defined by event Selectors that select relevant events for the use case. Selectors, conceptually, share the same vision as SQL `SELECT` statements. In SQL, applications use `SELECT` to extract just the right data for their purposes, whether it be for state changes or rendering views.
+Without entity event streams, how will applications replay events to determine current state, and subscribe to events to trigger other actions? Event databases need to offer up entity-free event streams, defined by event selectors that select relevant events for the use case. Selectors share the same vision as SQL `SELECT` statements. In SQL, applications use `SELECT` to extract just the right data for their purposes, whether it be for state changes or rendering views.
 
-CQRS/ES Commands select event sets to validate their state changes and can use event Selectors to find relevant events. Projections consume a wide variety of events, often across many entities, to produce their output. Their Selectors pull in the relevant events to fold into a view, or integration message to another system.
+CQRS/ES Commands select event sets to validate their state changes and can use event selectors to find relevant events. Projections consume a wide variety of events, often across many entities, to produce their output. Their selectors pull in the relevant events to fold into a view, or an integration message to another system.
 
 Selectors give SQL queries the power to serve applications the data they require without forcing an aggregate root concept. As application requirements change, the SQL selectors change with them, but the data table schema often remains unchanged.
 
-It the same way, Event Selectors provide applications with the events they need. Evently provides [SQL JSONPath](../../concepts/sql-jsonpath) queries to find matching events for projections, read models, new event notifications, and most of all, [Atomic Appends](../../concepts/overview#atomic-append).
+It the same way, event selectors provide applications with the events they need. Evently provides [SQL JSONPath](../../concepts/sql-jsonpath) queries to find matching events for projections, read models, new event notifications, and most of all, [Atomic Appends](../../concepts/overview#atomic-append).
 
 #### Event Selectors Can Offer Discrete Event Streams
 
-Abandoning entity event streams as the organizing event principal does not mean software has to abandon aggregate roots. One can design events and selectors to produce an event stream that relates to a single entity just by selecting the entity id in the query.
+Abandoning entity event streams as the organizing event principle does not mean software has to abandon aggregate roots. One can design events and selectors to produce an event stream that relates to a single entity just by selecting the entity id in the query.
 
 Think back to our Cart / Item example, where we wanted to track both the Item and the Cart entity state changes. To select all events that have a specific cart ID, the query might look like this:
 
@@ -128,9 +128,9 @@ Both queries will select relevant events based on the event data rather than a s
 
 Event storage design today controls append atomicity with a stream position id or stream sequence number. It indicates where in that stream a given event is placed. To append a new event, the application must use this sequence value to indicate the expected position to append an event into the stream. If that position is taken, a race condition has occurred and the application must replay events to find the most-recent sequence number.
 
-Controlling Atomicity with a sequence number is a hack, frankly. Imagine requiring this from a SQL table! Applications should not have to keep track of this value, but instead indicate what events would constitute a race condition. They should use Selectors to verify that no new events relevant to the command have been appended  in order to guard against race conditions.
+Controlling atomicity with a sequence number is a hack, frankly. Imagine requiring this from a SQL table! Applications should not have to keep track of this value, but instead indicate what events would constitute a race condition. They should use selectors to verify that no new events relevant to the command have been appended  in order to guard against race conditions.
 
-The same Selector used to gather read model hydration can be used to append atomically, just like a `WHERE` clause in SQL can both `SELECT` values and control `INSERT / UPDATE` statements. Evently offers [atomic appends with a Selector](../../concepts/overview#atomic-append), eliminating the requirement to use a position ID to append atomically.
+The same selector used to gather read model hydration can be used to append atomically, just like a `WHERE` clause in SQL can both `SELECT` values and control `INSERT/UPDATE/DELETE` statements. Evently offers [atomic appends with a selector](../../concepts/overview#atomic-append), eliminating the requirement to use a position ID to append atomically.
 
 ### Changes to Evently Coming
 
