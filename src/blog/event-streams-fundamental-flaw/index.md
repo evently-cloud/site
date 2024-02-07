@@ -4,7 +4,7 @@ layout: post
 featuredImage: ./warped-record.png
 featuredImageAltText: Warped Record
 featuredImageInArticle: true
-postPreviewExcerpt: Event sourcing databases use entity-scoped event streams as a core principle, but they get in the way of a better way to capture state changes as events.
+postPreviewExcerpt: Event sourcing databases use entity-scoped event streams as a core principle, but they impede a better way to capture state changes as events.
 date: 2024-02-07
 tags: ['blogPosts', 'concepts']
 ---
