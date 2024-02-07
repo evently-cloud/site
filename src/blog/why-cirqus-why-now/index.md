@@ -3,8 +3,8 @@ title: Why Cirqus, and Why Now?
 layout: post
 featuredImage: ./circus-tent.png
 featuredImageAltText: Circus tent Emoji
-postPreviewExcerpt: It's time to treat Evently like dog food.
 featuredImageInArticle: true
+postPreviewExcerpt: It's time to treat Evently like dog food.
 date: 2023-08-14
 tags: ['blogPosts', 'cqrs', 'apps']
 ---

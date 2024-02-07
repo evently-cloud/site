@@ -3,8 +3,8 @@ title: Ledgers–The O.G. of Information Architecture
 layout: post
 featuredImage: ./1931-ledger.jpg
 featuredImageAltText: Paper and ink ledger page
-postPreviewExcerpt: Humans have always used ledgers to track events and determine current state.
 featuredImageInArticle: true
+postPreviewExcerpt: Humans have always used ledgers to track events and determine current state.
 date: 2022-12-27
 tags: ['blogPosts', 'history', 'concepts']
 ---
