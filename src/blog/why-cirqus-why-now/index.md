@@ -15,7 +15,7 @@ I have been working on Evently for a few years now, building out the foundations
 
 That means we have to add in account and service management capabilities. As I started to design these, it became obvious that this work would be much easier to write as an Event-Sourced application that used CQRS concepts like commands, read models and the event ledger to store everything meaningful. In other words, Evently should use event-sourcing to build up the Evently offering. We need to [eat our own dog food](https://www.computer.org/csdl/magazine/so/2006/03/s3005/13rRUygBwg0), and the dog food of choice is an application framework.
 
-Over the years, I have built CQRS/ES application frameworks in different programming languages and have used several others, so the thought of building a new one is both familiar and exciting. I have made numerous mistakes and learned many lessons from others along the way. Evently has some unique capabilities that don’t quite fit inside existing frameworks, such as [Filter Selectors](../../concepts/overview/#filter-selectors), [Atomic Append](../../concepts/overview/#atomic-append) and [Notifications](../../concepts/notify/), so what I know today is about 50% of what needs to be known in order to create a useful and compelling framework for Evently.
+Over the years, I have built CQRS/ES application frameworks in different programming languages and have used several others, so the thought of building a new one is both familiar and exciting. I have made numerous mistakes and learned many lessons from others along the way. Evently has some unique capabilities that don’t quite fit inside existing frameworks, such as [Filter Selectors](../../concepts/overview#filter-selectors), [Atomic Append](../../concepts/overview#atomic-append) and [Notifications](../../concepts/notify), so what I know today is about 50% of what needs to be known in order to create a useful and compelling framework for Evently.
 
 [Naming is hard](https://martinfowler.com/bliki/TwoHardThings.html), so that seems like a good place to start. After a lot of fussing about with whiteboards, sticky notes and talking out loud, I’m settling on calling it Cirqus. The letters CQRS/ES do not turn into a simple term (though I did give [Querqus](https://en.wikipedia.org/wiki/Oak) a good go), and finally settled on the common software practice of misspelling things. Evently isn’t a word, either, so it fits the pattern.
 
@@ -27,7 +27,7 @@ Evently focuses on reaching beyond the server-side, out to the front end. In thi
 
 #### Declarative
 
-Nobody likes writing boiler plate; it’s easy to mess up, and it adds no value. We have some really nice options now with decorators and ESM to declare relationships and reactions in code, rather than wiring things together manually. For example, here are some examples of what your application code might look like as declarative reactions.
+Nobody likes writing boilerplate; it’s easy to mess up, and it adds no value. We have some really nice options now with decorators and ESM to declare relationships and reactions in code, rather than wiring things together manually. For example, here are some examples of what your application code might look like as declarative reactions.
 
 ##### Read Model
 
@@ -94,7 +94,7 @@ export class GuestEntityReadModel implements ReadModel<GuestModel, GuestModelVar
 }
 ```
 
-The class declares it’s selector statement as well as the variables needed to query for specific events. Below, look at the CommandHandler implementation where it provides the selector variable `email` from the Command data.
+The class declares its selector statement as well as the variables needed to query for specific events. Below, look at the CommandHandler implementation where it provides the selector variable `email` from the Command data.
 
 All the handlers required to build the read model are annotated to indicate which event they react to. Cirqus will handle building the selector and optimizing the calls to only select events that have reactions.
 
@@ -161,9 +161,9 @@ Cirqus uses Decorators (newly-promoted to [Stage 3 in TC39](https://github.com/t
 
 This saves the developer from having to defensively check their inputs, and instead invest in higher-quality JSON Schema declarations. In Typescript, this approach goes further by generating Types from the schema so the TS compiler can catch errors in your code early.
 
-#### Side-Effect Free
+#### Side Effect Free
 
-CQRS/ES frameworks usually disallow interactions with external systems for many reasons, so Cirqus will be making it very hard to do so. By using declarative classes, rather than wiring up instances, developers will have limited options to grab state from other systems or make database calls where they should not. Their code should be side-effect free. One nice advantage of this approach will be simpler unit testing. Nothing needs to be mocked, just data in, data out.
+CQRS/ES frameworks usually disallow interactions with external systems for many reasons, so Cirqus will be making it very hard to do so. By using declarative classes, rather than wiring up instances, developers will have limited options to grab state from other systems or make database calls where they should not. Their code should be side effect free. One nice advantage of this approach will be simpler unit testing. Nothing needs to be mocked, just data in, data out.
 
 #### Reactive
 
@@ -175,4 +175,4 @@ This framework will be developed in the open, be free to use under an Open Sourc
 
 ## What’s Next
 
-The core of Cirqus is an existing framework I built for another project a few years ago, so I’m cleaning that up so it compiles and does a small subset of what it needs to do to tell the story. This will be pushed to a repo, release as a v0 and iterated from there.
+The core of Cirqus is an existing framework I built for another project a few years ago. I’m cleaning that up so it compiles and does a small subset of what it needs to do to tell the story. This will be pushed to a repo, release as a v0 and iterated from there.
