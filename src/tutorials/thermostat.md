@@ -62,7 +62,7 @@ This root document contains links to Evently services. You can GET each link and
 
 Evently is a Hypermedia API, which means that every resource contains links to related resources. Client developers can GET the resources at each level to learn how to use them, as well as discover other related resources in the `_links` section of the body or in the http `Link` headers. Additionally, each resource has one or more `Profile` headers with links to documentation describing they offer and how they can be used.
 
-Evently’s API is self-documenting so you can `GET` any URL and learn about the resource, including links to related resources. Form resources will return a JSON Schema document that clients use to construct valid `POST` requests.
+Evently’s API is self-documenting; you can `GET` any URL and learn about the resource, including links to related resources. Form resources will return a JSON Schema document that clients use to construct valid `POST` requests.
 
 :::
 
@@ -70,7 +70,7 @@ Evently’s API is self-documenting so you can `GET` any URL and learn about the
 
 ### Register an Event Type
 
-The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. For convenience, add your [API access token](/#signup-form-container) as an environment variable for cURL commands or a window constant in the browser. The statements below will pick up this constant and use them:
+The Evently Registry contains a listing of all the entity events available in to an application. Before an event can be appended, it’s type must be registered in the Registry. To access the registry, follow the `registry` link from the API root. For convenience, add your API access token as an environment variable for cURL commands or a window constant in the browser. The statements below will pick up this constant and use them:
 
 ```shell [g1:cURL]
 export EVENTLY_TOKEN="your-token-here"
@@ -188,13 +188,13 @@ Now that you have registered an event type, you can append an event of this type
 
 When a client appends a factual event, they need to provide the following information in the body of the request:
 
-| field    | description                                                  |
-| -------- | ------------------------------------------------------------ |
-| `entity` | The name of the entity. In this tutorial, it is `thermostat` |
-| `event`  | The type of event. In this step, it is `temperature-recorded` |
-| `key`    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`. |
+| field    | description                                                                                                                                                                                                                                                                                              |
+|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `entity` | The name of the entity. In this tutorial, it is `thermostat`                                                                                                                                                                                                                                             |
+| `event`  | The type of event. In this step, it is `temperature-recorded`                                                                                                                                                                                                                                            |
+| `key`    | The entity instance key, which is something business-relevant. In this tutorial, it is `thermostat1`.                                                                                                                                                                                                    |
 | `meta`   | Meta information about the event context. This object can contain anything your application deems relevant. In this tutorial, we are using a meta value called `causation` to indicate the cause of the event. If your application has no meta information, then send an empty object as the value: `{}` |
-| `data`   | The event-specific data. In this step, we are sending the temperature in Celsius. |
+| `data`   | The event-specific data. In this step, we are sending the temperature in Celsius.                                                                                                                                                                                                                        |
 
 Send this request in your terminal:
 
