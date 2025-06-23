@@ -55,7 +55,7 @@ export type GuestModelVariables = {
 
 // marks the class as a read model
 @ReadModel({
-  name:  "registered guests",
+  name: "registered guests",
   // Evently selector used to fetch events
   selector: {
     data: {
@@ -128,7 +128,7 @@ export class RegisterGuestHandler extends CommandHandler<RegisterGuest, GuestEnt
   execute(command: RegisterGuest, model: GuestModel): CommandResult<GuestRegistered> {
     // model may be undefined, if the email has never been used, or a Guest with this email adress
     // may be in a 'deleted' state
-    if (model && model.state !== 'deleted') {
+    if (model.state !== 'deleted') {
       // instead of throwing an exception, return the rejection message.
       return {
         rejection: `Guest email ${command.email} already registered.`

@@ -54,11 +54,15 @@ Once computed, a checksum will never change.
 
 #### Timestamp
 
-The timestamp component is a 64-bit microsecond (µsecond) value in the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time). Note that 1 millisecond = 1,000 microseconds. When parsing the `timestamp` component in the event body to convert to a datetime, verify that your date parsing library can parse more than to the millisecond. Some will not be able to parse microseconds.
+The timestamp component is a signed 64-bit microsecond (µsecond) value in the [Unix Epoch](https://en.wikipedia.org/wiki/Unix_time). Note that 1 millisecond = 1,000 microseconds. When parsing the `timestamp` component in the event body to convert to a datetime, verify that your date parsing library can parse more than to the millisecond. Some will not be able to parse microseconds.
+
+#### Checksum
+
+The checksum component is an unsigned 32-bit integer, calculated using the [algorithm below](#ledger-id--event-checksum).
 
 #### Ledger ID
 
-A Ledger ID is a 32-bit integer. It is computed as a partial checksum of the ledger’s genesis event, ANDed with the Ledger ID version. The genesis event is the ledger’s very first event and does not have a Ledger ID itself for the checksum. As a result, the Ledger ID is computed by following steps 1-4 of the [Event checksum](#ledger-id--event-checksum) algorithm.
+A Ledger ID is an unsigned 32-bit integer. It is computed as a partial checksum of the ledger’s genesis event, ANDed with the Ledger ID version. The genesis event is the ledger’s very first event and does not have a Ledger ID itself for the checksum. As a result, the Ledger ID is computed by following steps 1-4 of the [Event checksum](#ledger-id--event-checksum) algorithm.
 
 Here is an example genesis event:
 
@@ -103,8 +107,8 @@ The checksum calculation utilizes [CRC32C](https://datatracker.ietf.org/doc/html
 
 _Skip the following steps for Ledger ID calculation_
 
-5. Ledger ID as lower-case, 8 byte hex string, left-padded with `0`.
-6. Previous Event ID as lower-case, 16 byte hex string.
+6. Ledger ID as lower-case, 8 byte hex string, left-padded with `0`.
+7. Previous Event ID as lower-case, 16 byte hex string.
    1. If this is the genesis event, then this value is an Event ID with a checksum of 0. The timestamp portion is the ledger creation timestamp, and the ledger ID is the checksum computed from steps 1-4.
 
 
