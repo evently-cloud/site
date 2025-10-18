@@ -8,8 +8,6 @@ permalink: concepts/event-id-design/
 title: Concepts - Event ID Design
 ---
 
-# Event ID
-
 #### 128 Bits
 
 An Event ID is 128 bits in length.
@@ -72,7 +70,6 @@ Here is an example genesis event:
   "entities": {
     "ledger": "testing⑆preview"
   },
-  "timestamp":"2021-10-03T16:32:12.816530Z",
   "meta": {
     "actor": "matt"
   },
