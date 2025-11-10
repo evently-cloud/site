@@ -12,11 +12,11 @@ title: Concepts
 
 ## Entity
 
-An Entity can be anything that has distinct state in a domain, such as a shopper, a rental car, or a hotel room. An entity instance is identified by its key, often a business identifier string.
+An Entity can be anything that has distinct state in a domain, such as a shopper, a rental car, or a hotel room. An entity instance is identified by its key, often a business identifier string. An event can affect multiple entities at the same time, so this field accepts multiple entity values to capture this state.
 
 ## Events
 
-An event records that something has occurred to an entity. Events are immutable, meaning they cannot be altered, and irrevokable, meaning they cannot be deleted out of the ledger. An event has a name, an entity identifier, data and meta information.
+An event records that something has occurred to an entity or set of entities. Events are immutable, meaning they cannot be altered, and irrevokable, meaning they cannot be deleted out of the ledger. An event has a name, entity identifiers, data and meta information.
 
 Here is an example of an event named `Item Ordered`:
 
